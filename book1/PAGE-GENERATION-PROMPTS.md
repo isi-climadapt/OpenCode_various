@@ -6,7 +6,7 @@
 ## Universal prompt suffix (append to EVERY page prompt)
 
 ```
-Bold and easy coloring book page for kids ages 3-8. Very thick, clean, smooth black outlines on a plain white background. Only simple closed shapes with large open areas to colour. Cute, friendly, happy face. No shading, no grey, no colour, no fill, no texture. No words, letters or text anywhere in the image. One single scene, portrait A4 composition, draw the animal LARGE, filling most of the page.
+Bold and easy coloring book page for kids ages 3-8. Very thick, clean, smooth black outlines about 12 pixels wide relative to a 2550x3300 pixel canvas, on a plain white background. Only simple closed shapes with large open areas to colour. The animal's head and body together fill at least two thirds of the page height. Cute, friendly, happy face with large simple eyes. No shading, no grey, no colour, no fill, no texture, no crosshatching. No words, letters, numbers or text anywhere in the image. Nothing in the bottom 6 percent of the page. One single scene, portrait composition, generous white space.
 ```
 
 For Midjourney add: `--ar 17:22 --v 6 --style raw` (ar ~ 8.5:11)
