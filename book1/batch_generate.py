@@ -67,7 +67,9 @@ def pad_and_caption(src, key, caption_text):
     bbox = d.textbbox((0, 0), caption_text, font=font)
     d.text(((CANVAS_W-bbox[2]+bbox[0])//2, 2950), caption_text, fill=0, font=font)
     m = re.match(r"page_(\d+)", key)
-    d.text((130, 3060), str(int(m.group(1))*2 - 1), fill=120, font=numf)
+    number = str(int(m.group(1)) * 2 - 1)
+    nb = d.textbbox((0, 0), number, font=numf)
+    d.text((CANVAS_W - 130 - (nb[2] - nb[0]), 3060), number, fill=120, font=numf)
     return canvas
 
 def caption_for(key):
