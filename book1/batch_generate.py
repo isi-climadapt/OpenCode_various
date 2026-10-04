@@ -52,32 +52,39 @@ def generate(key, scene):
         return key, "ok"
     return key, "FAIL: " + (r.stderr or r.stdout)[-200:]
 
-def pad_to_canvas(src):
-    from PIL import Image, ImageOps
+def pad_and_caption(src, key, caption_text):
+    from PIL import Image, ImageOps, ImageDraw, ImageFont
+    FONT = os.path.join(ROOT, "fonts", "Baloo2.ttf")
+    font = ImageFont.truetype(FONT, 115)
+    numf = ImageFont.truetype(FONT, 62)
     img = Image.open(src).convert("L")
     img = ImageOps.autocontrast(img, cutoff=1)
-    side = min(img.size)
-    left = (img.width - side)//2; top = (img.height - side)//2
-    img = img.crop((left, top, left+side, top+side))          # square art
-    art = img.resize((ART_W, ART_W), Image.LANCZOS)
-    pt = art.point(lambda p: 0 if p < 110 else 255)           # pure black/white
+    img = img.point(lambda p: 0 if p < 110 else 255)
+    img = img.resize((2400, 2400), Image.LANCZOS)
     canvas = Image.new("L", (CANVAS_W, CANVAS_H), 255)
-    y = (2700 - ART_W)//2 + 150                               # centred in art zone 150..2850
-    canvas.paste(pt, ((CANVAS_W-ART_W)//2, y))
+    canvas.paste(img, (75, 130))
+    d = ImageDraw.Draw(canvas)
+    bbox = d.textbbox((0, 0), caption_text, font=font)
+    d.text(((CANVAS_W-bbox[2]+bbox[0])//2, 2950), caption_text, fill=0, font=font)
+    m = re.match(r"page_(\d+)", key)
+    d.text((130, 3060), str(int(m.group(1))*2 - 1), fill=120, font=numf)
     return canvas
+
+def caption_for(key):
+    import json
+    capfile = os.path.join(ROOT, "captions.json")
+    with open(capfile, encoding="utf-8") as f:
+        caps = json.load(f)
+    return caps.get(key, "")
 
 def qa(canvas_img, key):
     w, h = canvas_img.size
     px = canvas_img.load()
-    greys = sum(1 for y in range(0, h, 4) for x in range(0, w, 4)
-                if 40 < px[x, y] < 215)                    # non-committed greys
-    greys /= (w//4)*(h//4)
-    caption_ink = sum(1 for y in range(2925, h-260, 3) for x in range(150, w-150, 4)
-                      if px[x, y] < 128)
-    frame_rows = sum(1 for y in (15, w-15) and []) # placeholder
+    greys = sum(1 for y in range(0, 2900, 4) for x in range(0, w, 4)
+                if 40 < px[x, y] < 215)
+    greys /= (w//4)*((2900)//4)
     issues = []
     if greys > 0.004: issues.append("greys %.2f%%" % (greys*100))
-    if caption_ink > 300: issues.append("caption-strip ink %d" % caption_ink)
     return issues
 
 def main():
@@ -101,7 +108,7 @@ def main():
             report[key] = ["missing source"]
             continue
         try:
-            cv = pad_to_canvas(src)
+            cv = pad_and_caption(src, key, caption_for(key))
             issues = qa(cv, key)
             cv.save(os.path.join(OUT, key + ".png"), dpi=(300, 300))
             report[key] = issues
