@@ -1,127 +1,70 @@
-# -*- coding: utf-8 -*-
-# Batch-generate 50 book pages via OpenArt CLI (Nano Banana 2), pad to print canvas, QA.
-# Usage: py batch_generate.py [--start N]
+# Final production driver: Gemini N1 + dilation + assembly
+# Generates via Gemini 2.5-flash-image API, upscales, thickens, and assembles.
+import sys, os, json, urllib.request, base64, time, subprocess, re
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import batch_generate as B
 
-import os, re, subprocess, sys, time
-from concurrent.futures import ThreadPoolExecutor
+HERE = os.path.dirname(os.path.abspath(__file__))
+OUTDIR_RAW = os.path.join(HERE, "gemini_raw")
+OUTDIR_FINAL = os.path.join(HERE, "final_art")
+API = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image:generateContent"
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
-PROMPTS_MD = os.path.join(ROOT, "PAGE-GENERATION-PROMPTS.md")
-RAW2 = os.path.join(ROOT, "raw2")       # native model output
-OUT = os.path.join(ROOT, "raw")         # print-canvas pages
-EXE = r"C:\Users\ibian\AppData\Local\Programs\openart\bin\openart.exe"
-MODEL = "nano-banana-2"
+def gen(scene_key, key):
+    prompt = B.load_prompts()[scene_key] + " " + B.SUFFIX
+    body = json.dumps({'contents': [{'parts': [{'text': prompt}]}],
+                       'generationConfig': {'responseModalities': ['IMAGE'], 'imageConfig': {'aspectRatio': '3:4'}}}).encode()
+    req = urllib.request.Request(API, data=body, method="POST",
+        headers={'x-goog-api-key': key, 'Content-Type': 'application/json'})
+    r = urllib.request.urlopen(req, timeout=240)
+    d = json.loads(r.read())
+    raw = base64.b64decode(d['candidates'][0]['content']['parts'][0]['inlineData']['data'])
+    p = os.path.join(OUTDIR_RAW, scene_key + ".png")
+    open(p, "wb").write(raw)
+    return p
 
-SUFFIX = ("Bold and easy coloring book page for kids ages 3-8. A rich but simple scene around the "
-          "animal with 6 to 8 easy elements suitable for its habitat (trees, clouds, stars, waves, "
-          "rocks, flowers, smaller animal friends, bubbles, sun, grass or sand), each element drawn "
-          "as one big simple closed shape. Very thick, clean, smooth black outlines (heavy, "
-          "marker-friendly). Plain white background, no frame or border around the image edge. "
-          "Only simple closed shapes with large open areas to colour. The main animal stays the "
-          "largest thing on the page, portrait composition. Cute, friendly, happy faces with large "
-          "simple eyes. No shading, no grey, no colour, no fill, no texture, no crosshatching. "
-          "No words, letters, numbers or text anywhere in the image. Nothing in the bottom 6 "
-          "percent of the page.")
-
-CANVAS_W, CANVAS_H = 2550, 3300
-ART_W = 2250  # art upscale target width (0.5in side margins)
-
-def load_prompts():
-    scenes = {}
-    with open(PROMPTS_MD, encoding="utf-8") as f:
-        for line in f:
-            m = re.match(r"\|\s*(page_\d+)\s*\|", line)
-            if m:
-                cells = [c.strip() for c in line.strip().strip("|").split("|")]
-                if len(cells) >= 3 and not cells[0].startswith("page") or len(cells) >= 3:
-                    pass
-                mm = re.match(r"\|\s*(page_\d+)\s*\|\s*[^|]+\|\s*(.+?)\s*\|", line)
-                if mm and not mm.group(2).startswith("Fun-fact"):
-                    scenes[mm.group(1)] = mm.group(2)
-    return scenes
-
-def generate(key, scene):
-    path = os.path.join(RAW2, key + ".png")
-    if os.path.exists(path) and os.path.getsize(path) > 10000:
-        return key, "cached"
-    prompt = scene + " " + SUFFIX
-    r = subprocess.run([EXE, "generate", "image", prompt, "--model", MODEL,
-                        "-o", os.path.join(RAW2, key + ".png"), "--quiet", "--yes"],
-                       capture_output=True, text=True, timeout=300)
-    if r.returncode == 0:
-        return key, "ok"
-    return key, "FAIL: " + (r.stderr or r.stdout)[-200:]
-
-def pad_and_caption(src, key, caption_text):
-    from PIL import Image, ImageOps, ImageDraw, ImageFont
-    FONT = os.path.join(ROOT, "fonts", "Baloo2.ttf")
-    font = ImageFont.truetype(FONT, 115)
-    numf = ImageFont.truetype(FONT, 62)
+def process(src, key, caption):
+    from PIL import Image, ImageFilter, ImageOps, ImageFont, ImageDraw
     img = Image.open(src).convert("L")
     img = ImageOps.autocontrast(img, cutoff=1)
-    img = img.point(lambda p: 0 if p < 110 else 255)
-    img = img.resize((2400, 2400), Image.LANCZOS)
-    canvas = Image.new("L", (CANVAS_W, CANVAS_H), 255)
-    canvas.paste(img, (75, 130))
+    big = img.resize((2550, 3300), Image.LANCZOS)
+    sharp = big.point(lambda p: 0 if p < 120 else 255)
+    thick = sharp.filter(ImageFilter.MinFilter(9))
+    bbox = thick.point(lambda p: 255 - p).getbbox()
+    ink_cx = (bbox[0] + bbox[2]) / 2 if bbox else thick.width / 2
+    ink_cy = (bbox[1] + bbox[3]) / 2 if bbox else thick.height / 2
+    x_p = int((B.CANVAS_W - thick.width) / 2 + (B.CANVAS_W/2) - ink_cx)
+    y_p = int(150 + (2830 - 150 - thick.height) / 2 + (2680/2) - ink_cy)
+    x_p = max(90, min(x_p, B.CANVAS_W - thick.width - 90))
+    y_p = max(150, min(y_p, 2830 - thick.height + 120))
+    canvas = Image.new("L", (B.CANVAS_W, B.CANVAS_H), 255)
+    canvas.paste(thick, (x_p, y_p))
     d = ImageDraw.Draw(canvas)
-    bbox = d.textbbox((0, 0), caption_text, font=font)
-    d.text(((CANVAS_W-bbox[2]+bbox[0])//2, 2950), caption_text, fill=0, font=font)
+    size = 115
+    font = ImageFont.truetype(B.FONT, size)
+    while size > 55 and d.textbbox((0, 0), caption, font=font)[2] > B.CANVAS_W - 300:
+        size -= 5; font = ImageFont.truetype(B.FONT, size)
+    bbox = d.textbbox((0, 0), caption, font=font)
+    d.text(((B.CANVAS_W-bbox[2]+bbox[0])//2, 2880), caption, fill=0, font=font)
     m = re.match(r"page_(\d+)", key)
     number = str(int(m.group(1)) * 2 - 1)
+    numf = ImageFont.truetype(B.FONT, 62)
     nb = d.textbbox((0, 0), number, font=numf)
-    d.text((CANVAS_W - 130 - (nb[2] - nb[0]), 3060), number, fill=120, font=numf)
+    d.text((B.CANVAS_W - 130 - (nb[2] - nb[0]), 3010), number, fill=120, font=numf)
     return canvas
 
-def caption_for(key):
-    import json
-    capfile = os.path.join(ROOT, "captions.json")
-    with open(capfile, encoding="utf-8") as f:
-        caps = json.load(f)
-    return caps.get(key, "")
-
-def qa(canvas_img, key):
-    w, h = canvas_img.size
-    px = canvas_img.load()
-    greys = sum(1 for y in range(0, 2900, 4) for x in range(0, w, 4)
-                if 40 < px[x, y] < 215)
-    greys /= (w//4)*((2900)//4)
-    issues = []
-    if greys > 0.004: issues.append("greys %.2f%%" % (greys*100))
-    return issues
-
 def main():
-    os.makedirs(RAW2, exist_ok=True)
-    os.makedirs(OUT, exist_ok=True)
-    scenes = load_prompts()
-    keys = sorted(scenes.keys())
-    if "--only" in sys.argv:
-        keys = [k for k in keys if k in sys.argv[sys.argv.index("--only")+1:]]
-    from concurrent.futures import ThreadPoolExecutor
-    results = {}
-    with ThreadPoolExecutor(max_workers=6) as ex:
-        for key, status in ex.map(lambda k: generate(k, scenes[k]), keys):
-            results[key] = status
-            print(key, status, flush=True)
-    print("--- post-processing ---")
-    report = {}
-    for key in keys:
-        src = os.path.join(RAW2, key + ".png")
-        if not os.path.exists(src):
-            report[key] = ["missing source"]
-            continue
+    os.makedirs(OUTDIR_RAW, exist_ok=True); os.makedirs(OUTDIR_FINAL, exist_ok=True)
+    key = open(os.path.join(HERE, 'recraft', 'key.tmp')).read().strip() # Gemini key in old place for now
+    for t in ('page_01', 'page_09', 'page_41'):
         try:
-            cv = pad_and_caption(src, key, caption_for(key))
-            issues = qa(cv, key)
-            cv.save(os.path.join(OUT, key + ".png"), dpi=(300, 300))
-            report[key] = issues
-            print(key, "assembled", issues or "QA-OK", flush=True)
+            print("generating", t, "...")
+            src = gen(t, key)
+            print("assembling", t, "...")
+            cv = process(src, t, B.caption_for(t))
+            cv.save(os.path.join(OUTDIR_FINAL, '%s_final.png' % t), dpi=(300,300))
+            print(t, "done")
         except Exception as e:
-            report[key] = ["process error: %s" % e]
-            print(key, "ERROR", e, flush=True)
-    fails = {k: v for k, v in report.items() if v}
-    print("=== SUMMARY: %d ok, %d flagged ===" % (len(report)-len(fails), len(fails)))
-    for k, v in fails.items():
-        print("FLAG", k, v)
+            print(t, "ERROR", e)
 
 if __name__ == "__main__":
     main()
