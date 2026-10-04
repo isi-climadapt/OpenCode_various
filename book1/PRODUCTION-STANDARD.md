@@ -99,6 +99,35 @@ Line style:
 
 Retry policy: max 2 regenerations per failing page; if it still fails on attempt 3 → simplify the scene prompt (drop background accents) and retry once more.
 
+## 6b. KNOWN FAILURE MODES — detected in production (mandatory checks + remedies)
+
+These errors ACTUALLY occurred during Book 1 generation. Every agent prompt, external-tool instruction, and QA pass MUST include them. Detection scripts live in the batch pipeline; when generating manually or via external AI tools, check each by eye or by the listed method.
+
+| # | Failure mode | Seen on | How to detect | Fix |
+|---|---|---|---|---|
+| F1 | **Colour fill sneaks in** (green frog, etc.) — model ignores "no colour" | pages 31, 49 | Convert to RGB; flag if `max(RGB)-min(RGB) > 30` on sampled pixels | Post-strip: grayscale + threshold to pure B&W; regenerate if the art is unusable |
+| F2 | **Drawn rectangular frame/border** — model draws a thin box around the scene despite "no frame" | 13, 14, 27, 46 | Detect near-full-length vertical/horizontal line spans within 80px of edges | Regenerate with: "no rectangular frame or box line anywhere; do not draw a border" + "generous plain white margin on every side; no element touches the image edges" |
+| F3 | **Art touches raw edges ("in a box" look)** — trees/grass/waves run to the edge | 20, 21, 35, 45, 48 | Ink-count in outer 12px bands per edge | Same constraint phrase as F2; regenerate |
+| F4 | **Stretch distortion + blurry lines** — square-stretching a non-square raw (e.g. 914×1024 after crop) | page 46 (first version) | File width/height differ while assembler assumes square | ALWAYS aspect-preserving resize (`min(w,h)` scale), never blindsquare-stretch |
+| F5 | **Caption text clipped** at fixed font size — long captions overflow page width | pages 20, 42 | Render bbox of caption at full size; flag if wider than 2250px | Auto-fit: start 115px, shrink −5px steps down to 55px until fit (code in batch_generate.py `pad_and_caption`) |
+| F6 | **Late publication drift** — caption/page-number shifts if art is regenerated after typesetting | any | Version check: re-run typeset after ANY art change | Always re-run assembly stamping after regens (typeset is in the same pipeline as art, never manual) |
+| F7 | **Parallel-generation throttling** — CLI fails with "Upgrade to Plus to generate more generations in parallel" | batch run | non-zero exit + that stderr | Retry serially or with ≤4 workers; keep inter-request spacing |
+| F8 | **File-save race with OneDrive sync** — PIL `OSError: Invalid argument` on save | page 15 | Retry same save | Retry with 2–3 sleeps; disable sync pause if persistent |
+
+### Mandatory instruction phrases (paste into ANY image-generation request, internal or external)
+1. "The whole scene floats with a generous plain white margin on every side; no element touches the image edges."
+2. "Absolutely no rectangular frame or box line anywhere; do not draw a border."
+3. "No words, letters, numbers or text anywhere in the image." (text is typeset in assembly — never hand lettering to the model)
+4. "Pure black outlines on plain white only; no shading, grey, colour fill, or texture."
+
+### Post-generation audit script contract
+Every batch MUST end with an automated audit, non-zero exit on failure:
+- colour scan (F1) — zero colour pixels above threshold
+- frame scan (F2) — no 65%+ line spans in edge bands
+- edge-touch scan (F3) — outer 12px ink counts
+- caption-fit validation (F5) — widths computed per page
+All four must return clean before the contact sheet goes for human review.
+
 ## 7. Optional polish pipeline (recommended before handoff)
 
 1. Batch: convert to grayscale → Image > Adjustments > Levels (0, 128, 235 → 0/255 endpoints)
@@ -108,10 +137,11 @@ Retry policy: max 2 regenerations per failing page; if it still fails on attempt
 
 ## 8. Typo/font spec for the assembler (info for Agent 4)
 
-- Caption font: rounded, friendly, dyslexia-lean: **Baloo 2** (SIL Open Font License) or Quicksand Semi-Bold
-- Caption size: ~30 pt (≈125 px @300 dpi) centred inside the caption strip; single line, max ~45 characters (already in prompt pack)
-- Page numbers: 14 pt, bottom-centre inside the 0.5" bottom strip, skipping picture pages? — NO: numbers go on the caption strip left corner (0.25" from bottom), colour-scheme black.
-- Title/copyright pages: same family, larger weights.
+- Caption font: **Baloo 2** (SIL Open Font License, bundling in `book1\fonts\Baloo2.ttf`) — rounded, dyslexia-lean
+- Caption: auto-fit width (115px baseline, shrink to fit 2250px width cap), centred, baseline y≈2880
+- Page numbers: grey (~#787878), 62px, **bottom-RIGHT corner** (right edge inset 130px, y≈3060)
+- Title/copyright pages: same family, larger weights
+- Final numbering happens at ASSEMBLY time (title/copyright offset pages change numbering — restamp then)
 
 ## 9. KDP compliance refs (final checklist before upload)
 

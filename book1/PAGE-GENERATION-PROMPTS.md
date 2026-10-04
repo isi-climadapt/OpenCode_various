@@ -6,8 +6,19 @@
 ## Universal prompt suffix (append to EVERY page prompt)
 
 ```
-Bold and easy coloring book page for kids ages 3-8. A rich but simple scene around the animal with 6 to 8 easy elements suitable for its habitat (trees, clouds, stars, waves, rocks, flowers, smaller animal friends, bubbles, sun, grass or sand), each element drawn as one big simple closed shape. Very thick, clean, smooth black outlines (heavy, marker-friendly). Plain white background, no frame or border around the image edge. Only simple closed shapes with large open areas to colour. The main animal stays the largest thing on the page, portrait composition. Cute, friendly, happy faces with large simple eyes. No shading, no grey, no colour, no fill, no texture, no crosshatching. No words, letters, numbers or text anywhere in the image. Nothing in the bottom 6 percent of the page.
+Bold and easy coloring book page for kids ages 3-8. A rich but simple scene around the animal with 6 to 8 easy elements suitable for its habitat (trees, clouds, stars, waves, rocks, flowers, smaller animal friends, bubbles, sun, grass or sand), each element drawn as one big simple closed shape. Whole scene floats with a generous plain white margin on every side; no element touches the image edges. Absolutely no rectangular frame or box line anywhere; do not draw a border. Very thick, clean, smooth black outlines (heavy, marker-friendly), pure black on plain white only. Only simple closed shapes with large open areas to colour. The main animal stays the largest thing on the page, portrait composition. Cute, friendly, happy faces with large simple eyes. No shading, no grey, no colour fill, no texture, no crosshatching. No words, letters, numbers or text anywhere in the image. Nothing in the bottom 6 percent of the page.
 ```
+
+## Known failure modes — CHECK EVERY OUTPUT (from Book 1 production)
+
+| Failure | Symptom | Action |
+|---|---|---|
+| Colour fill sneaks in | coloured patches despite "no colour" | grayscale+threshold strip; regenerate if ugly |
+| Drawn frame/border box | thin rectangle around scene | regenerate (margin + "no frame" lines are in suffix) |
+| Art touching raw edges | "cut in a box" feel | regenerate (margin phrase) |
+| Non-square source stretched | distorted/blurry art after padding | use aspect-preserving fit (assembler handles) |
+| AI-generated text | lettering inside art | reject file — text belongs to typesetting only |
+| Long captions clipped | text cut at page edge | auto-fit shrink (assembler handles) |
 
 For Midjourney add: `--ar 17:22 --v 6 --style raw` (ar ~ 8.5:11)
 
