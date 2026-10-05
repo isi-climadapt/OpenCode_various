@@ -162,46 +162,102 @@ def make_tips_page():
     page = Image.new("L", (W, H), 255)
     d = ImageDraw.Draw(page)
     
-    d.rounded_rectangle((120, 120, W-120, H-120), radius=50, outline=0, width=8)
+    # Double border
+    d.rounded_rectangle((120, 120, W-120, H-120), radius=50, outline=0, width=10)
+    d.rounded_rectangle((145, 145, W-145, H-145), radius=40, outline=0, width=4)
     
-    f_title = ImageFont.truetype(FONT_SNIGLET, 110)
-    text = "TOP COLOURING TIPS!"
-    bb = d.textbbox((0, 0), text, font=f_title)
-    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 350), text, fill=0, font=f_title)
+    # Title
+    f_title = ImageFont.truetype(FONT_SNIGLET, 130)
+    t = "TOP COLOURING TIPS!"
+    bb = d.textbbox((0, 0), t, font=f_title)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 230), t, fill=0, font=f_title)
     
     tips = [
-        "1. Put a spare blank sheet behind each page when using markers.",
-        "2. Start with light colours, then add darker colours for extra pop!",
-        "3. Mix crayons, pencils, and markers for fun textures.",
-        "4. There are no rules — make your Australian animals any colour you love!"
+        ("1. Put a Blank Sheet Behind Your Page", "When using juicy markers, place a scrap sheet behind your drawing to keep the next page perfectly clean!"),
+        ("2. Start Light, Then Go Dark", "Colour lighter shades first, then layer darker tones on top for amazing depth and pop."),
+        ("3. Mix Your Art Tools", "Try combining crayons, coloured pencils, and markers together on the same animal for fun textures."),
+        ("4. There Are No Mistakes In Art!", "Make your Australian animals any colour you want — purple koalas and rainbow kangaroos are awesome!")
     ]
-    f_tip = ImageFont.truetype(FONT_BALOO, 62)
-    y = 600
-    for tip in tips:
-        words = tip.split(" ")
+    f_head = ImageFont.truetype(FONT_BALOO, 60)
+    f_desc = ImageFont.truetype(FONT_BALOO, 48)
+    
+    y = 430
+    for head, desc in tips:
+        d.text((220, y), head, fill=0, font=f_head)
+        y += 72
+        words = desc.split(" ")
         line = ""
         for w in words:
-            test_line = line + (" " if line else "") + w
-            bb = d.textbbox((0, 0), test_line, font=f_tip)
-            if bb[2] - bb[0] > 1900:
-                d.text((320, y), line, fill=30, font=f_tip)
-                y += 85
+            test = line + (" " if line else "") + w
+            bb = d.textbbox((0, 0), test, font=f_desc)
+            if bb[2] - bb[0] > 2050:
+                d.text((260, y), line, fill=60, font=f_desc)
+                y += 62
                 line = w
             else:
-                line = test_line
+                line = test
         if line:
-            d.text((320, y), line, fill=30, font=f_tip)
-            y += 120
-            
-    # Colour test palette (circles to test pencils/markers)
-    f_test = ImageFont.truetype(FONT_SNIGLET, 85)
-    d.text((320, y + 60), "MY COLOUR TEST PALETTE:", fill=0, font=f_test)
-    y_circles = y + 360
-    for i in range(5):
-        cx = 380 + i * 440
-        d.ellipse([cx - 140, y_circles - 140, cx + 140, y_circles + 140], outline=0, width=8)
-        d.text((cx - 55, y_circles + 180), "Test %d" % (i+1), fill=120, font=ImageFont.truetype(FONT_BALOO, 48))
+            d.text((260, y), line, fill=60, font=f_desc)
+            y += 80
+        y += 20
         
+    d.line([(220, y + 10), (W - 220, y + 10)], fill=180, width=4)
+    
+    # Section 2: Colour Test Palette (Big, generous swatches)
+    y_test = y + 60
+    f_test_title = ImageFont.truetype(FONT_SNIGLET, 105)
+    tt = "MY COLOUR TEST PALETTE"
+    bb = d.textbbox((0, 0), tt, font=f_test_title)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], y_test), tt, fill=0, font=f_test_title)
+    
+    f_test_sub = ImageFont.truetype(FONT_BALOO, 48)
+    tsub = "Test your pencils, markers, and crayons here before colouring your animals!"
+    bb = d.textbbox((0, 0), tsub, font=f_test_sub)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], y_test + 120), tsub, fill=90, font=f_test_sub)
+    
+    f_num = ImageFont.truetype(FONT_BALOO, 44)
+    radius = 125
+    y_circles = y_test + 360
+    
+    for i in range(5):
+        cx = 360 + i * 455
+        d.ellipse([cx - radius, y_circles - radius, cx + radius, y_circles + radius], outline=0, width=7)
+        lbl = f"Colour {i+1}"
+        lbb = d.textbbox((0, 0), lbl, font=f_num)
+        d.text((cx - (lbb[2]-lbb[0])//2 - lbb[0], y_circles + radius + 20), lbl, fill=100, font=f_num)
+        
+    d.line([(220, y_circles + radius + 110), (W - 220, y_circles + radius + 110)], fill=180, width=4)
+    
+    # Section 3: Bottom Mascot + Artist Pledge (Filling down to y=2980)
+    y_bottom = y_circles + radius + 160
+    
+    # Mascot Kangaroo
+    icon = Image.open(os.path.join(ROOT, "kangaroo_frame_cropped.png")).convert("L")
+    icon = icon.point(lambda p: 0 if p < 120 else 255)
+    icon.thumbnail((880, 880), Image.LANCZOS)
+    page.paste(icon, (240, y_bottom))
+    
+    # Pledge box on right
+    box_x = 1180
+    d.rounded_rectangle([box_x, y_bottom, W - 240, y_bottom + 880], radius=35, outline=0, width=6)
+    
+    f_pl_title = ImageFont.truetype(FONT_SNIGLET, 62)
+    d.text((box_x + 60, y_bottom + 60), "MY ARTIST PLEDGE:", fill=0, font=f_pl_title)
+    
+    f_pl_text = ImageFont.truetype(FONT_BALOO, 50)
+    d.text((box_x + 60, y_bottom + 180), '"I promise to have fun,', fill=40, font=f_pl_text)
+    d.text((box_x + 60, y_bottom + 250), 'make this book my own,', fill=40, font=f_pl_text)
+    d.text((box_x + 60, y_bottom + 320), 'and be proud of every', fill=40, font=f_pl_text)
+    d.text((box_x + 60, y_bottom + 390), 'drawing I colour!"', fill=40, font=f_pl_text)
+    
+    d.line([(box_x + 60, y_bottom + 650), (W - 300, y_bottom + 650)], fill=0, width=5)
+    f_sig_lbl = ImageFont.truetype(FONT_BALOO, 44)
+    d.text((box_x + 60, y_bottom + 675), "ARTIST SIGNATURE", fill=120, font=f_sig_lbl)
+    
+    # Page number
+    f_pnum = ImageFont.truetype(FONT_BALOO, 55)
+    d.text((W - 180, 3110), "4", fill=120, font=f_pnum)
+    
     return page
 
 def make_art_page(i):
@@ -554,11 +610,29 @@ def main():
     cover_small_path = os.path.join(OUTPUT_DIR, "AUSSIE_ANIMALS_COVER_WRAP_PREVIEW.png")
     
     print("Saving cover PNG...")
-    cover_wrap.save(cover_png_path, dpi=(300, 300))
+    import time
+    for attempt in range(4):
+        try:
+            cover_wrap.save(cover_png_path, dpi=(300, 300))
+            break
+        except OSError:
+            time.sleep(2)
+            
     print("Saving cover PDF...")
-    cover_wrap.save(cover_pdf_path, resolution=300.0)
+    for attempt in range(4):
+        try:
+            cover_wrap.save(cover_pdf_path, resolution=300.0)
+            break
+        except OSError:
+            time.sleep(2)
     print("Saving preview...")
-    cover_wrap.resize((1500, int(1500 * cover_wrap.height / cover_wrap.width)), Image.LANCZOS).save(cover_small_path)
+    preview_img = cover_wrap.resize((1500, int(1500 * cover_wrap.height / cover_wrap.width)), Image.LANCZOS)
+    for attempt in range(4):
+        try:
+            preview_img.save(cover_small_path)
+            break
+        except OSError:
+            time.sleep(2)
     
     print("Cover Wrap complete! PDF Size: %.2f MB" % (os.path.getsize(cover_pdf_path) / (1024*1024)))
     print("All files ready in:", OUTPUT_DIR)
