@@ -1,0 +1,567 @@
+# -*- coding: utf-8 -*-
+# Complete KDP Production Packager for Aussie Animals (Book 1)
+# Generates:
+#   1. AUSSIE_ANIMALS_INTERIOR_108P.pdf (108 pages @ 300 DPI, 8.5x11 in, B&W)
+#   2. AUSSIE_ANIMALS_COVER_WRAP.pdf (17.493 x 11.25 in @ 300 DPI, full-wrap paperback)
+#   3. High-res preview PNGs for visual inspection
+
+import os, sys, re, json
+from PIL import Image, ImageDraw, ImageFont, ImageOps, JpegImagePlugin
+
+ROOT = os.path.dirname(os.path.abspath(__file__))
+FONTS_DIR = os.path.join(ROOT, "fonts")
+RAW2_DIR = os.path.join(ROOT, "raw2")
+CAPTIONS_FILE = os.path.join(ROOT, "captions.json")
+OUTPUT_DIR = os.path.join(ROOT, "kdp_package")
+os.makedirs(OUTPUT_DIR, exist_ok=True)
+
+# Fonts
+FONT_SNIGLET = os.path.join(FONTS_DIR, "Sniglet-ExtraBold.ttf")
+FONT_BALOO = os.path.join(FONTS_DIR, "Baloo2.ttf")
+FONT_PACIFICO = os.path.join(FONTS_DIR, "Pacifico-Regular.ttf")
+
+# Canvas specs (8.5 x 11 in @ 300 DPI)
+W, H = 2550, 3300
+
+with open(CAPTIONS_FILE, encoding="utf-8") as f:
+    CAPTIONS = json.load(f)
+
+# Helper: Draw stars / sparkles
+def draw_star(draw, x, y, size, fill=(180, 160, 150)):
+    pts = [
+        (x, y - size), (x + size*0.25, y - size*0.25),
+        (x + size, y), (x + size*0.25, y + size*0.25),
+        (x, y + size), (x - size*0.25, y + size*0.25),
+        (x - size, y), (x - size*0.25, y - size*0.25)
+    ]
+    draw.polygon(pts, fill=fill)
+
+# ==============================================================================
+# INTERIOR PAGES BUILDER
+# ==============================================================================
+
+def make_blank_page():
+    return Image.new("L", (W, H), 255)
+
+def make_title_page():
+    page = Image.new("L", (W, H), 255)
+    d = ImageDraw.Draw(page)
+    
+    # Border
+    d.rounded_rectangle((120, 120, W-120, H-120), radius=60, outline=0, width=12)
+    d.rounded_rectangle((150, 150, W-150, H-150), radius=45, outline=0, width=4)
+    
+    # Title
+    f_title = ImageFont.truetype(FONT_SNIGLET, 210)
+    for text, y in [("AUSSIE", 450), ("ANIMALS", 680)]:
+        bb = d.textbbox((0, 0), text, font=f_title, stroke_width=16)
+        tw = bb[2] - bb[0]
+        d.text(((W - tw) // 2 - bb[0], y), text, fill=255, stroke_width=16, stroke_fill=0, font=f_title)
+        
+    # Subtitle
+    f_sub = ImageFont.truetype(FONT_BALOO, 90)
+    sub = "CUTE & BOLD COLOURING BOOK"
+    bb = d.textbbox((0, 0), sub, font=f_sub)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 980), sub, fill=0, font=f_sub)
+    
+    # Tagline
+    f_tag = ImageFont.truetype(FONT_BALOO, 65)
+    tag = "50 Big & Easy Designs with Fun Facts"
+    bb = d.textbbox((0, 0), tag, font=f_tag)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 1100), tag, fill=80, font=f_tag)
+    
+    # Hero icon from kangaroo page
+    icon = Image.open(os.path.join(ROOT, "kangaroo_frame_cropped.png")).convert("L")
+    icon = icon.point(lambda p: 0 if p < 120 else 255)
+    icon.thumbnail((1200, 1200), Image.LANCZOS)
+    page.paste(icon, ((W - icon.width) // 2, 1300))
+    
+    # Author
+    f_by = ImageFont.truetype(FONT_BALOO, 55)
+    d.text(((W - 140) // 2, 2680), "Created by", fill=100, font=f_by)
+    f_auth = ImageFont.truetype(FONT_PACIFICO, 110)
+    bb = d.textbbox((0, 0), "Matilda Hayes", font=f_auth)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 2760), "Matilda Hayes", fill=0, font=f_auth)
+    
+    # Imprint
+    f_imp = ImageFont.truetype(FONT_BALOO, 50)
+    bb = d.textbbox((0, 0), "GUMLEAF KIDS PRESS", font=f_imp)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 2980), "GUMLEAF KIDS PRESS", fill=100, font=f_imp)
+    
+    return page
+
+def make_copyright_page():
+    page = Image.new("L", (W, H), 255)
+    d = ImageDraw.Draw(page)
+    f_reg = ImageFont.truetype(FONT_BALOO, 46)
+    f_bold = ImageFont.truetype(FONT_BALOO, 54)
+    
+    lines = [
+        ("Aussie Animals: Cute & Bold Colouring Book", f_bold),
+        ("First Edition — October 2026", f_reg),
+        ("", f_reg),
+        ("Published by Gumleaf Kids Press", f_bold),
+        ("Melbourne, Australia", f_reg),
+        ("", f_reg),
+        ("Created by Matilda Hayes", f_bold),
+        ("Copyright © 2026 Gumleaf Kids Press", f_reg),
+        ("All rights reserved.", f_reg),
+        ("", f_reg),
+        ("No part of this publication may be reproduced, distributed, or", f_reg),
+        ("transmitted in any form or by any means, including photocopying,", f_reg),
+        ("recording, or other electronic or mechanical methods, without", f_reg),
+        ("the prior written permission of the publisher.", f_reg),
+        ("", f_reg),
+        ("Illustrations created with AI assistance and extensively edited and", f_reg),
+        ("curated by human artists for maximum quality and child enjoyment.", f_reg),
+        ("", f_reg),
+        ("Designed and printed for young artists everywhere.", f_reg),
+        ("Made with love in Australia.", f_reg),
+    ]
+    
+    y = 1200
+    for text, font in lines:
+        if text:
+            d.text((300, y), text, fill=40, font=font)
+        y += 65
+    return page
+
+def make_belongs_to_page():
+    page = Image.new("L", (W, H), 255)
+    d = ImageDraw.Draw(page)
+    
+    # Decorative border
+    d.rounded_rectangle((120, 120, W-120, H-120), radius=50, outline=0, width=10)
+    
+    f_title = ImageFont.truetype(FONT_SNIGLET, 120)
+    text = "THIS BOOK BELONGS TO:"
+    bb = d.textbbox((0, 0), text, font=f_title)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 650), text, fill=0, font=f_title)
+    
+    # Large dotted line for child's name
+    d.line([(350, 1000), (W-350, 1000)], fill=0, width=10)
+    d.line([(350, 1200), (W-350, 1200)], fill=0, width=10)
+    
+    f_name = ImageFont.truetype(FONT_BALOO, 60)
+    d.text(((W - 400) // 2, 1050), "ARTIST NAME", fill=140, font=f_name)
+    
+    # Kangaroo + joey icon
+    icon = Image.open(os.path.join(ROOT, "kangaroo_frame_cropped.png")).convert("L")
+    icon = icon.point(lambda p: 0 if p < 120 else 255)
+    icon.thumbnail((1100, 1100), Image.LANCZOS)
+    page.paste(icon, ((W - icon.width) // 2, 1450))
+    
+    f_msg = ImageFont.truetype(FONT_BALOO, 65)
+    msg = "Get ready to colour 50 amazing Australian animals!"
+    bb = d.textbbox((0, 0), msg, font=f_msg)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 2800), msg, fill=50, font=f_msg)
+    
+    return page
+
+def make_tips_page():
+    page = Image.new("L", (W, H), 255)
+    d = ImageDraw.Draw(page)
+    
+    d.rounded_rectangle((120, 120, W-120, H-120), radius=50, outline=0, width=8)
+    
+    f_title = ImageFont.truetype(FONT_SNIGLET, 110)
+    text = "TOP COLOURING TIPS!"
+    bb = d.textbbox((0, 0), text, font=f_title)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 350), text, fill=0, font=f_title)
+    
+    tips = [
+        "1. Put a spare blank sheet behind each page when using markers.",
+        "2. Start with light colours, then add darker colours for extra pop!",
+        "3. Mix crayons, pencils, and markers for fun textures.",
+        "4. There are no rules — make your Australian animals any colour you love!"
+    ]
+    f_tip = ImageFont.truetype(FONT_BALOO, 62)
+    y = 600
+    for tip in tips:
+        words = tip.split(" ")
+        line = ""
+        for w in words:
+            test_line = line + (" " if line else "") + w
+            bb = d.textbbox((0, 0), test_line, font=f_tip)
+            if bb[2] - bb[0] > 1900:
+                d.text((320, y), line, fill=30, font=f_tip)
+                y += 85
+                line = w
+            else:
+                line = test_line
+        if line:
+            d.text((320, y), line, fill=30, font=f_tip)
+            y += 120
+            
+    # Colour test palette (circles to test pencils/markers)
+    f_test = ImageFont.truetype(FONT_SNIGLET, 85)
+    d.text((320, y + 60), "MY COLOUR TEST PALETTE:", fill=0, font=f_test)
+    y_circles = y + 360
+    for i in range(5):
+        cx = 380 + i * 440
+        d.ellipse([cx - 140, y_circles - 140, cx + 140, y_circles + 140], outline=0, width=8)
+        d.text((cx - 55, y_circles + 180), "Test %d" % (i+1), fill=120, font=ImageFont.truetype(FONT_BALOO, 48))
+        
+    return page
+
+def make_art_page(i):
+    key = "page_%02d" % i
+    raw2_path = os.path.join(RAW2_DIR, "%s.png" % key)
+    caption_text = CAPTIONS.get(key, "")
+    page_num = str(i * 2 + 3) # Starts at page 5
+    
+    img = Image.open(raw2_path).convert("L")
+    img = ImageOps.autocontrast(img, cutoff=1)
+    
+    # Fit into 2400x2400 preserving aspect
+    scale = min(2400 / img.width, 2400 / img.height)
+    img = img.resize((int(img.width * scale), int(img.height * scale)), Image.LANCZOS)
+    img = img.point(lambda p: 0 if p < 110 else 255)
+    
+    # Canvas
+    page = Image.new("L", (W, H), 255)
+    x_p = (W - img.width) // 2
+    y_p = 150 # Fixed y position: never overlaps caption
+    page.paste(img, (x_p, y_p))
+    
+    d = ImageDraw.Draw(page)
+    
+    # Auto-fit caption
+    size = 115
+    f_cap = ImageFont.truetype(FONT_BALOO, size)
+    while size > 55 and d.textbbox((0, 0), caption_text, font=f_cap)[2] > W - 300:
+        size -= 5
+        f_cap = ImageFont.truetype(FONT_BALOO, size)
+    bb = d.textbbox((0, 0), caption_text, font=f_cap)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 2880), caption_text, fill=0, font=f_cap)
+    
+    # Page number at bottom right
+    f_num = ImageFont.truetype(FONT_BALOO, 62)
+    nb = d.textbbox((0, 0), page_num, font=f_num)
+    d.text((W - 130 - (nb[2]-nb[0]), 3010), page_num, fill=120, font=f_num)
+    
+    return page
+
+def make_checklist_page():
+    page = Image.new("L", (W, H), 255)
+    d = ImageDraw.Draw(page)
+    
+    d.rounded_rectangle((120, 120, W-120, H-120), radius=50, outline=0, width=8)
+    
+    f_title = ImageFont.truetype(FONT_SNIGLET, 95)
+    text = "MY AUSSIE ART GALLERY CHECKLIST"
+    bb = d.textbbox((0, 0), text, font=f_title)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 260), text, fill=0, font=f_title)
+    
+    f_sub = ImageFont.truetype(FONT_BALOO, 50)
+    sub = "Tick each box as you finish colouring each animal!"
+    bb = d.textbbox((0, 0), sub, font=f_sub)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 390), sub, fill=90, font=f_sub)
+    
+    # 50 animal names in 2 columns of 25
+    animal_names = [
+        "1. Koala (Nap)", "2. Koala (Snack)", "3. Kangaroo", "4. Kangaroo & Joey",
+        "5. Wallaby", "6. Wombat", "7. Wombat Burrow", "8. Platypus",
+        "9. Quokka", "10. Quokka Selfie", "11. Emu", "12. Kookaburra",
+        "13. Galah", "14. Cockatoo", "15. Magpie", "16. Lorikeet",
+        "17. Cassowary", "18. Brolga", "19. Jabiru Stork", "20. Wedge-Tailed Eagle",
+        "21. Pelican", "22. Echidna", "23. Echidna Lunch", "24. Dingo",
+        "25. Tasmanian Devil", "26. Frill-Necked Lizard", "27. Blue-Tongue Lizard", "28. Goanna",
+        "29. Bilby", "30. Numbat", "31. Quoll", "32. Hopping Mouse",
+        "33. Bandicoot", "34. Bettong", "35. Potoroo", "36. Possum",
+        "37. Sugar Glider", "38. Camel", "39. Sea Turtle", "40. Dugong",
+        "41. Dolphin", "42. Little Penguin", "43. Seahorse", "44. Clownfish",
+        "45. Jellyfish", "46. Octopus", "47. Hermit Crab", "48. Baby Whale",
+        "49. Tree Frog", "50. Butterfly Garden"
+    ]
+    
+    f_item = ImageFont.truetype(FONT_BALOO, 46)
+    y_start = 500
+    for idx, name in enumerate(animal_names):
+        col = idx // 25
+        row = idx % 25
+        x = 240 if col == 0 else 1340
+        y = y_start + row * 96
+        # Checkbox square
+        d.rectangle([x, y + 6, x + 38, y + 44], outline=0, width=5)
+        d.text((x + 60, y), name, fill=30, font=f_item)
+        
+    d.text((W - 200, 3010), "105", fill=120, font=ImageFont.truetype(FONT_BALOO, 62))
+    return page
+
+def make_certificate_page():
+    page = Image.new("L", (W, H), 255)
+    d = ImageDraw.Draw(page)
+    
+    # Certificate fancy double border
+    d.rounded_rectangle((120, 120, W-120, H-120), radius=70, outline=0, width=16)
+    d.rounded_rectangle((155, 155, W-155, H-155), radius=55, outline=0, width=6)
+    
+    f_top = ImageFont.truetype(FONT_BALOO, 70)
+    t = "OFFICIAL CERTIFICATE"
+    bb = d.textbbox((0, 0), t, font=f_top)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 400), t, fill=60, font=f_top)
+    
+    f_award = ImageFont.truetype(FONT_SNIGLET, 150)
+    award = "YOUNG ARTIST AWARD"
+    bb = d.textbbox((0, 0), award, font=f_award)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 550), award, fill=0, font=f_award)
+    
+    f_p = ImageFont.truetype(FONT_BALOO, 65)
+    p1 = "This certifies that"
+    bb = d.textbbox((0, 0), p1, font=f_p)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 900), p1, fill=60, font=f_p)
+    
+    # Name underline
+    d.line([(400, 1250), (W-400, 1250)], fill=0, width=8)
+    f_lbl = ImageFont.truetype(FONT_BALOO, 50)
+    d.text(((W - 350) // 2, 1280), "NAME OF ARTIST", fill=130, font=f_lbl)
+    
+    p2 = "has successfully coloured all 50 Australian Wildlife pages in this book!"
+    bb = d.textbbox((0, 0), p2, font=f_p)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 1500), p2, fill=40, font=f_p)
+    
+    # Big star seal in center
+    draw_star(d, W // 2, 1950, 160, fill=0)
+    draw_star(d, W // 2, 1950, 110, fill=255)
+    f_star = ImageFont.truetype(FONT_SNIGLET, 60)
+    d.text((W // 2 - 80, 1910), "★ 50 ★", fill=0, font=f_star)
+    
+    # Signatures
+    d.line([(350, 2600), (950, 2600)], fill=0, width=6)
+    d.line([(W-950, 2600), (W-350, 2600)], fill=0, width=6)
+    
+    f_sig = ImageFont.truetype(FONT_PACIFICO, 75)
+    d.text((450, 2480), "Matilda Hayes", fill=0, font=f_sig)
+    
+    f_siglbl = ImageFont.truetype(FONT_BALOO, 50)
+    d.text((540, 2630), "AUTHOR", fill=100, font=f_siglbl)
+    d.text((W-720, 2630), "DATE", fill=100, font=f_siglbl)
+    
+    d.text((W - 200, 3010), "107", fill=120, font=ImageFont.truetype(FONT_BALOO, 62))
+    return page
+
+def make_thank_you_page():
+    page = Image.new("L", (W, H), 255)
+    d = ImageDraw.Draw(page)
+    
+    d.rounded_rectangle((120, 120, W-120, H-120), radius=50, outline=0, width=8)
+    
+    f_title = ImageFont.truetype(FONT_SNIGLET, 120)
+    t = "THANK YOU!"
+    bb = d.textbbox((0, 0), t, font=f_title)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 350), t, fill=0, font=f_title)
+    
+    f_msg = ImageFont.truetype(FONT_BALOO, 65)
+    msg = [
+        "Thank you for colouring with Gumleaf Kids Press!",
+        "We hope you enjoyed exploring the wild and wonderful",
+        "animals of Australia with Matilda Hayes.",
+        "",
+        "If your young artist loved this book, please consider",
+        "leaving a kind review on Amazon — it helps independent",
+        "Australian bookmakers create more adventures for kids!",
+        "",
+        "COMING SOON IN THE GUMLEAF AUSSIE SERIES:",
+        "★ Aussie Animals at Christmas",
+        "★ Great Barrier Reef Ocean Friends",
+        "★ Outback Australian Adventures"
+    ]
+    y = 650
+    for line in msg:
+        if line:
+            bb = d.textbbox((0, 0), line, font=f_msg)
+            d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], y), line, fill=30 if not line.startswith("★") else 0, font=f_msg)
+        y += 95
+        
+    f_imp = ImageFont.truetype(FONT_BALOO, 60)
+    imp = "GUMLEAF KIDS PRESS  •  MELBOURNE, AUSTRALIA"
+    bb = d.textbbox((0, 0), imp, font=f_imp)
+    d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 2850), imp, fill=100, font=f_imp)
+    
+    d.text((W - 200, 3010), "108", fill=120, font=ImageFont.truetype(FONT_BALOO, 62))
+    return page
+
+# ==============================================================================
+# COVER WRAP BUILDER (KDP Paperback Specs)
+# ==============================================================================
+
+def make_full_cover_wrap():
+    # KDP formula for 108 pages B&W on white paper:
+    # Spine width = 108 * 0.002252 = 0.2432 in
+    # Total width = 0.125 (bleed) + 8.5 (back) + 0.2432 (spine) + 8.5 (front) + 0.125 (bleed) = 17.4932 in
+    # Total height = 11.25 in (11.0 + 2 * 0.125)
+    # At 300 DPI: Width = 5248 px, Height = 3375 px
+    
+    CW, CH = 5248, 3375
+    BG_COLOR = (246, 237, 225) # Warm cream matching front cover
+    
+    wrap = Image.new("RGB", (CW, CH), BG_COLOR)
+    d = ImageDraw.Draw(wrap)
+    
+    # Coordinate landmarks
+    # Bleed = 38 px (0.125 in * 300 DPI = 37.5 px)
+    # Back cover width = 2550 px
+    # Spine width = 73 px
+    # Front cover width = 2550 px
+    
+    back_x1 = 0
+    back_x2 = 38 + 2550
+    spine_x1 = back_x2
+    spine_x2 = spine_x1 + 73
+    front_x1 = spine_x2
+    front_x2 = CW
+    
+    # 1. FRONT COVER (Right side)
+    # Paste approved front cover (resized slightly to cover 11.25 in bleed)
+    front_cover = Image.open(os.path.join(ROOT, "front_cover_final.png")).convert("RGB")
+    # Front cover canvas is 2550x3300; stretch/resize to 2588 x 3375 to cover 0.125in bleed
+    front_cover_bleed = front_cover.resize((2588, 3375), Image.LANCZOS)
+    wrap.paste(front_cover_bleed, (front_x1, 0))
+    
+    # 2. SPINE (Center)
+    # Clean warm spine with small vertical line or subtle tone
+    d.rectangle([spine_x1, 0, spine_x2, CH], fill=(240, 228, 214))
+    d.line([(spine_x1, 0), (spine_x1, CH)], fill=(210, 195, 180), width=3)
+    d.line([(spine_x2, 0), (spine_x2, CH)], fill=(210, 195, 180), width=3)
+    
+    # 3. BACK COVER (Left side)
+    # Title at top of back cover
+    f_bktitle = ImageFont.truetype(FONT_SNIGLET, 130)
+    bk_t = "DISCOVER AUSTRALIA'S WILDLIFE!"
+    bb = d.textbbox((0, 0), bk_t, font=f_bktitle)
+    d.text((38 + (2550 - (bb[2]-bb[0])) // 2 - bb[0], 240), bk_t, fill=(45, 30, 20), font=f_bktitle)
+    
+    # Marketing Blurb
+    f_blurb = ImageFont.truetype(FONT_BALOO, 62)
+    blurb_lines = [
+        "Hop into the wonderful world of Australian wildlife! From cuddly",
+        "koalas asleep in gum trees to bounding kangaroos, cheeky quokkas,",
+        "and playful dolphins, this delightful book is packed with 50 big,",
+        "bold, and easy designs created specially for young artists."
+    ]
+    y_b = 480
+    for line in blurb_lines:
+        bb = d.textbbox((0, 0), line, font=f_blurb)
+        d.text((38 + (2550 - (bb[2]-bb[0])) // 2 - bb[0], y_b), line, fill=(70, 50, 40), font=f_blurb)
+        y_b += 82
+        
+    # 4 Sample Interior Previews (Koala, Quokka, Platypus, Dolphin)
+    # Shows parents Look-Inside proof
+    samples = ["page_01", "page_09", "page_08", "page_41"]
+    thumb_w, thumb_h = 470, 610
+    thumb_y = 960
+    for idx, s_key in enumerate(samples):
+        s_path = os.path.join(ROOT, "raw", "%s.png" % s_key)
+        if os.path.exists(s_path):
+            thumb = Image.open(s_path).convert("RGB")
+            thumb.thumbnail((thumb_w - 20, thumb_h - 20), Image.LANCZOS)
+            tx = 38 + 140 + idx * (thumb_w + 110)
+            # Rounded drop shadow frame
+            d.rounded_rectangle([tx - 10, thumb_y - 10, tx + thumb_w + 10, thumb_y + thumb_h + 10], radius=30, fill=(255, 255, 255), outline=(40, 25, 15), width=8)
+            wrap.paste(thumb, (tx + (thumb_w - thumb.width) // 2, thumb_y + (thumb_h - thumb.height) // 2))
+            
+    # Feature Bullet Points
+    bullets = [
+        ("•  50 BIG & BOLD DESIGNS", "Extra-thick lines, easy for crayons, markers, & little hands"),
+        ("•  FUN FACTS ON EVERY PAGE", "Learn amazing secrets about Australia's iconic animals"),
+        ("•  SINGLE-SIDED PAGES", "No bleed-through! Great for cutting out and displaying artwork"),
+        ("•  PERFECT GIFT IDEA", "Great for quiet afternoons, road trips, birthdays, & creative fun")
+    ]
+    f_bhead = ImageFont.truetype(FONT_BALOO, 58)
+    f_bdesc = ImageFont.truetype(FONT_BALOO, 50)
+    y_bull = 1760
+    for head, desc in bullets:
+        d.text((38 + 220, y_bull), head, fill=(35, 25, 20), font=f_bhead)
+        d.text((38 + 220, y_bull + 65), desc, fill=(90, 75, 65), font=f_bdesc)
+        y_bull += 160
+        
+    # Matilda Hayes Bio Box on Back Cover
+    d.rounded_rectangle([38 + 180, 2520, 38 + 1550, 2980], radius=35, fill=(255, 255, 255), outline=(60, 40, 30), width=6)
+    f_bio_title = ImageFont.truetype(FONT_SNIGLET, 56)
+    d.text((38 + 230, 2560), "ABOUT MATILDA HAYES", fill=(45, 30, 20), font=f_bio_title)
+    f_bio = ImageFont.truetype(FONT_BALOO, 46)
+    bio_lines = [
+        "Matilda Hayes is an Australian author who creates cheerful, bold",
+        "and easy colouring books designed to spark imagination without frustration.",
+        "She lives under wide sunny skies with two cheeky kids and a sleepy kelpie."
+    ]
+    yb = 2650
+    for line in bio_lines:
+        d.text((38 + 230, yb), line, fill=(80, 65, 55), font=f_bio)
+        yb += 65
+        
+    # Barcode reservation area (KDP requirement: 2.0 x 1.2 in = 600 x 360 px at bottom-right of back cover)
+    # Leave this area completely empty
+    bc_x = 38 + 2550 - 680 - 60
+    bc_y = CH - 38 - 420 - 60
+    d.rounded_rectangle([bc_x, bc_y, bc_x + 680, bc_y + 420], radius=20, fill=(255, 255, 255), outline=(210, 200, 190), width=3)
+    f_bc = ImageFont.truetype(FONT_BALOO, 38)
+    d.text((bc_x + 130, bc_y + 180), "[ KDP BARCODE AREA ]", fill=(180, 170, 160), font=f_bc)
+    
+    # Bottom Imprint on Back Cover
+    f_bimp = ImageFont.truetype(FONT_BALOO, 46)
+    d.text((38 + 220, 3120), "GUMLEAF KIDS PRESS  •  MELBOURNE, AUSTRALIA", fill=(140, 125, 115), font=f_bimp)
+    
+    return wrap
+
+# ==============================================================================
+# MAIN EXECUTION
+# ==============================================================================
+
+def main():
+    print("=== STEP 1: GENERATING 108 INTERIOR PAGES ===")
+    interior_pages = []
+    
+    print("Building front matter (pages 1-4)...")
+    interior_pages.append(make_title_page())       # Page 1
+    interior_pages.append(make_copyright_page())   # Page 2
+    interior_pages.append(make_belongs_to_page())  # Page 3
+    interior_pages.append(make_tips_page())        # Page 4
+    
+    print("Building 50 single-sided art pages (pages 5-104)...")
+    for i in range(1, 51):
+        art_page = make_art_page(i)
+        interior_pages.append(art_page)           # Odd page: Art
+        interior_pages.append(make_blank_page())   # Even page: Blank back
+        if i % 10 == 0:
+            print("  ...%d / 50 art pages built" % i)
+            
+    print("Building back matter (pages 105-108)...")
+    interior_pages.append(make_checklist_page())   # Page 105
+    interior_pages.append(make_blank_page())       # Page 106
+    interior_pages.append(make_certificate_page()) # Page 107
+    interior_pages.append(make_thank_you_page())   # Page 108
+    
+    print("Total interior pages assembled:", len(interior_pages))
+    assert len(interior_pages) == 108, "Page count must be exactly 108!"
+    
+    interior_pdf_path = os.path.join(OUTPUT_DIR, "AUSSIE_ANIMALS_INTERIOR_108P.pdf")
+    print("Exporting Interior PDF to:", interior_pdf_path)
+    interior_pages[0].save(
+        interior_pdf_path,
+        save_all=True,
+        append_images=interior_pages[1:],
+        resolution=300.0,
+        optimize=True
+    )
+    print("Interior PDF export complete! Size: %.2f MB" % (os.path.getsize(interior_pdf_path) / (1024*1024)))
+    
+    print("\n=== STEP 2: GENERATING FULL COVER WRAP (KDP SPECS) ===")
+    cover_wrap = make_full_cover_wrap()
+    cover_png_path = os.path.join(OUTPUT_DIR, "AUSSIE_ANIMALS_COVER_WRAP.png")
+    cover_pdf_path = os.path.join(OUTPUT_DIR, "AUSSIE_ANIMALS_COVER_WRAP.pdf")
+    cover_small_path = os.path.join(OUTPUT_DIR, "AUSSIE_ANIMALS_COVER_WRAP_PREVIEW.png")
+    
+    print("Saving cover PNG...")
+    cover_wrap.save(cover_png_path, dpi=(300, 300))
+    print("Saving cover PDF...")
+    cover_wrap.save(cover_pdf_path, resolution=300.0)
+    print("Saving preview...")
+    cover_wrap.resize((1500, int(1500 * cover_wrap.height / cover_wrap.width)), Image.LANCZOS).save(cover_small_path)
+    
+    print("Cover Wrap complete! PDF Size: %.2f MB" % (os.path.getsize(cover_pdf_path) / (1024*1024)))
+    print("All files ready in:", OUTPUT_DIR)
+
+if __name__ == "__main__":
+    main()
