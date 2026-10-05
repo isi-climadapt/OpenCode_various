@@ -1,0 +1,152 @@
+================================================================================
+AMAZON KDP UPLOAD GUIDE & METADATA (READY TO COPY & PASTE)
+Book Title: Aussie Cuties
+================================================================================
+
+All files you need to upload to Amazon KDP are in this folder:
+C:\Users\ibian\Desktop\OpenCode_Various\KDP_FINAL_UPLOAD\
+
+FILES TO UPLOAD:
+1. Manuscript (Interior):  01_MANUSCRIPT_INTERIOR_108P.pdf
+2. Cover:                  02_COVER_WRAP_PRINT_READY.pdf
+3. Cover Visual Preview:   COVER_PREVIEW.png
+
+
+================================================================================
+SCREEN 1: PAPERBACK DETAILS
+================================================================================
+
+Language:
+English
+
+Book Title (Copy exactly):
+Aussie Cuties
+
+Subtitle (Optional) (Copy exactly):
+A cute and comfy colouring book, perfect for animal lovers
+
+Series (Optional):
+Click "Add to series"
+- Series Title: Aussie Cuties
+- Main Title: Book 1
+
+Edition Number:
+(Leave blank)
+
+Primary Author:
+- First name: Matilda
+- Last name:  Hayes
+
+Contributors:
+(Leave completely blank)
+
+Description (Click the "Source" button in the KDP editor, paste the text below, then click "Source" again):
+--------------------------------------------------------------------------------
+<p><b>G'day! It's time to get cozy with Aussie Cuties!</b></p>
+
+<p>Step into the heartwarming, sun-drenched world of <i>Aussie Cuties</i>. Meet 50 adorably chubby, cheerful Australian animal friends ready to brighten your day — from cuddly koalas dozing in gum trees to smiling quokkas, gentle mother kangaroos with happy joeys, playful dolphins, and curious wombats!</p>
+
+<p>Gently splash your colours, find your cozy corner, and let the fun begin!</p>
+
+<p><i>Aussie Cuties</i> has sweet and irresistible illustrations for colouring fans of all ages, and includes:</p>
+<ul>
+  <li><b>50 Hand-Crafted Pages:</b> Filled with Australia’s most lovable native wildlife in heartwarming, cheerful scenes.</li>
+  <li><b>Large, Bold Designs:</b> Extra-thick outlines with generous open spaces that are relaxing and easy to colour.</li>
+  <li><b>Fun Facts on Every Page:</b> Discover amazing secrets about Australia’s wildlife as you colour!</li>
+  <li><b>Single-Sided Pages:</b> Every design is printed on a single sheet with a blank back to prevent marker bleed-through and make displaying your artwork easy.</li>
+  <li><b>Bonus Activity Pages:</b> Includes a Colour Test Palette, an Aussie Art Gallery Checklist to tick off all 50 animals, and an official Young Artist Certificate of Completion.</li>
+  <li><b>Crisp, High-Resolution Prints:</b> 8.5 x 11 inch large format for clean, frustration-free colouring.</li>
+  <li><b>The Perfect Gift:</b> A wonderful present for animal lovers, birthdays, holidays, travel, and quiet cozy afternoons.</li>
+</ul>
+
+<p><i>Grab your favourite colours, find your cozy corner, and bring Australia’s sweetest creatures to life!</i></p>
+--------------------------------------------------------------------------------
+
+Publishing Rights:
+Select: "I own the copyright and I hold necessary publishing rights."
+
+Primary Audience / Sexually Explicit:
+Select: "No"
+
+Reading Age:
+(Leave blank to keep universal appeal)
+
+Primary Marketplace:
+Amazon.com.au
+
+Categories (Click "Choose categories"):
+1. Children's Books > Activities, Crafts & Games > Activity Books > Coloring Books
+2. Children's Books > Animals > Mammals
+3. Crafts, Hobbies & Home > Coloring Books for Grown-Ups > Animals
+
+Classify as any of these types?
+[ ] Low-content book   --> LEAVE UNCHECKED! (Do NOT check this box!)
+[ ] Large-print book   --> LEAVE UNCHECKED!
+
+Keywords (Copy one into each of the 7 boxes):
+Box 1: aussie animal coloring book for kids
+Box 2: australian wildlife coloring pages bold easy
+Box 3: koala kangaroo wombat platypus quokka colouring
+Box 4: cute and comfy coloring book cozy friends
+Box 5: simple large designs toddlers travel activity
+Box 6: australian outback animals kids activity book
+Box 7: educational fun facts animal gifts boys girls
+
+Publication Date:
+Select: "Publication date and release date are the same"
+
+Release Date:
+Select: "Release my book for sale now"
+
+
+================================================================================
+SCREEN 2: PAPERBACK CONTENT
+================================================================================
+
+ISBN:
+Select: "Assign free KDP ISBN"
+
+Print Options:
+- Interior & paper type: Black & white interior with white paper
+- Trim Size:             8.5 x 11 in (21.59 x 27.94 cm)
+- Bleed settings:        No Bleed
+- Cover finish:          Matte (Recommended for the cozy Coco Wyo feel)
+
+Manuscript:
+Upload: 01_MANUSCRIPT_INTERIOR_108P.pdf
+
+Book Cover:
+Select: "Upload a cover you already have (print-ready PDF)"
+Upload: 02_COVER_WRAP_PRINT_READY.pdf
+
+AI-Generated Content Disclosure:
+- Did you use AI-based tools?  --> Select: "Yes"
+- Images:                      --> Select: "Some with extensive editing"
+- Tools used:                  --> Enter: OpenArt, Nano Banana 2
+- Text:                        --> Select: "No"
+
+Launch Previewer:
+Click "Launch Previewer" to approve the digital proof.
+
+
+================================================================================
+SCREEN 3: PAPERBACK RIGHTS & PRICING
+================================================================================
+
+Territories:
+Select: "All territories (worldwide rights)"
+
+Primary Marketplace:
+Amazon.com.au
+
+Pricing (Amazon.com.au):
+- List Price:   A$16.99
+- Print Cost:   A$5.28
+- Royalty (60%): A$4.91 net profit per copy sold!
+
+Worldwide Pricing:
+- Amazon.com (US):   $9.99  ($3.15 profit/copy)
+- Amazon.co.uk (UK): £7.99  (£2.50 profit/copy)
+
+Click: "Publish Your Paperback"!
+================================================================================

@@ -53,14 +53,14 @@ def make_title_page():
     
     # Title
     f_title = ImageFont.truetype(FONT_SNIGLET, 210)
-    for text, y in [("AUSSIE", 450), ("ANIMALS", 680)]:
+    for text, y in [("AUSSIE", 450), ("CUTIES", 680)]:
         bb = d.textbbox((0, 0), text, font=f_title, stroke_width=16)
         tw = bb[2] - bb[0]
         d.text(((W - tw) // 2 - bb[0], y), text, fill=255, stroke_width=16, stroke_fill=0, font=f_title)
         
     # Subtitle
-    f_sub = ImageFont.truetype(FONT_BALOO, 90)
-    sub = "CUTE & BOLD COLOURING BOOK"
+    f_sub = ImageFont.truetype(FONT_BALOO, 80)
+    sub = "A CUTE & COMFY COLOURING BOOK"
     bb = d.textbbox((0, 0), sub, font=f_sub)
     d.text(((W - (bb[2]-bb[0])) // 2 - bb[0], 980), sub, fill=0, font=f_sub)
     
@@ -97,7 +97,7 @@ def make_copyright_page():
     f_bold = ImageFont.truetype(FONT_BALOO, 54)
     
     lines = [
-        ("Aussie Animals: Cute & Bold Colouring Book", f_bold),
+        ("Aussie Cuties: A cute and comfy colouring book, perfect for animal lovers", f_bold),
         ("First Edition — October 2026", f_reg),
         ("", f_reg),
         ("Published by Gumleaf Kids Press", f_bold),
@@ -484,14 +484,14 @@ def make_full_cover_wrap():
     # 3. BACK COVER (Left side)
     # Title at top of back cover
     f_bktitle = ImageFont.truetype(FONT_SNIGLET, 130)
-    bk_t = "DISCOVER AUSTRALIA'S WILDLIFE!"
+    bk_t = "MEET YOUR AUSSIE CUTIES!"
     bb = d.textbbox((0, 0), bk_t, font=f_bktitle)
     d.text((38 + (2550 - (bb[2]-bb[0])) // 2 - bb[0], 240), bk_t, fill=(45, 30, 20), font=f_bktitle)
     
     # Marketing Blurb
     f_blurb = ImageFont.truetype(FONT_BALOO, 62)
     blurb_lines = [
-        "Hop into the wonderful world of Australian wildlife! From cuddly",
+        "Hop into the wonderful world of Aussie Cuties! From cuddly",
         "koalas asleep in gum trees to bounding kangaroos, cheeky quokkas,",
         "and playful dolphins, this delightful book is packed with 50 big,",
         "bold, and easy designs created specially for young artists."
@@ -592,7 +592,11 @@ def main():
     print("Total interior pages assembled:", len(interior_pages))
     assert len(interior_pages) == 108, "Page count must be exactly 108!"
     
-    interior_pdf_path = os.path.join(OUTPUT_DIR, "AUSSIE_ANIMALS_INTERIOR_108P.pdf")
+    FINAL_UPLOAD_DIR = os.path.join(os.path.dirname(ROOT), "KDP_FINAL_UPLOAD")
+    os.makedirs(FINAL_UPLOAD_DIR, exist_ok=True)
+    
+    interior_pdf_path = os.path.join(OUTPUT_DIR, "AUSSIE_CUTIES_INTERIOR_108P.pdf")
+    upload_interior_path = os.path.join(FINAL_UPLOAD_DIR, "01_MANUSCRIPT_INTERIOR_108P.pdf")
     print("Exporting Interior PDF to:", interior_pdf_path)
     interior_pages[0].save(
         interior_pdf_path,
@@ -601,13 +605,17 @@ def main():
         resolution=300.0,
         optimize=True
     )
+    import shutil
+    shutil.copyfile(interior_pdf_path, upload_interior_path)
     print("Interior PDF export complete! Size: %.2f MB" % (os.path.getsize(interior_pdf_path) / (1024*1024)))
     
     print("\n=== STEP 2: GENERATING FULL COVER WRAP (KDP SPECS) ===")
     cover_wrap = make_full_cover_wrap()
-    cover_png_path = os.path.join(OUTPUT_DIR, "AUSSIE_ANIMALS_COVER_WRAP.png")
-    cover_pdf_path = os.path.join(OUTPUT_DIR, "AUSSIE_ANIMALS_COVER_WRAP.pdf")
-    cover_small_path = os.path.join(OUTPUT_DIR, "AUSSIE_ANIMALS_COVER_WRAP_PREVIEW.png")
+    cover_png_path = os.path.join(OUTPUT_DIR, "AUSSIE_CUTIES_COVER_WRAP.png")
+    cover_pdf_path = os.path.join(OUTPUT_DIR, "AUSSIE_CUTIES_COVER_WRAP.pdf")
+    cover_small_path = os.path.join(OUTPUT_DIR, "AUSSIE_CUTIES_COVER_WRAP_PREVIEW.png")
+    upload_cover_path = os.path.join(FINAL_UPLOAD_DIR, "02_COVER_WRAP_PRINT_READY.pdf")
+    upload_preview_path = os.path.join(FINAL_UPLOAD_DIR, "COVER_PREVIEW.png")
     
     print("Saving cover PNG...")
     import time
@@ -622,6 +630,7 @@ def main():
     for attempt in range(4):
         try:
             cover_wrap.save(cover_pdf_path, resolution=300.0)
+            shutil.copyfile(cover_pdf_path, upload_cover_path)
             break
         except OSError:
             time.sleep(2)
@@ -630,12 +639,14 @@ def main():
     for attempt in range(4):
         try:
             preview_img.save(cover_small_path)
+            preview_img.save(upload_preview_path)
             break
         except OSError:
             time.sleep(2)
     
     print("Cover Wrap complete! PDF Size: %.2f MB" % (os.path.getsize(cover_pdf_path) / (1024*1024)))
     print("All files ready in:", OUTPUT_DIR)
+    print("Upload folder ready in:", FINAL_UPLOAD_DIR)
 
 if __name__ == "__main__":
     main()
