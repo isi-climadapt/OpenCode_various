@@ -13,7 +13,7 @@
 | Phase | What Happened | Key Decision |
 |---|---|---|
 | **Research** | 4 parallel research agents studied KDP strategy, niches, production, marketing; 500-book market analysis | Bold & Easy + kids crossover identified as the growth edge; A$13.99 = 60% royalty floor on .au |
-| **Branding** | Verified clean on Bing + Amazon AU | Pen name **Matilda Hayes** / Imprint **Gumleaf Kids Press** |
+| **Branding** | Verified clean on Bing + Amazon AU | Pen name **Matilda Hayes** / Imprint **Gumleaf Kids Press** — ✅ **ALREADY LOCKED, never re-verify** (see publishing/00-brand-identity.md) |
 | **Validation** | Live SERP census on .au + .com: zero incumbents >16 reviews in niche; "Bold & Easy" unoccupied on .com | GO verdict; differentiate on spec transparency, 108pp, back-matter, series |
 | **Tool Trials** | OpenArt (Nano Banana 2) vs Recraft (SVG) vs Gemini direct (N1/N2) bake-off | **OpenArt CLI wins**: best scene coherence, ~50 credits/page, commercial rights via subscription. Gemini direct cheaper per-call (~4¢) but output weaker + throttled; Recraft vectors gorgeous but 96 credits/gen + weaker scenes. **LOCKED: OpenArt for everything.** |
 | **Generation** | 50 pages via OpenArt; multiple failure modes found & fixed | Locked prompt suffix (rich-but-simple, white margins, no frames, no text in art) |
@@ -38,6 +38,7 @@
 
 ### Hard Rules (never break)
 
+0. **Brand is FIXED FOREVER:** Matilda Hayes (author) / Gumleaf Kids Press (imprint) — already locked & verified clean; no re-verification, no renaming, no second pen name for the kids line (adult lines get their own, TBD)
 1. **OpenArt CLI / nano-banana-2 for ALL generation** (interiors + covers) — never Gemini, never Recraft
 2. **All lettering typeset programmatically** (Baloo 2 / Sniglet / Pacifico) — never AI-generated text
 3. **API keys live in Windows user env vars only** — never in files, never in git
@@ -45,6 +46,7 @@
 5. One book = one folder (`book1`, `book2`...) with identical structure
 6. Full F1–F8 audit suite must pass + human contact-sheet review before any PDF export
 7. Cover follows the Coco Wyo formula (researched live bestseller pattern)
+8. Trend research = **100-book analysis only**, latest + most-sold bestsellers on Amazon .au + .com (no broad scrapes)
 
 ---
 
@@ -52,10 +54,15 @@
 
 ```
 ┌────────────────────────────────────────────────────────────────────┐
-│  STAGE 1: TREND SCOUT AGENT (research)                             │
-│  • Scan Amazon .au/.com bestsellers for kids colouring            │
-│  • Check seasonal calendar (publish 6–8 weeks pre-peak)          │
-│  • Output: ranked shortlist of 5–8 concepts with demand evidence   │
+│  STAGE 1: TREND SCOUT AGENT (research — 100-book analysis)         │
+│  Sample: 100 books ONLY — the LATEST + MOST-SOLD:                  │
+│  • 50 from Amazon.com.au bestseller lists (kids colouring/         │
+│    activity categories) + "Most Sold" / Movers & Shakers           │
+│  • 50 from Amazon.com bestseller lists (same categories)          │
+│  Priority: recency (new releases) + sales velocity (BSR) over      │
+│  breadth — no broad 500-book scrape                                │
+│  • Check seasonal calendar (publish 6–8 weeks pre-peak)           │
+│  • Output: ranked shortlist of 5–8 concepts with demand evidence    │
 └──────────────────────────┬─────────────────────────────────────────┘
                            ▼
 ┌────────────────────────────────────────────────────────────────────┐
