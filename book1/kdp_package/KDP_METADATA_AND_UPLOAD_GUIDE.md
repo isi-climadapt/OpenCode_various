@@ -31,26 +31,26 @@
   * First name: `Matilda`
   * Last name: `Hayes`
 * **Contributors:** Leave blank
-* **Description (HTML formatted for Amazon):**
+* **Description (Plain text, ready to paste directly into the KDP text box):**
 
-```html
-<p><b>Hop into the wonderful world of Australian wildlife with 50 big, bold, and delightfully cute colouring pages!</b></p>
+```text
+G'day! It's time to get cozy with Aussie Cuties!
 
-<p>Specially created by Australian author <i>Matilda Hayes</i>, this charming colouring book is packed with adorable koalas asleep in gum trees, bounding mother kangaroos with smiling joeys, cheeky quokkas taking selfies, playful dolphins, laughing kookaburras, and so much more!</p>
+Step into the heartwarming, sun-drenched world of Aussie Cuties. Meet 50 adorably chubby, cheerful Australian animal friends ready to brighten your day — from cuddly koalas dozing in gum trees to smiling quokkas, gentle mother kangaroos with happy joeys, playful dolphins, and curious wombats!
 
-<p>Every single illustration features <b>extra-thick, clean outlines</b> and generous open spaces, making it frustration-free and fun for toddlers, preschoolers, and kids of all ages. Plus, every page includes an <b>exciting fun fact</b> to learn while colouring!</p>
+Gently splash your colours, find your cozy corner, and let the fun begin!
 
-<p><b>What Makes This Book Extra Special:</b></p>
-<ul>
-  <li><b>50 Big & Bold Designs:</b> Featuring Australia's most beloved native wildlife, from wombats and platypuses to echidnas, bilbies, sea turtles, and sugar gliders.</li>
-  <li><b>Fascinating Fun Facts:</b> Discover surprising animal secrets on every single page!</li>
-  <li><b>Single-Sided Pages:</b> Every illustration is printed on its own sheet with a blank back to prevent marker bleed-through and make it easy to cut out and display.</li>
-  <li><b>Bonus Activity Pages:</b> Includes a "This Book Belongs To" page, Top Colouring Tips with a Colour Test Palette, a 50-Animal Art Gallery Checklist, and an official Young Artist Certificate of Completion!</li>
-  <li><b>Large Format:</b> 8.5 x 11 inch pages give plenty of room for creative little hands.</li>
-  <li><b>Perfect Gift:</b> Wonderful for quiet afternoons, road trips, plane travel, birthdays, and holiday gifts.</li>
-</ul>
+Aussie Cuties has sweet and irresistible illustrations for colouring fans of all ages, and includes:
 
-<p><i>Grab your favourite crayons, markers, or coloured pencils and bring Australia's most lovable creatures to life!</i></p>
+• 50 Hand-Crafted Pages: Filled with Australia’s most lovable native wildlife in heartwarming, cheerful scenes.
+• Large, Bold Designs: Extra-thick outlines with generous open spaces that are relaxing and easy to colour.
+• Fun Facts on Every Page: Discover amazing secrets about Australia’s wildlife as you colour!
+• Single-Sided Pages: Every design is printed on a single sheet with a blank back to prevent marker bleed-through and make displaying your artwork easy.
+• Bonus Activity Pages: Includes a Colour Test Palette, an Aussie Art Gallery Checklist to tick off all 50 animals, and an official Young Artist Certificate of Completion.
+• Crisp, High-Resolution Prints: 8.5 x 11 inch large format for clean, frustration-free colouring.
+• The Perfect Gift: A wonderful present for animal lovers, birthdays, holidays, travel, and quiet cozy afternoons.
+
+Grab your favourite colours, find your cozy corner, and bring Australia’s sweetest creatures to life!
 ```
 
 * **Publishing Rights:** Select *"I own the copyright and I hold necessary publishing rights."*
