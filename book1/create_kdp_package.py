@@ -6,7 +6,7 @@
 #   3. High-res preview PNGs for visual inspection
 
 import os, sys, re, json
-from PIL import Image, ImageDraw, ImageFont, ImageOps, ImageFilter, JpegImagePlugin
+from PIL import Image, ImageDraw, ImageFont, ImageOps, TiffImagePlugin
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 FONTS_DIR = os.path.join(ROOT, "fonts")
@@ -22,6 +22,15 @@ FONT_PACIFICO = os.path.join(FONTS_DIR, "Pacifico-Regular.ttf")
 
 # Canvas specs (8.5 x 11 in @ 300 DPI)
 W, H = 2550, 3300
+
+# Printed widths (px @ 300 DPI) of the AI art, and the source art they come from
+ART_BOX = 2150       # interior art fits a 2150 x 2150 box (~7.2 in)
+HERO_W = 2150        # front cover hero width
+COVER_HERO = os.path.join(ROOT, "kangaroo_frame_cropped.png")
+
+# Enlarging small AI art cannot add detail: it prints soft, and sharpening it only
+# adds halos. Refuse to build when art would print below this effective DPI.
+MIN_DPI = 270
 
 with open(CAPTIONS_FILE, encoding="utf-8") as f:
     CAPTIONS = json.load(f)
@@ -269,8 +278,8 @@ def make_art_page(i):
     img = Image.open(raw2_path).convert("L")
     img = ImageOps.autocontrast(img, cutoff=1)
     
-    # Fit into 2150x2150 (generous 0.66" margins - eliminates ALL KDP margin errors)
-    scale = min(2150 / img.width, 2150 / img.height)
+    # Fit into ART_BOX x ART_BOX (generous 0.66" margins - eliminates ALL KDP margin errors)
+    scale = min(ART_BOX / img.width, ART_BOX / img.height)
     img = img.resize((int(img.width * scale), int(img.height * scale)), Image.LANCZOS)
     img = img.point(lambda p: 0 if p < 110 else 255)
     
@@ -471,7 +480,6 @@ def make_full_cover_wrap():
     front_x2 = CW
     
     # 1. FRONT COVER (Right side)
-    # Rebuild front cover with razor-sharp kangaroo linework (UnsharpMask eliminates all print blur)
     fc_canvas = Image.new("RGB", (W, H), BG_COLOR)
     fc_d = ImageDraw.Draw(fc_canvas)
     
@@ -494,13 +502,12 @@ def make_full_cover_wrap():
     sbb = fc_d.textbbox((0, 0), sub, font=f_sub)
     fc_d.text(((W - (sbb[2]-sbb[0])) // 2 - sbb[0], 610), sub, fill=(80, 60, 50), font=f_sub)
     
-    # Kangaroo Hero: Resized & sharpened with UnsharpMask for high-res 300 DPI clarity
-    k_frame = Image.open(os.path.join(ROOT, "kangaroo_frame_cropped.png")).convert("RGB")
-    target_w = 2150
-    target_h = int(k_frame.height * (target_w / k_frame.width))
-    k_res = k_frame.resize((target_w, target_h), Image.LANCZOS)
-    k_res = k_res.filter(ImageFilter.UnsharpMask(radius=2.0, percent=220, threshold=1))
-    fc_canvas.paste(k_res, ((W - target_w) // 2, 730))
+    # Kangaroo Hero: no sharpening. UnsharpMask on enlarged art drew light halos
+    # around every outline; preflight() guarantees the source is near print size.
+    k_frame = Image.open(COVER_HERO).convert("RGB")
+    target_h = int(k_frame.height * (HERO_W / k_frame.width))
+    k_res = k_frame.resize((HERO_W, target_h), Image.LANCZOS)
+    fc_canvas.paste(k_res, ((W - HERO_W) // 2, 730))
     
     # Bottom: 50 BIG & EASY DESIGNS (No age groups)
     f_tag = ImageFont.truetype(FONT_BALOO, 68)
@@ -516,9 +523,9 @@ def make_full_cover_wrap():
     # Save standalone front cover too
     fc_canvas.save(os.path.join(ROOT, "front_cover_final.png"), dpi=(300, 300))
     
-    # Scale to full cover wrap height with bleed
-    front_cover_bleed = fc_canvas.resize((2588, 3375), Image.LANCZOS)
-    wrap.paste(front_cover_bleed, (front_x1, 0))
+    # Place at true size: trim starts at the spine, 38 px bleed top/bottom/right is
+    # plain background. (Resizing to 2588 x 3375 resampled and stretched the art.)
+    wrap.paste(fc_canvas, (front_x1, 38))
     
     # 2. SPINE (Center)
     # Clean warm spine with small vertical line or subtle tone
@@ -611,46 +618,70 @@ def make_full_cover_wrap():
 # MAIN EXECUTION
 # ==============================================================================
 
+def preflight():
+    """List every art file that would print below MIN_DPI."""
+    checks = [(os.path.join(RAW2_DIR, "page_%02d.png" % i), ART_BOX) for i in range(1, 51)]
+    checks.append((COVER_HERO, HERO_W))
+    low = []
+    for path, printed_px in checks:
+        with Image.open(path) as im:
+            src_px = max(im.size) if printed_px == ART_BOX else im.width
+        dpi = 300.0 * src_px / printed_px
+        if dpi < MIN_DPI:
+            low.append("  %-28s %4d px -> %d px printed = %3d DPI" % (os.path.basename(path), src_px, printed_px, dpi))
+    return low
+
+def to_print_bw(page, line_art):
+    """2x Lanczos to 600 DPI, then 1-bit. Pillow stores 1-bit pages losslessly (CCITT G4);
+    greyscale pages went in as quality-75 JPEG. Line art is thresholded for clean edges.
+    On text pages dark greys go solid black and only lighter greys (95+) are dithered,
+    so they still print lighter."""
+    big = page.resize((W * 2, H * 2), Image.LANCZOS)
+    if line_art:
+        return big.point(lambda p: 0 if p < 128 else 255).convert("1", dither=Image.Dither.NONE)
+    return big.point(lambda p: 0 if p < 95 else (255 if p > 235 else p)).convert("1")
+
 def main():
+    low = preflight()
+    if low:
+        print("LOW-RESOLUTION ART (needs %d+ DPI; enlarged AI art prints soft):" % MIN_DPI)
+        print("\n".join(low))
+        if "--allow-lowres" not in sys.argv:
+            sys.exit("Regenerate at 2K/4K (batch_generate.py / cover_build.py) or upscale 2-4x with "
+                     "Upscayl, no sharpening. Re-run with --allow-lowres to build anyway.")
+        print("--allow-lowres given: building anyway.\n")
+
     print("=== STEP 1: GENERATING 108 INTERIOR PAGES ===")
-    interior_pages = []
-    
-    print("Building front matter (pages 1-4)...")
-    interior_pages.append(make_title_page())       # Page 1
-    interior_pages.append(make_copyright_page())   # Page 2
-    interior_pages.append(make_belongs_to_page())  # Page 3
-    interior_pages.append(make_tips_page())        # Page 4
-    
-    print("Building 50 single-sided art pages (pages 5-104)...")
-    for i in range(1, 51):
-        art_page = make_art_page(i)
-        interior_pages.append(art_page)           # Odd page: Art
-        interior_pages.append(make_blank_page())   # Even page: Blank back
-        if i % 10 == 0:
-            print("  ...%d / 50 art pages built" % i)
-            
-    print("Building back matter (pages 105-108)...")
-    interior_pages.append(make_checklist_page())   # Page 105
-    interior_pages.append(make_blank_page())       # Page 106
-    interior_pages.append(make_certificate_page()) # Page 107
-    interior_pages.append(make_thank_you_page())   # Page 108
-    
-    print("Total interior pages assembled:", len(interior_pages))
-    assert len(interior_pages) == 108, "Page count must be exactly 108!"
-    
+    # (builder, is_line_art) in page order. Pages are built one at a time into a
+    # Group 4 TIFF, then the PDF is written frame by frame: 108 pages at 600 DPI
+    # would need ~3.6 GB if held in memory together.
+    plan = [(make_title_page, False), (make_copyright_page, False),       # Pages 1-2
+            (make_belongs_to_page, False), (make_tips_page, False)]       # Pages 3-4
+    for i in range(1, 51):                                                # Pages 5-104
+        plan += [(lambda i=i: make_art_page(i), True), (make_blank_page, True)]  # art, blank back
+    plan += [(make_checklist_page, False), (make_blank_page, True),       # Pages 105-106
+             (make_certificate_page, False), (make_thank_you_page, False)]  # Pages 107-108
+    assert len(plan) == 108, "Page count must be exactly 108!"
+
     FINAL_UPLOAD_DIR = os.path.join(os.path.dirname(ROOT), "KDP_FINAL_UPLOAD")
     os.makedirs(FINAL_UPLOAD_DIR, exist_ok=True)
-    
+
     interior_pdf_path = os.path.join(OUTPUT_DIR, "AUSSIE_CUTIES_INTERIOR_108P.pdf")
     upload_interior_path = os.path.join(FINAL_UPLOAD_DIR, "01_MANUSCRIPT_INTERIOR_108P.pdf")
     print("Exporting Interior PDF to:", interior_pdf_path)
-    interior_pages[0].save(
-        interior_pdf_path,
-        save_all=True,
-        append_images=interior_pages[1:],
-        resolution=300.0,
-        optimize=True
-    )
+    tif_path = os.path.join(OUTPUT_DIR, "_interior_pages.tif")
+    with open(tif_path, "w+b") as f:
+        tf = TiffImagePlugin.AppendingTiffWriter(f, True)
+        for n, (build, line_art) in enumerate(plan):
+            to_print_bw(build(), line_art).save(tf, format="TIFF", compression="group4")
+            tf.newFrame()
+            if (n + 1) % 20 == 0:
+                print("  ...%d / 108 pages built" % (n + 1))
+        tf.close()
+        del tf  # before f closes, or its finaliser seeks a closed file
+    with Image.open(tif_path) as pages:
+        pages.save(interior_pdf_path, save_all=True, resolution=600.0)
+    os.remove(tif_path)
     import shutil
     shutil.copyfile(interior_pdf_path, upload_interior_path)
     print("Interior PDF export complete! Size: %.2f MB" % (os.path.getsize(interior_pdf_path) / (1024*1024)))
@@ -675,7 +706,8 @@ def main():
     print("Saving cover PDF...")
     for attempt in range(4):
         try:
-            cover_wrap.save(cover_pdf_path, resolution=300.0)
+            # Pillow can only store RGB in a PDF as JPEG; its default quality 75 blurred fine detail
+            cover_wrap.save(cover_pdf_path, resolution=300.0, quality=100, subsampling=0)
             shutil.copyfile(cover_pdf_path, upload_cover_path)
             break
         except OSError:

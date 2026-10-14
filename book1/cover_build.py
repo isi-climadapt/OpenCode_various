@@ -6,13 +6,12 @@
 #
 # Usage: py cover_build.py [--only A|B|C]
 
-import os, sys, subprocess
+import os, sys
 from PIL import Image, ImageDraw, ImageFont
+from openart_cli import generate_image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 CONCEPTS = os.path.join(HERE, "cover_concepts")
-EXE = r"C:\Users\ibian\AppData\Local\Programs\openart\bin\openart.exe"
-MODEL = "nano-banana-2"
 FONT = os.path.join(HERE, "fonts", "Baloo2.ttf")
 W, H = 2550, 3300
 
@@ -42,9 +41,9 @@ def gen_hero(tag):
     path = os.path.join(CONCEPTS, "hero_%s.png" % tag)
     if os.path.exists(path) and os.path.getsize(path) > 10000 and "--regen" not in sys.argv:
         return path, "cached"
-    r = subprocess.run([EXE, "generate", "image", HERO_PROMPTS[tag], "--model", MODEL,
-                        "-o", path, "--quiet", "--yes"], capture_output=True, text=True, timeout=300)
-    return path, "ok" if r.returncode == 0 else "FAIL " + (r.stderr or r.stdout)[-120:]
+    # 4K: the hero prints ~7 in wide on the cover, so it needs 2150+ px of real detail
+    ok, msg = generate_image(HERO_PROMPTS[tag], path, resolution="4K")
+    return path, msg
 
 def assemble(tag):
     p = PALETTES[tag]

@@ -11,7 +11,7 @@
 [DRIVER]  batch_generate.py            ──┘         (OpenArt CLI)         (cache layer)        (2550x3300 final)
 ```
 
-1. **Generate:** OpenArt CLI (`openart.exe generate image --model nano-banana-2 -o raw2\<page>.png`), 6 parallel workers max (Starter throttles above). Caching: existing raw2 files >10KB are skipped.
+1. **Generate:** OpenArt CLI via `openart_cli.py` (`openart generate image --model nano-banana-2 --resolution 2K -o raw2\<page>.png`), 6 parallel workers max (Starter throttles above). Caching: existing raw2 files >10KB are skipped.
 2. **Post-process per page** (all in `pad_and_caption`):
    - Grayscale → `autocontrast(cutoff=1)`
    - **Aspect-preserving fit into 2400×2400** (`min(2400/w, 2400/h)` scale — NEVER blind-square-stretch)
@@ -90,7 +90,7 @@ py -c "from PIL import Image; ..."   # per PRODUCTION-STANDARD.md §6b scripts
 
 Script: `py cover_build.py [--regen] [--only A|B|C]` (per-book copy)
 
-1. **Hero via OpenArt** (`nano-banana-2`), coloured illustration prompt: "Children's colouring book cover illustration: [hero scene]. Bright/soft colours, kawaii cute style, chunky rounded shapes, centred, professional kids book cover art. No text, no words, no letters, no watermark."
+1. **Hero via OpenArt** (`nano-banana-2`, `--resolution 4K`), coloured illustration prompt: "Children's colouring book cover illustration: [hero scene]. Bright/soft colours, kawaii cute style, chunky rounded shapes, centred, professional kids book cover art. No text, no words, no letters, no watermark."
 2. **Assembly (always typeset, never AI lettering):**
    - Soft solid background + playful double rounded border frame
    - Title: Baloo 2, 300px, two lines, centred top
@@ -99,3 +99,14 @@ Script: `py cover_build.py [--regen] [--only A|B|C]` (per-book copy)
    - Badge line: "Ages 3-8 | 50 Big & Bold Designs with Fun Facts" (100px)
    - Author/imprint: "Matilda Hayes | Gumleaf Kids Press" (95px, grey)
 3. Design source: Amazon bestseller pattern research (Coco Wyo 8.7K reviews / FairyWren 1.5K reviews formula: one adorable coloured hero + chunky rounded title + clean soft background)
+
+## Print resolution rules (added after Ocean Friends printed soft)
+
+Ocean Friends and Aussie Cuties covers came out blurry because 931-1024 px AI art was enlarged ~2.2x to fill the page (~130-140 DPI), then `UnsharpMask` drew light halos round every outline, then Pillow saved the PDFs as quality-75 JPEG.
+
+- **Art must arrive near print size.** Interiors: 2K (2048 px) from OpenArt. Cover hero: 4K. If the CLI rejects `--resolution`, `openart_cli.py` falls back to the default size and says so; upscale those files 2-4x with Upscayl (no sharpening) before packaging.
+- **`create_kdp_package.py` refuses to build** when any art would print below 270 DPI and lists the files. `--allow-lowres` overrides it for drafts only.
+- **Never sharpen enlarged art.** Sharpening adds halos, not detail.
+- **Interior PDF:** every page is 600 DPI 1-bit, stored losslessly (CCITT Group 4). Line art is thresholded; light-grey text is dithered.
+- **Cover PDF:** JPEG at quality 100, no chroma subsampling. Front cover is placed at true size, not stretched into the bleed.
+- Check option names and credit cost before a big run: `openart model form nano-banana-2 text2image` and `openart model cost --model nano-banana-2`.

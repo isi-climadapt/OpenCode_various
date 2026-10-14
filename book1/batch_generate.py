@@ -2,15 +2,14 @@
 # Batch-generate 50 book pages via OpenArt CLI (Nano Banana 2), pad to print canvas, QA.
 # Usage: py batch_generate.py [--start N]
 
-import os, re, subprocess, sys, time
+import os, re, sys, time
 from concurrent.futures import ThreadPoolExecutor
+from openart_cli import generate_image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 PROMPTS_MD = os.path.join(HERE, "PAGE-GENERATION-PROMPTS.md")
 RAW2 = os.path.join(HERE, "raw2")       # native model output
 OUT = os.path.join(HERE, "raw")         # print-canvas pages
-EXE = r"C:\Users\ibian\AppData\Local\Programs\openart\bin\openart.exe"
-MODEL = "nano-banana-2"
 
 SUFFIX = ("Bold and easy coloring book page for kids ages 3-8. A rich but simple scene around the "
           "animal with 6 to 8 easy elements suitable for its habitat (trees, clouds, stars, waves, "
@@ -44,13 +43,9 @@ def generate(key, scene):
     path = os.path.join(RAW2, key + ".png")
     if os.path.exists(path) and os.path.getsize(path) > 10000:
         return key, "cached"
-    prompt = scene + " " + SUFFIX
-    r = subprocess.run([EXE, "generate", "image", prompt, "--model", MODEL,
-                        "-o", os.path.join(RAW2, key + ".png"), "--quiet", "--yes"],
-                       capture_output=True, text=True, timeout=300)
-    if r.returncode == 0:
-        return key, "ok"
-    return key, "FAIL: " + (r.stderr or r.stdout)[-200:]
+    # 2K (2048 px) fills the 2150 px art box at ~286 DPI; 1K needed a 2x enlargement
+    ok, msg = generate_image(scene + " " + SUFFIX, path, resolution="2K")
+    return key, msg
 
 def pad_and_caption(src, key, caption_text):
     from PIL import Image, ImageOps, ImageDraw, ImageFont
