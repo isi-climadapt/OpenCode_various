@@ -35,10 +35,13 @@
 | F6 | Art/caption overlap | gap-band ink scan | **fixed y-paste, art ≤2150px, caption at 2860** |
 | F7 | API throttling (parallel) | exit + stderr | ≤6 workers, retry failed |
 | F8 | OneDrive file lock on save | OSError | retry ×3 with sleep |
+| F9 | Caption doesn't match the image (wrong animal/scene) | `Author 1\scripts\caption_coherence.py` — stem-matches every caption against its page's scene text | rewrite caption to name what is actually in the scene; audit runs after EVERY typeset, must pass before contact sheet / PDF export |
+| F10 | Cover text overflows the safe zone (KDP previewer flags it) | back-cover title ink extends past x 150..2476 of the back panel | auto-shrink title font until width ≤ 2230px (baked into all create_cover_wrap scripts); always verify title ink extents after wrap build |
 
 ### Hard Rules (never break)
 
-0. **Brand is FIXED FOREVER:** Matilda Hayes (author) / Gumleaf Kids Press (imprint) — already locked & verified clean; no re-verification, no renaming, no second pen name for the kids line (adult lines get their own, TBD)
+0. **Author folder structure:** every pen name gets a top-level folder (`Author 1\`, `Author 2\`...) containing its own `publishing\` (brand identity, research, validations), `book1\`, `book2\`..., `scripts\` and upload folders. Author 1 = **Matilda Hayes / Gumleaf Kids Press** (verified brand). Author 2 = new pen name + different branding style, brand lock required before production (rule 0's verification applies new)
+0a. **Brand is FIXED FOREVER per author:** Matilda Hayes (author) / Gumleaf Kids Press (imprint) — already locked & verified clean; no re-verification, no renaming, no second pen name for the kids line (adult lines get their own, TBD)
 1. **OpenArt CLI / nano-banana-2 for ALL generation** (interiors + covers) — never Gemini, never Recraft
 2. **All lettering typeset programmatically** (Baloo 2 / Sniglet / Pacifico) — never AI-generated text
 3. **API keys live in Windows user env vars only** — never in files, never in git
@@ -47,6 +50,8 @@
 6. Full F1–F8 audit suite must pass + human contact-sheet review before any PDF export
 7. Cover follows the Coco Wyo formula (researched live bestseller pattern)
 8. Trend research = **100-book analysis only**, latest + most-sold bestsellers on Amazon .au + .com (no broad scrapes)
+9. **F9 caption↔image coherence must pass** before any contact-sheet review or PDF export — every caption must describe what is actually in its image (`scripts/caption_coherence.py`, runs automatically after every batch typeset)
+10. **Uniform caption typography**: fixed font size across all pages of a book (80px @300DPI), word-wrap to max 2 lines — never per-page shrinking
 
 ---
 

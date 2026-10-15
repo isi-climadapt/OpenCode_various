@@ -1,0 +1,159 @@
+﻿================================================================================
+AMAZON KDP UPLOAD GUIDE & METADATA (READY TO COPY & PASTE)
+Book Title: Aussie Cuties at Halloween
+================================================================================
+
+All files you need to upload to Amazon KDP are in this folder:
+C:\Users\ibian\Desktop\OpenCode_Various\Author 1\book3\KDP_FINAL_UPLOAD\
+
+FILES TO UPLOAD:
+1. Manuscript (Interior):  01_MANUSCRIPT_INTERIOR_108P.pdf
+2. Cover:                  02_COVER_WRAP_PRINT_READY.pdf
+3. Cover Visual Preview:   COVER_PREVIEW.png
+
+TIMING NOTE: The 2026 Halloween window is nearly closed (peak demand Oct 1-31,
+KDP review 3-10 business days). Upload TODAY to catch the late-October tail â€”
+and the book becomes an evergreen annual title for Halloween 2027+.
+
+
+================================================================================
+SCREEN 1: PAPERBACK DETAILS
+================================================================================
+
+Language:
+English
+
+Book Title (Copy exactly):
+Aussie Cuties at Halloween
+
+Subtitle (Optional) (Copy exactly):
+A cute and spooky colouring book, perfect for Halloween
+
+Series (Optional):
+Click "Add to series"
+- Series Title: Aussie Cuties      <-- EXACTLY the same series title as Books 1-2,
+- Main Title: Book 3                   so Amazon links all three books on one shelf.
+
+Edition Number:
+(Leave blank)
+
+Primary Author:
+- First name: Matilda
+- Last name:  Hayes
+
+Contributors:
+(Leave completely blank)
+
+Description (Copy and paste directly into the KDP text box):
+--------------------------------------------------------------------------------
+G'day! It's time to get spooky â€” the Aussie Cuties way!
+
+Trick or treat! Step into the delightfully quirky world of Aussie Cuties at Halloween. Meet 50 adorably spooky friends ready for a not-so-scary adventure â€” from a sleepy koala ghost and a potion-brewing kangaroo witch to a grinning wombat vampire, a howly dingo werewolf, and a baby joey zooming through the pumpkin patch!
+
+Grab your favourite colours, find your cozy corner, and let the fun begin!
+
+Aussie Cuties at Halloween has sweet and irresistible illustrations for colouring fans of all ages, and includes:
+
+â€¢ 50 Hand-Crafted Pages: Eerie-but-adorable Halloween scenes starring Aussie animals â€” spooky, never scary!
+â€¢ Large, Bold Designs: Extra-thick outlines with generous open spaces that are relaxing and easy to colour.
+â€¢ Fun Facts on Every Page: Discover amazing secrets about Halloween and Australia's wildlife as you colour!
+â€¢ Single-Sided Pages: Every design is printed on a single sheet with a blank back to prevent marker bleed-through and make displaying your artwork easy.
+â€¢ Bonus Activity Pages: Includes a Colour Test Palette, a Spooky Friends Checklist to tick off all 50 designs, and an official Spooky Artist Certificate of Completion.
+â€¢ Crisp, High-Resolution Prints: 8.5 x 11 inch large format for clean, frustration-free colouring.
+â€¢ The Perfect Gift: A wonderful present for Halloween treat bags, parties, trick-or-treaters, and cozy October afternoons.
+
+Grab your lantern, find your cozy corner, and bring the cutest Halloween Down Under to life!
+--------------------------------------------------------------------------------
+
+Publishing Rights:
+Select: "I own the copyright and I hold necessary publishing rights."
+
+Primary Audience / Sexually Explicit:
+Select: "No"
+
+Reading Age:
+(Leave blank to keep universal appeal)
+
+Primary Marketplace:
+Amazon.com.au
+
+Categories (Click "Choose categories"):
+1. Children's Books > Activities, Crafts & Games > Activity Books > Coloring Books
+2. Children's Books > Holidays & Celebrations > Halloween
+3. Children's Books > Animals > Mammals
+(If exact paths differ in the live picker, choose the closest match â€”
+keep one Coloring Books + one Halloween category.)
+
+Classify as any of these types?
+[ ] Low-content book   --> LEAVE UNCHECKED! (Do NOT check this box!)
+[ ] Large-print book   --> LEAVE UNCHECKED!
+
+Keywords (Copy one into each of the 7 boxes):
+Box 1: halloween colouring book for kids
+Box 2: spooky coloring book bold and easy
+Box 3: cute not scary halloween book children
+Box 4: aussie animals halloween ghost witch
+Box 5: halloween coloring book ages 4-8 pumpkin
+Box 6: halloween gift book boys girls toddlers
+Box 7: australian animals colouring book kids
+
+Publication Date:
+Select: "Publication date and release date are the same"
+
+Release Date:
+Select: "Release my book for sale now"
+
+
+================================================================================
+SCREEN 2: PAPERBACK CONTENT
+================================================================================
+
+ISBN:
+Select: "Assign free KDP ISBN"
+
+Print Options:
+- Interior & paper type: Black & white interior with white paper
+- Trim Size:             8.5 x 11 in (21.59 x 27.94 cm)
+- Bleed settings:        No Bleed
+- Cover finish:          Matte (Recommended for the cozy Coco Wyo feel)
+
+Manuscript:
+Upload: 01_MANUSCRIPT_INTERIOR_108P.pdf
+
+Book Cover:
+Select: "Upload a cover you already have (print-ready PDF)"
+Upload: 02_COVER_WRAP_PRINT_READY.pdf
+
+AI-Generated Content Disclosure:
+- Did you use AI-based tools?  --> Select: "Yes"
+- Images:                      --> Select: "Some with extensive editing"
+- Tools used:                  --> Enter: OpenArt, Nano Banana 2
+- Text:                        --> Select: "No"
+
+Launch Previewer:
+Click "Launch Previewer" to approve the digital proof.
+
+
+================================================================================
+SCREEN 3: PAPERBACK RIGHTS & PRICING
+================================================================================
+
+Territories:
+Select: "All territories (worldwide rights)"
+
+Primary Marketplace:
+Amazon.com.au
+
+Pricing (Amazon.com.au):
+- List Price:   A$16.99
+- Print Cost:   A$5.28
+- Royalty (60%): A$4.91 net profit per copy sold!
+
+Worldwide Pricing:
+- Amazon.com (US):   $9.99  ($3.15 profit/copy)
+- Amazon.co.uk (UK): Â£7.99  (Â£2.50 profit/copy)
+
+Click: "Publish Your Paperback"!
+================================================================================
+
+
