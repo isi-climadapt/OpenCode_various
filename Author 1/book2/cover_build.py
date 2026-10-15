@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # Book 2 — Front cover options builder (Coco Wyo bestseller formula, locked):
 # cream bg + double rounded border + Sniglet bubble title + Pacifico author +
-# coloured kawaii hero (UnsharpMask) + Baloo subtitle + "50 BIG & EASY DESIGNS".
+# coloured kawaii hero (2K, not sharpened) + Baloo subtitle + "50 BIG & EASY DESIGNS".
 # Usage: py cover_build.py            (assembles any existing cover_hero_[ABC].png)
 #        py cover_build.py --panel    (3-up choice panel)
 
 import os, sys, time
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = os.path.join(HERE, "fonts")
@@ -15,6 +15,7 @@ FONT_BALOO = os.path.join(FONTS, "Baloo2.ttf")
 FONT_PACIFICO = os.path.join(FONTS, "Pacifico-Regular.ttf")
 
 W, H = 2550, 3300
+MIN_DPI = 270
 BG = (246, 237, 225)
 DARK = (35, 25, 20)
 SUB = (80, 60, 50)
@@ -74,11 +75,14 @@ def build_front(hero_tag):
     sbb = d.textbbox((0, 0), sub, font=f_sub)
     d.text(((W - (sbb[2] - sbb[0])) // 2 - sbb[0], 1130), sub, fill=SUB, font=f_sub)
 
-    # hero: aspect-preserving fit into 1650px box, centred, sharpened for print
+    # hero: aspect-preserving fit into 1650px box, centred. No sharpening: on
+    # enlarged art it only draws light halos round the outlines.
     hero = Image.open(hero_path).convert("RGB")
     scale = min(1650 / hero.width, 1650 / hero.height)
+    dpi = 300.0 / scale
+    if dpi < MIN_DPI:
+        print("WARNING: %s prints at %d DPI (needs %d+); regenerate at 2K" % (os.path.basename(hero_path), dpi, MIN_DPI))
     hero = hero.resize((int(hero.width * scale), int(hero.height * scale)), Image.LANCZOS)
-    hero = hero.filter(ImageFilter.UnsharpMask(radius=2.0, percent=220, threshold=1))
     hx = (W - hero.width) // 2
     hy = 1245 + (1650 - hero.height) // 2
     canvas.paste(hero, (hx, hy))

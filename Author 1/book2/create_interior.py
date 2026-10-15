@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Book 2 — KDP Interior Packager: Great Barrier Reef Ocean Friends
-# Generates 108-page interior PDF @ 300 DPI, 8.5x11in B&W, no-bleed, margins >= 0.53in.
+# Generates 108-page interior PDF, 8.5x11in, 600 DPI 1-bit lossless, no-bleed, margins >= 0.53in.
 # Engine copied from book1/create_kdp_package.py (Stage 4 locked layout), bugs fixed,
 # content swapped for Book 2. Cover is Stage 5 (separate script).
 # Usage: py create_interior.py
@@ -286,7 +286,10 @@ def make_art_page(i):
     # F11: vector-trace the native art -> crisp at 300 DPI (no upscale softness/halos)
     sys.path.append(os.path.join(os.path.dirname(ROOT), "scripts"))
     from vectorize_line_art import vectorize_line_art
-    img = vectorize_line_art(raw2_path, None, target_w=2230, target_h=2520)
+    # Trace at 2x and reduce with Lanczos: the anti-aliased edges survive to the
+    # 600 DPI threshold in to_print_bw instead of 1/300 in stair-steps.
+    img = vectorize_line_art(raw2_path, None, target_w=2230 * 2, target_h=2520 * 2)
+    img = img.resize((img.width // 2, img.height // 2), Image.LANCZOS)
 
     page = Image.new("L", (W, H), 255)
     x_p = (W - img.width) // 2
@@ -481,44 +484,47 @@ def make_thank_you_page():
     return page
 
 
+def to_print_bw(page, line_art):
+    """2x Lanczos to 600 DPI, then 1-bit (same as book1). Line art is thresholded for
+    clean edges. On text pages dark greys go solid black and only lighter greys (95+)
+    are dithered, so they still print lighter."""
+    big = page.resize((W * 2, H * 2), Image.LANCZOS)
+    if line_art:
+        return big.point(lambda p: 0 if p < 128 else 255).convert("1", dither=Image.Dither.NONE)
+    return big.point(lambda p: 0 if p < 95 else (255 if p > 235 else p)).convert("1")
+
+
 def main():
     make_hero_crop()
     print("=== STEP 1: GENERATING 108 INTERIOR PAGES ===")
-    interior_pages = []
-
-    print("Building front matter (pages 1-4)...")
-    interior_pages.append(make_title_page())
-    interior_pages.append(make_copyright_page())
-    interior_pages.append(make_belongs_to_page())
-    interior_pages.append(make_tips_page())
-
-    print("Building 50 single-sided art pages (pages 5-104)...")
-    for i in range(1, 51):
-        interior_pages.append(make_art_page(i))
-        interior_pages.append(make_blank_page())
-        if i % 10 == 0:
-            print("  ...%d / 50 art pages built" % i)
-
-    print("Building back matter (pages 105-108)...")
-    interior_pages.append(make_checklist_page())
-    interior_pages.append(make_blank_page())
-    interior_pages.append(make_certificate_page())
-    interior_pages.append(make_thank_you_page())
-
-    print("Total interior pages assembled:", len(interior_pages))
-    assert len(interior_pages) == 108, "Page count must be exactly 108!"
+    # (builder, is_line_art) in page order. Each page is built, converted to 600 DPI
+    # 1-bit and written straight to disk: 108 pages at 600 DPI won't fit in memory.
+    plan = [(make_title_page, False), (make_copyright_page, False),       # pages 1-4
+            (make_belongs_to_page, False), (make_tips_page, False)]
+    for i in range(1, 51):                                                  # pages 5-104
+        plan += [(lambda i=i: make_art_page(i), True), (make_blank_page, True)]
+    plan += [(make_checklist_page, False), (make_blank_page, True),         # pages 105-108
+             (make_certificate_page, False), (make_thank_you_page, False)]
+    assert len(plan) == 108, "Page count must be exactly 108!"
 
     interior_pdf_path = os.path.join(OUTPUT_DIR, "REEF_OCEAN_FRIENDS_INTERIOR_108P.pdf")
     upload_interior_path = os.path.join(FINAL_UPLOAD_DIR, "01_MANUSCRIPT_INTERIOR_108P.pdf")
-    print("Exporting Interior PDF (LOSSLESS img2pdf — no JPEG artifacts) to:", interior_pdf_path)
+    print("Exporting Interior PDF (600 DPI 1-bit, lossless img2pdf) to:", interior_pdf_path)
     import img2pdf
     page_png_dir = os.path.join(OUTPUT_DIR, "pages_png")
     os.makedirs(page_png_dir, exist_ok=True)
     png_paths = []
-    for idx, pg in enumerate(interior_pages, start=1):
+    for idx, (builder, line_art) in enumerate(plan, start=1):
         pp = os.path.join(page_png_dir, "pp_%03d.png" % idx)
-        save_png(pg, pp)
+        bw = to_print_bw(builder(), line_art)
+        for attempt in range(4):  # F8 OneDrive lock retry
+            try:
+                bw.save(pp, dpi=(600, 600)); break
+            except OSError:
+                time.sleep(2 * (attempt + 1))
         png_paths.append(pp)
+        if idx % 20 == 0:
+            print("  ...%d / 108 pages built" % idx)
     for attempt in range(4):
         try:
             with open(interior_pdf_path, "wb") as fh:
