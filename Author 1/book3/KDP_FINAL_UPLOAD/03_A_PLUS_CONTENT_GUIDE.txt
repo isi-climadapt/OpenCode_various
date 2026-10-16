@@ -3,37 +3,47 @@ AMAZON A+ CONTENT UPLOAD GUIDE (READY TO COPY & PASTE)
 Book Title: Aussie Cuties at Halloween
 ================================================================================
 
-Images to upload are in: KDP_FINAL_UPLOAD\03_A_PLUS_CONTENT\
-Use the plain files, not the _2x copies in aplus\ (those are for modules that ask for more pixels).
+Images to upload: the 03_A_PLUS_CONTENT folder inside KDP_FINAL_UPLOAD.
+They are 2x Amazon's minimum size (1940 x 600 and 1940 x 1200), so they stay sharp in
+KDP's preview and on high-resolution screens. Don't upload the 970 px files in aplus\.
 
-BEFORE YOU START: KDP doesn't publish module sizes. Check the module you pick asks
-for the size listed below. If it asks for more, use the _2x file from aplus\.
+BEFORE YOU START: KDP doesn't publish module sizes. The sizes below are minimums from
+third-party guides. If KDP rejects a larger file, use the 970 px version from aplus\.
+
+MODULE TABLE
+
+| # | Module | Image | Alt text |
+|---|---|---|---|
+| 1 | Standard Image & Light Text Overlay (970 x 300 minimum) | `aplus_1_banner_1940x600.jpg` | Aussie Cuties at Halloween colouring book by Matilda Hayes, cover and kangaroo witch stirring a cauldron page |
+| 2 | Standard Image Header With Text (970 x 600 minimum) | `aplus_2_features_1940x1200.jpg` | Ghost koala and pumpkin-carving quokka colouring pages with the book's features |
+| 3 | Standard Image Header With Text (970 x 600 minimum) | `aplus_3_single_sided_1940x1200.jpg` | 8.5 by 11 inch book with single-sided colouring pages |
+| 4 | Standard Image Header With Text (970 x 600 minimum) | `aplus_4_sample_grid_1940x1200.jpg` | Six sample pages: koala and wombat, kookaburra, bilby, bats, witch's koala, Halloween party |
 
 STEPS
 1. KDP > Marketing (top menu) > A+ Content card.
 2. Choose the marketplace (start with Amazon.com) > Manage A+ Content.
 3. Start creating A+ content. Name: "Aussie Cuties at Halloween A+" (readers don't see it). Language: English.
-4. Add these four modules in order. Upload the image and paste the alt text.
+4. Add the four modules in table order. Upload the image and paste the alt text.
    Leave text fields empty (the images carry their text). If KDP insists on a
    headline, use the one listed.
 
-   MODULE 1: Standard Image & Light Text Overlay (970 x 300)
-     Image:    aplus_1_banner_970x300.jpg
+   MODULE 1: Standard Image & Light Text Overlay (970 x 300 minimum)
+     Image:    aplus_1_banner_1940x600.jpg
      Alt text: Aussie Cuties at Halloween colouring book by Matilda Hayes, cover and kangaroo witch stirring a cauldron page
      Headline (only if required): Aussie Cuties at Halloween
 
-   MODULE 2: Standard Image Header With Text (970 x 600)
-     Image:    aplus_2_features_970x600.jpg
+   MODULE 2: Standard Image Header With Text (970 x 600 minimum)
+     Image:    aplus_2_features_1940x1200.jpg
      Alt text: Ghost koala and pumpkin-carving quokka colouring pages with the book's features
      Headline (only if required): What's inside
 
-   MODULE 3: Standard Image Header With Text (970 x 600)
-     Image:    aplus_3_single_sided_970x600.jpg
+   MODULE 3: Standard Image Header With Text (970 x 600 minimum)
+     Image:    aplus_3_single_sided_1940x1200.jpg
      Alt text: 8.5 by 11 inch book with single-sided colouring pages
      Headline (only if required): Single-sided pages
 
-   MODULE 4: Standard Image Header With Text (970 x 600)
-     Image:    aplus_4_sample_grid_970x600.jpg
+   MODULE 4: Standard Image Header With Text (970 x 600 minimum)
+     Image:    aplus_4_sample_grid_1940x1200.jpg
      Alt text: Six sample pages: koala and wombat, kookaburra, bilby, bats, witch's koala, Halloween party
      Headline (only if required): Spooky, never scary
 

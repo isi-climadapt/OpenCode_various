@@ -53,7 +53,14 @@
 8. Trend research = **100-book analysis only**, latest + most-sold bestsellers on Amazon .au + .com (no broad scrapes)
 9. **F9 caption↔image coherence must pass** before any contact-sheet review or PDF export — every caption must describe what is actually in its image (`scripts/caption_coherence.py`, runs automatically after every batch typeset)
 10. **Uniform caption typography**: fixed font size across all pages of a book (80px @300DPI), word-wrap to max 2 lines — never per-page shrinking
-11. **Every book ships with A+ Content (Stage 7).** Run `aplus_build.py` after the final interior + cover exist. It must produce the 4 module images AND `KDP_FINAL_UPLOAD\03_A_PLUS_CONTENT_GUIDE.txt` — the step-by-step guide with, for each module, the KDP module to pick, the image file, the alt text and a fallback headline, filled in for this book. Show the user the 4 drafts before anything goes to KDP
+11. **Every book ships with A+ Content (Stage 7).** Run `aplus_build.py` after the final interior + cover exist. It must produce the 4 module images AND `KDP_FINAL_UPLOAD\03_A_PLUS_CONTENT_GUIDE.txt` — the step-by-step guide with, for each module, the KDP module to pick, the image file, the alt text and a fallback headline, filled in for this book. Show the user the 4 drafts before anything goes to KDP. **Upload the 2x files** (1940 × 600 / 1940 × 1200): Amazon's 970 px sizes are minimums, and a 970 px file looks pixelated in KDP's preview and on high-resolution screens. **Every A+ hand-off ends with this table in the reply**, one per book (the script prints it, and it's at the top of the guide):
+
+    | # | Module | Image | Alt text |
+    |---|---|---|---|
+    | 1 | Standard Image & Light Text Overlay (970 x 300 minimum) | `aplus_1_banner_1940x600.jpg` | … |
+    | 2 | Standard Image Header With Text (970 x 600 minimum) | `aplus_2_features_1940x1200.jpg` | … |
+    | 3 | Standard Image Header With Text (970 x 600 minimum) | `aplus_3_single_sided_1940x1200.jpg` | … |
+    | 4 | Standard Image Header With Text (970 x 600 minimum) | `aplus_4_sample_grid_1940x1200.jpg` | … |
 
 ---
 
@@ -131,16 +138,19 @@
 │  STAGE 7: A+ CONTENT AGENT (Amazon product page)                  │
 │  Tool: aplus_build.py (edit only the BOOK settings block)          │
 │  Pattern: #1 Oceans & Seas bestseller (Coco Wyo "Ocean Scene")     │
-│  • Module 1: brand banner + book mockup        970 x 300           │
-│  • Module 2: features + 2 sample pages         970 x 600           │
-│  • Module 3: single-sided pages explainer      970 x 600           │
-│  • Module 4: 6-page sample grid                970 x 600           │
+│  • Module 1: brand banner + book mockup        1940 x 600 (2x)     │
+│  • Module 2: features + 2 sample pages         1940 x 1200 (2x)    │
+│  • Module 3: single-sided pages explainer      1940 x 1200 (2x)    │
+│  • Module 4: 6-page sample grid                1940 x 1200 (2x)    │
+│    (2x Amazon's 970 px minimum; 970 px looks pixelated in KDP)     │
 │  • Sample pages rendered from the print PDF (shows the real book)  │
 │  • Human checkpoint: user approves the 4 drafts                    │
 │  • Output: KDP_FINAL_UPLOAD/03_A_PLUS_CONTENT/ (4 images) +        │
 │    03_A_PLUS_CONTENT_GUIDE.txt — steps + per-module table:         │
 │    module to pick | image | alt text | fallback headline,          │
 │    ISBN/ASIN to apply it to, repeat per marketplace                │
+│  • Reply to the user ends with the # | Module | Image | Alt text    │
+│    table for each book (rule 11)                                   │
 └────────────────────────────────────────────────────────────────────┘
 ```
 

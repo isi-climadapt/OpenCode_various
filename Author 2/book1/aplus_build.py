@@ -8,9 +8,10 @@
 # NEW BOOK: copy this file into the book folder and edit only BOOK below.
 #
 # Usage: py aplus_build.py
-#   -> aplus/aplus_1_banner_970x300.jpg ... (+ _2x masters)
+#   -> aplus/aplus_1_banner_1940x600.jpg ... (upload size, 2x Amazon's minimum)
+#      + aplus/aplus_1_banner_970x300.jpg ... (minimum-size fallback)
 #   -> KDP_FINAL_UPLOAD/03_A_PLUS_CONTENT/ (the 4 upload images)
-#   -> KDP_FINAL_UPLOAD/03_A_PLUS_CONTENT_GUIDE.txt (steps + module table)
+#   -> KDP_FINAL_UPLOAD/03_A_PLUS_CONTENT_GUIDE.txt (module table + steps; table also printed)
 
 import os, math, random, shutil
 import fitz
@@ -188,13 +189,15 @@ def icon(d, kind, cx, cy, r):
             d.line([(cx - k * 0.35, yy), (cx + k * 0.35, yy)], fill=(80, 160, 200), width=3 * S)
 
 def save(img, name, w, h):
+    """Write the 2x upload file and a minimum-size fallback. Returns the upload file name.
+    Amazon's sizes are minimums: KDP's previews and high-resolution screens enlarge a
+    970 px file and it looks pixelated, so the 2x file is the one to upload."""
     os.makedirs(OUT, exist_ok=True)
-    img.save(os.path.join(OUT, "%s_%dx%d_2x.jpg" % (name, w, h)), quality=92, subsampling=0)
-    small = img.resize((w, h), Image.LANCZOS)
-    path = os.path.join(OUT, "%s_%dx%d.jpg" % (name, w, h))
-    small.save(path, quality=92, subsampling=0)
-    print(name, small.size, "%.0f KB" % (os.path.getsize(path) / 1024))
-    return os.path.basename(path)
+    big = os.path.join(OUT, "%s_%dx%d.jpg" % (name, w * S, h * S))
+    img.save(big, quality=92, subsampling=0)
+    img.resize((w, h), Image.LANCZOS).save(os.path.join(OUT, "%s_%dx%d.jpg" % (name, w, h)), quality=92, subsampling=0)
+    print(name, img.size, "%.0f KB" % (os.path.getsize(big) / 1024))
+    return os.path.basename(big)
 
 # --- Module 1: brand banner with book mockup (970 x 300) -----------------------
 def banner():
@@ -297,37 +300,49 @@ def grid():
 
 # --- Upload guide: the module table, filled in for this book -------------------
 def write_guide(files):
-    os.makedirs(os.path.join(UPLOAD, "03_A_PLUS_CONTENT"), exist_ok=True)
+    """Copy the upload images into KDP_FINAL_UPLOAD and write the copy-paste guide.
+    The module table is also printed so the agent can show it in its reply (pipeline rule 11)."""
+    dest = os.path.join(UPLOAD, "03_A_PLUS_CONTENT")
+    os.makedirs(dest, exist_ok=True)
+    for old in os.listdir(dest):  # drop images from earlier runs (e.g. 970 px files)
+        if old.lower().endswith(".jpg") and old not in files:
+            os.remove(os.path.join(dest, old))
     for f in files:
-        shutil.copyfile(os.path.join(OUT, f), os.path.join(UPLOAD, "03_A_PLUS_CONTENT", f))
+        shutil.copyfile(os.path.join(OUT, f), os.path.join(dest, f))
     feat = " and ".join(a for _, a in BOOK["feature_pages"])
     grid_names = ", ".join(a for _, a in BOOK["grid_pages"])
     rows = [
-        ("1", "Standard Image & Light Text Overlay (970 x 300)", files[0],
+        ("1", "Standard Image & Light Text Overlay (970 x 300 minimum)", files[0],
          "%s colouring book by %s, cover and %s page" % (BOOK["title"], BOOK["author"], BOOK["banner_page"][1]),
          BOOK["title"]),
-        ("2", "Standard Image Header With Text (970 x 600)", files[1],
-         "%s colouring pages with the book's features" % feat.capitalize(), "What's inside"),
-        ("3", "Standard Image Header With Text (970 x 600)", files[2],
+        ("2", "Standard Image Header With Text (970 x 600 minimum)", files[1],
+         "%s colouring pages with the book's features" % (feat[:1].upper() + feat[1:]), "What's inside"),
+        ("3", "Standard Image Header With Text (970 x 600 minimum)", files[2],
          "8.5 by 11 inch book with single-sided colouring pages", "Single-sided pages"),
-        ("4", "Standard Image Header With Text (970 x 600)", files[3],
+        ("4", "Standard Image Header With Text (970 x 600 minimum)", files[3],
          "Six sample pages: %s" % grid_names, BOOK["grid_title"]),
     ]
+    table = ["| # | Module | Image | Alt text |", "|---|---|---|---|"] + \
+            ["| %s | %s | `%s` | %s |" % (n, mod, f, alt) for n, mod, f, alt, _ in rows]
     find = (BOOK["isbn"] or "the paperback ISBN (KDP > Bookshelf)") + \
            (" or ASIN " + BOOK["asin"] if BOOK["asin"] else "")
     L = ["=" * 80, "AMAZON A+ CONTENT UPLOAD GUIDE (READY TO COPY & PASTE)",
          "Book Title: " + BOOK["title"], "=" * 80, "",
-         "Images to upload are in: KDP_FINAL_UPLOAD\\03_A_PLUS_CONTENT\\",
-         "Use the plain files, not the _2x copies in aplus\\ (those are for modules that ask for more pixels).",
+         "Images to upload: the 03_A_PLUS_CONTENT folder inside KDP_FINAL_UPLOAD.",
+         "They are 2x Amazon's minimum size (1940 x 600 and 1940 x 1200), so they stay sharp in",
+         "KDP's preview and on high-resolution screens. Don't upload the 970 px files in aplus\\.",
          "",
-         "BEFORE YOU START: KDP doesn't publish module sizes. Check the module you pick asks",
-         "for the size listed below. If it asks for more, use the _2x file from aplus\\.",
+         "BEFORE YOU START: KDP doesn't publish module sizes. The sizes below are minimums from",
+         "third-party guides. If KDP rejects a larger file, use the 970 px version from aplus\\.",
+         "",
+         "MODULE TABLE",
+         ""] + table + [
          "",
          "STEPS",
          "1. KDP > Marketing (top menu) > A+ Content card.",
          "2. Choose the marketplace (start with Amazon.com) > Manage A+ Content.",
          "3. Start creating A+ content. Name: \"%s A+\" (readers don't see it). Language: English." % BOOK["title"],
-         "4. Add these four modules in order. Upload the image and paste the alt text.",
+         "4. Add the four modules in table order. Upload the image and paste the alt text.",
          "   Leave text fields empty (the images carry their text). If KDP insists on a",
          "   headline, use the one listed.",
          ""]
@@ -347,6 +362,7 @@ def write_guide(files):
     with open(path, "w", encoding="utf-8") as fh:
         fh.write("\n".join(L) + "\n")
     print("guide ->", path)
+    print("\n".join(table))
 
 if __name__ == "__main__":
     write_guide([banner(), features(), single_sided(), grid()])
