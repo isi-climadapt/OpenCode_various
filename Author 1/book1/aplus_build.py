@@ -15,7 +15,7 @@
 
 import os, math, random, shutil
 import fitz
-from PIL import Image, ImageDraw, ImageFont, ImageFilter
+from PIL import Image, ImageDraw, ImageFont, ImageFilter, ImageOps
 
 # ---- per-book settings -------------------------------------------------------
 BOOK = {
@@ -43,6 +43,8 @@ BOOK = {
                  ("page", "Single-sided pages", "Every design is on its own page")],
     "sky": (250, 220, 182),      # warm sunset peach, from the cover hero
     "sky_light": (253, 235, 210),
+    "art_dir": "raw2_1k",    # 1K line art the cards are traced from
+    "line_boost": 0.0055,        # line thickening for the cards (fraction of card size)
 }
 # -----------------------------------------------------------------------------
 
@@ -199,53 +201,95 @@ def save(img, name, w, h):
     print(name, img.size, "%.0f KB" % (os.path.getsize(big) / 1024))
     return os.path.basename(big)
 
+# --- Art cards: the sample art large, cropped, with thick lines ----------------
+# Amazon shows A+ panels at a fixed 970 px and screens scaled above 100% stretch
+# them, so whole pages with tiny captions go soft. Cards show only the art,
+# traced from the vector outlines at the exact size and thickened so lines
+# survive Amazon's JPEG and the stretch.
+def art_image(n, px):
+    """Page n's art as a px-square L image: traced at 2x, cropped to the ink, lines thickened."""
+    import sys
+    sys.path.insert(0, os.path.join(os.path.dirname(HERE), "scripts"))
+    from vectorize_line_art import vectorize_line_art
+    src = os.path.join(HERE, BOOK["art_dir"], "page_%02d.png" % n)
+    big = vectorize_line_art(src, None, px * 2, px * 2)
+    ink = ImageOps.invert(big).getbbox()
+    if ink:
+        pad = int(px * 2 * 0.02)
+        big = big.crop((max(0, ink[0] - pad), max(0, ink[1] - pad),
+                        min(big.width, ink[2] + pad), min(big.height, ink[3] + pad)))
+    k = max(3, int(px * 2 * BOOK["line_boost"]) | 1)  # odd MinFilter size grows every black line
+    big = big.filter(ImageFilter.MinFilter(k))
+    scale = px / max(big.size)
+    return big.resize((max(1, int(big.width * scale)), max(1, int(big.height * scale))), Image.LANCZOS)
+
+def art_card(n, px, angle=0):
+    """White rounded card with the page's art filling it, dark outline, soft shadow."""
+    pad = int(px * 0.06)
+    art = art_image(n, px - 2 * pad)
+    card = Image.new("RGBA", (px, px), (0, 0, 0, 0))
+    m = Image.new("L", (px, px), 0)
+    ImageDraw.Draw(m).rounded_rectangle([0, 0, px - 1, px - 1], radius=int(px * 0.07), fill=255)
+    card.paste(Image.new("RGBA", (px, px), (255, 255, 255, 255)), (0, 0), m)
+    card.paste(Image.new("RGBA", art.size, INK + (255,)), ((px - art.width) // 2, (px - art.height) // 2), ImageOps.invert(art))
+    ImageDraw.Draw(card).rounded_rectangle([0, 0, px - 1, px - 1], radius=int(px * 0.07),
+                                           outline=INK + (255,), width=max(2, int(px * 0.012)))
+    return with_shadow(card, angle=angle)
+
+def sheet(n, w, angle=0):
+    """A portrait page (8.5 x 11) showing the art large, no caption."""
+    h = int(w * 11 / 8.5)
+    pg = Image.new("RGB", (w, h), (255, 255, 255))
+    art = art_image(n, int(w * 0.9))
+    pg.paste(Image.new("RGB", art.size, INK), ((w - art.width) // 2, int(h * 0.42) - art.height // 2), ImageOps.invert(art))
+    return with_shadow(pg, angle=angle, border=True)
+
 # --- Module 1: brand banner with book mockup (970 x 300) -----------------------
 def banner():
     w, h = 970, 300
     cv = background(w, h, 1)
     d = ImageDraw.Draw(cv)
     if ST["script"]:  # author1: script author name, kicker, bubble title, tagline
-        centred(d, BOOK["author"], 270 * S, 30 * S, font(ST["script"], 30), INK)
-        centred(d, BOOK["kicker"], 270 * S, 92 * S, font(BODY, 22), SUB)
-        _, tpx = fit(d, BOOK["banner_title"], ST["title_font"], 60, 470)
-        bubble_text(cv, BOOK["banner_title"], 270 * S, 128 * S, tpx)
-        centred(d, BOOK["tagline"], 270 * S, 212 * S, font(BODY, 24), SUB)
+        centred(d, BOOK["author"], 265 * S, 22 * S, font(ST["script"], 34), INK)
+        centred(d, BOOK["kicker"], 265 * S, 90 * S, font(BODY, 26), SUB)
+        _, tpx = fit(d, BOOK["banner_title"], ST["title_font"], 72, 500)
+        bubble_text(cv, BOOK["banner_title"], 265 * S, 124 * S, tpx)
+        centred(d, BOOK["tagline"], 265 * S, 222 * S, font(BODY, 28), SUB)
     else:  # author2: imprint line, poster title, yellow age/fact badge
-        centred(d, BOOK["imprint"], 270 * S, 34 * S, font(BODY, 20), ST["imprint"])
-        _, tpx = fit(d, BOOK["banner_title"], ST["title_font"], 74, 470)
-        bubble_text(cv, BOOK["banner_title"], 270 * S, 80 * S, tpx)
-        fb = font(BODY, 22)
+        centred(d, BOOK["imprint"], 265 * S, 28 * S, font(BODY, 24), ST["imprint"])
+        _, tpx = fit(d, BOOK["banner_title"], ST["title_font"], 84, 500)
+        bubble_text(cv, BOOK["banner_title"], 265 * S, 72 * S, tpx)
+        fb, _ = fit(d, BOOK["badge"], BODY, 26, 440)  # badge must stay inside the left half
         bb = d.textbbox((0, 0), BOOK["badge"], font=fb)
-        bw, bh = bb[2] - bb[0] + 44 * S, 46 * S
-        x0, y0 = 270 * S - bw // 2, 196 * S
+        bw, bh = bb[2] - bb[0] + 44 * S, 52 * S
+        x0, y0 = 265 * S - bw // 2, 200 * S
         d.rounded_rectangle([x0, y0, x0 + bw, y0 + bh], radius=14 * S, fill=ST["badge"], outline=INK, width=3 * S)
-        centred(d, BOOK["badge"], 270 * S, y0 + (bh - (bb[3] - bb[1])) // 2 - bb[1], fb, INK)
-    # mockup: inside page behind, cover in front
-    pg = page_image(BOOK["banner_page"][0], 150 * S)
-    paste_center(cv, with_shadow(pg, angle=-6, border=True), 785 * S, 150 * S)
+        centred(d, BOOK["badge"], 265 * S, y0 + (bh - (bb[3] - bb[1])) // 2 - bb[1], fb, INK)
+    # mockup: big art card behind, cover in front
+    paste_center(cv, art_card(BOOK["banner_page"][0], 212 * S, angle=-5), 815 * S, 150 * S)
     cov = Image.open(COVER).convert("RGB")
-    cov = cov.resize((150 * S, int(150 * S * cov.height / cov.width)), Image.LANCZOS)
-    paste_center(cv, with_shadow(cov, angle=5), 640 * S, 152 * S)
+    cov = cov.resize((190 * S, int(190 * S * cov.height / cov.width)), Image.LANCZOS)
+    paste_center(cv, with_shadow(cov, angle=4), 630 * S, 150 * S)
     return save(rounded(cv), "aplus_1_banner", w, h)
 
-# --- Module 2: features with sample pages (970 x 600) --------------------------
+# --- Module 2: features with large sample art (970 x 600) ----------------------
 def features():
     w, h = 970, 600
     cv = background(w, h, 2)
     d = ImageDraw.Draw(cv)
     (p1, _), (p2, _) = BOOK["feature_pages"]
-    paste_center(cv, with_shadow(page_image(p1, 225 * S), angle=-5, border=True), 165 * S, 300 * S)
-    paste_center(cv, with_shadow(page_image(p2, 225 * S), angle=4, border=True), 340 * S, 310 * S)
+    paste_center(cv, art_card(p1, 285 * S, angle=-4), 175 * S, 190 * S)
+    paste_center(cv, art_card(p2, 285 * S, angle=3), 300 * S, 415 * S)
     items = BOOK["features"]
-    # one heading size for all four, set by the longest heading
-    hf, _ = fit(d, max((i[1] for i in items), key=len), ST["title_font"], 28, 380)
-    sf = min((fit(d, i[2], BODY, 20, 380) for i in items), key=lambda r: r[1])[0]
-    y = 112 * S
+    # one heading size for all four, set by the longest heading; same for the sub-lines
+    hf, _ = fit(d, max((i[1] for i in items), key=len), ST["title_font"], 36, 395)
+    sf = min((fit(d, i[2], BODY, 25, 395) for i in items), key=lambda r: r[1])[0]
+    y = 78 * S
     for kind, head, sub in items:
-        icon(d, kind, 520 * S, y + 22 * S, 30 * S)
-        d.text((566 * S, y - 4 * S), head, font=hf, fill=INK)
-        d.text((566 * S, y + 36 * S), sub, font=sf, fill=SUB)
-        y += 104 * S
+        icon(d, kind, 500 * S, y + 28 * S, 34 * S)
+        d.text((548 * S, y - 6 * S), head, font=hf, fill=INK)
+        d.text((548 * S, y + 42 * S), sub, font=sf, fill=SUB)
+        y += 122 * S
     return save(rounded(cv), "aplus_2_features", w, h)
 
 # --- Module 3: single-sided pages explainer (970 x 600) ------------------------
@@ -254,48 +298,50 @@ def single_sided():
     cv = background(w, h, 3)
     d = ImageDraw.Draw(cv)
     cov = Image.open(COVER).convert("RGB")
-    cw = 300 * S
+    cw = 290 * S
     cov = cov.resize((cw, int(cw * cov.height / cov.width)), Image.LANCZOS)
-    cx, cy = 225 * S, 300 * S
+    cx, cy = 215 * S, 290 * S
     paste_center(cv, with_shadow(cov), cx, cy)
     # dimension arrows: 8.5 in across the bottom, 11 in up the left side
     left, right = cx - cw // 2, cx + cw // 2
     top, bot = cy - cov.height // 2, cy + cov.height // 2
-    fa = font(BODY, 22)
-    yb = bot + 22 * S
-    d.line([(left, yb), (right, yb)], fill=INK, width=3 * S)
+    fa = font(BODY, 28)
+    yb = bot + 24 * S
+    d.line([(left, yb), (right, yb)], fill=INK, width=4 * S)
     for x, s in ((left, 1), (right, -1)):
-        d.polygon([(x, yb), (x + s * 14 * S, yb - 7 * S), (x + s * 14 * S, yb + 7 * S)], fill=INK)
+        d.polygon([(x, yb), (x + s * 16 * S, yb - 8 * S), (x + s * 16 * S, yb + 8 * S)], fill=INK)
     centred(d, "8.5 in", cx, yb + 6 * S, fa, INK)
-    xl = left - 26 * S
-    d.line([(xl, top), (xl, bot)], fill=INK, width=3 * S)
+    xl = left - 28 * S
+    d.line([(xl, top), (xl, bot)], fill=INK, width=4 * S)
     for y0, s in ((top, 1), (bot, -1)):
-        d.polygon([(xl, y0), (xl - 7 * S, y0 + s * 14 * S), (xl + 7 * S, y0 + s * 14 * S)], fill=INK)
-    lab = Image.new("RGBA", (120 * S, 40 * S), (0, 0, 0, 0))
+        d.polygon([(xl, y0), (xl - 8 * S, y0 + s * 16 * S), (xl + 8 * S, y0 + s * 16 * S)], fill=INK)
+    lab = Image.new("RGBA", (140 * S, 50 * S), (0, 0, 0, 0))
     ImageDraw.Draw(lab).text((0, 0), "11 in", font=fa, fill=INK + (255,))
     lab = lab.rotate(90, expand=True)
-    cv.paste(lab, (xl - 44 * S, cy - 30 * S), lab)
-    # page with art in front, blank back sheet behind it
-    blank = Image.new("RGB", (220 * S, int(220 * S * 11 / 8.5)), (255, 255, 255))
-    paste_center(cv, with_shadow(blank, angle=7, border=True), 760 * S, 290 * S)
-    paste_center(cv, with_shadow(page_image(BOOK["single_sided_page"][0], 220 * S), angle=-3, border=True), 670 * S, 280 * S)
-    bubble_text(cv, "Single-sided pages", 690 * S, 22 * S, 38)
-    fb = font(BODY, 21)
-    centred(d, "Every design has a blank back. Slip a sheet of card", 690 * S, 512 * S, fb, INK)
-    centred(d, "underneath to stop markers bleeding through.", 690 * S, 540 * S, fb, INK)
+    cv.paste(lab, (xl - 52 * S, cy - 36 * S), lab)
+    # page with big art in front, blank back sheet behind it
+    blank = Image.new("RGB", (250 * S, int(250 * S * 11 / 8.5)), (255, 255, 255))
+    paste_center(cv, with_shadow(blank, angle=7, border=True), 775 * S, 300 * S)
+    paste_center(cv, sheet(BOOK["single_sided_page"][0], 250 * S, angle=-3), 680 * S, 290 * S)
+    bubble_text(cv, "Single-sided pages", 680 * S, 16 * S, 42)
+    fb, _ = fit(d, "Slip card underneath for markers.", BODY, 27, 440)
+    centred(d, "Every design has a blank back.", 690 * S, 506 * S, fb, INK)
+    centred(d, "Slip card underneath for markers.", 690 * S, 542 * S, fb, INK)
     return save(rounded(cv), "aplus_3_single_sided", w, h)
 
-# --- Module 4: sample page grid (970 x 600) ------------------------------------
+# --- Module 4: sample art grid (970 x 600) -------------------------------------
 def grid():
     w, h = 970, 600
     cv = background(w, h, 4)
-    bubble_text(cv, BOOK["grid_title"], w * S // 2, 16 * S, 40)
-    pw = 180 * S
+    d = ImageDraw.Draw(cv)
+    _, gpx = fit(d, BOOK["grid_title"], ST["title_font"], 48, 880)
+    bubble_text(cv, BOOK["grid_title"], w * S // 2, 12 * S, gpx)
+    cpx = 238 * S
     for i, (n, _) in enumerate(BOOK["grid_pages"]):
         col, row = i % 3, i // 3
         cx = (w / 2 + (col - 1) * 290) * S
-        cy = (205 + row * 255) * S
-        paste_center(cv, with_shadow(page_image(n, pw), angle=(-2, 1.5, -1, 2, -1.5, 1)[i], border=True), cx, cy)
+        cy = (210 + row * 255) * S
+        paste_center(cv, art_card(n, cpx, angle=(-2, 1.5, -1, 2, -1.5, 1)[i]), cx, cy)
     return save(rounded(cv), "aplus_4_sample_grid", w, h)
 
 # --- Upload guide: the module table, filled in for this book -------------------
