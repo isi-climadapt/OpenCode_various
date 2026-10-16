@@ -558,15 +558,15 @@ def make_full_cover_wrap():
     # 4 Sample Interior Previews (Koala, Quokka, Platypus, Dolphin)
     # Shows parents Look-Inside proof — crisp binarized thumbs (no grey mush at any render size)
     sys.path.append(os.path.join(os.path.dirname(ROOT), "scripts"))
-    from thumb import crisp_thumb
+    from thumb import art_thumb
     samples = ["page_01", "page_09", "page_08", "page_41"]
-    thumb_w, thumb_h = 470, 610
+    thumb_w = thumb_h = 520  # square art cards, no captions: Amazon's back image is ~1000 px wide
     thumb_y = 960
     for idx, s_key in enumerate(samples):
-        s_path = os.path.join(ROOT, "raw", "%s.png" % s_key)
+        s_path = os.path.join(ROOT, "raw2_1k", "%s.png" % s_key)  # 1K line art
         if os.path.exists(s_path):
-            thumb = crisp_thumb(s_path, thumb_w - 20, thumb_h - 20)
-            tx = 38 + 140 + idx * (thumb_w + 110)
+            thumb = art_thumb(s_path, thumb_w - 40)
+            tx = 38 + 160 + idx * (thumb_w + 50)
             # Rounded drop shadow frame
             d.rounded_rectangle([tx - 10, thumb_y - 10, tx + thumb_w + 10, thumb_y + thumb_h + 10], radius=30, fill=(255, 255, 255), outline=(40, 25, 15), width=8)
             wrap.paste(thumb.convert("RGB"), (tx + (thumb_w - thumb.width) // 2, thumb_y + (thumb_h - thumb.height) // 2))
