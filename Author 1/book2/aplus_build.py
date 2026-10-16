@@ -18,6 +18,11 @@ from PIL import Image, ImageDraw, ImageFont, ImageFilter
 
 # ---- per-book settings -------------------------------------------------------
 BOOK = {
+    "style": "author1",          # "author1" (Matilda Hayes) or "author2" (Flora Watt), see STYLES
+    "upload_dir": "KDP_FINAL_UPLOAD",       # relative to this folder
+    "cover": "cover_option_A.png",          # typeset front cover, relative to this folder
+    "imprint": "",               # author2 banner: imprint line above the title
+    "badge": "",                 # author2 banner: yellow badge text
     "title": "Great Barrier Reef Ocean Friends",
     "author": "Matilda Hayes",
     "kicker": "GREAT BARRIER REEF",
@@ -40,20 +45,39 @@ BOOK = {
 }
 # -----------------------------------------------------------------------------
 
+# Locked brand styles (AGENT-PIPELINE.md rule 0 / each author's publishing/00-brand-identity.md)
+STYLES = {
+    "author1": {"title_font": "Sniglet-ExtraBold.ttf", "title_fill": (255, 255, 255),
+                "title_line": (35, 25, 20), "body": "Baloo2.ttf", "script": "Pacifico-Regular.ttf",
+                "ink": (35, 25, 20), "sub": (80, 60, 50), "motif": "bubbles"},
+    "author2": {"title_font": "LilitaOne-Regular.ttf", "title_fill": (28, 48, 104),
+                "title_line": (255, 255, 255), "body": "Fredoka.ttf", "script": None,
+                "ink": (28, 48, 104), "sub": (55, 70, 105), "motif": "stars",
+                "badge": (250, 200, 40), "imprint": (60, 130, 60)},
+}
+ST = STYLES[BOOK["style"]]
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = os.path.join(HERE, "fonts")
 OUT = os.path.join(HERE, "aplus")
-UPLOAD = os.path.join(HERE, "KDP_FINAL_UPLOAD")
+UPLOAD = os.path.normpath(os.path.join(HERE, BOOK["upload_dir"]))
 INTERIOR = os.path.join(UPLOAD, "01_MANUSCRIPT_INTERIOR_108P.pdf")
-COVER = os.path.join(HERE, "cover_option_A.png")
+COVER = os.path.join(HERE, BOOK["cover"])
 
 S = 2  # draw scale
 SKY, SKY_LIGHT = BOOK["sky"], BOOK["sky_light"]
-INK = (35, 25, 20)         # cover dark brown
-SUB = (80, 60, 50)
+INK, SUB = ST["ink"], ST["sub"]
+BODY = ST["body"]
 
 def font(name, px):
-    return ImageFont.truetype(os.path.join(FONTS, name), int(px * S))
+    f = ImageFont.truetype(os.path.join(FONTS, name), int(px * S))
+    try:  # Fredoka's variable font defaults to Light (300); lift light defaults to Medium
+        w = [a for a in f.get_variation_axes() if a["name"] == b"Weight"]
+        if w and w[0]["default"] < 400:
+            f.set_variation_by_name("Medium")
+    except (OSError, ValueError):
+        pass  # not a variable font
+    return f
 
 def page_image(n, width):
     """Art page n (1-50) rendered from the interior PDF, scaled to `width` px."""
@@ -89,10 +113,13 @@ def background(w, h, seed):
         y = int(H * (0.25 + 0.3 * k)) + rnd.randint(-20, 20) * S
         pts = [(x, y + int(18 * S * math.sin(x / (90.0 * S) + k))) for x in range(0, W + 10, 10)]
         d.line(pts, fill=SKY_LIGHT, width=10 * S)
-    for _ in range(int(w / 40)):  # bubbles
+    for _ in range(int(w / 40)):  # bubbles (author1) or little planets/dots (author2)
         r = rnd.randint(4, 11) * S
         x, y = rnd.randint(0, W), rnd.randint(0, H)
-        d.ellipse([x - r, y - r, x + r, y + r], outline=(255, 255, 255), width=2 * S)
+        if ST["motif"] == "stars":
+            d.ellipse([x - r // 2, y - r // 2, x + r // 2, y + r // 2], fill=(255, 255, 255))
+        else:
+            d.ellipse([x - r, y - r, x + r, y + r], outline=(255, 255, 255), width=2 * S)
     for _ in range(int(w / 90)):  # sparkles
         x, y, r = rnd.randint(0, W), rnd.randint(0, H), rnd.randint(6, 12) * S
         d.polygon([(x, y - r), (x + r / 4, y - r / 4), (x + r, y), (x + r / 4, y + r / 4),
@@ -107,9 +134,10 @@ def rounded(canvas, radius=26):
     out.paste(canvas, (0, 0), m)
     return out
 
-def bubble_text(canvas, text, cx, y, px, fill=(255, 255, 255)):
-    """Cover-style title: white Sniglet with a dark outline and drop shadow."""
-    f = font("Sniglet-ExtraBold.ttf", px)
+def bubble_text(canvas, text, cx, y, px):
+    """Cover-style title in the author's title font, outlined, with a drop shadow."""
+    f = font(ST["title_font"], px)
+    fill, line = ST["title_fill"], ST["title_line"]
     ov = Image.new("RGBA", canvas.size, (0, 0, 0, 0))
     od = ImageDraw.Draw(ov)
     bb = od.textbbox((0, 0), text, font=f)
@@ -119,7 +147,7 @@ def bubble_text(canvas, text, cx, y, px, fill=(255, 255, 255)):
     for dx in (-o, 0, o):
         for dy in (-o, 0, o):
             if dx or dy:
-                od.text((tx + dx, y + dy), text, font=f, fill=INK + (255,))
+                od.text((tx + dx, y + dy), text, font=f, fill=line + (255,))
     od.text((tx, y), text, font=f, fill=fill + (255,))
     canvas.paste(ov, (0, 0), ov)
     return bb[3] - bb[1]
@@ -173,11 +201,22 @@ def banner():
     w, h = 970, 300
     cv = background(w, h, 1)
     d = ImageDraw.Draw(cv)
-    centred(d, BOOK["author"], 270 * S, 30 * S, font("Pacifico-Regular.ttf", 30), INK)
-    centred(d, BOOK["kicker"], 270 * S, 92 * S, font("Baloo2.ttf", 22), SUB)
-    _, tpx = fit(d, BOOK["banner_title"], "Sniglet-ExtraBold.ttf", 60, 470)
-    bubble_text(cv, BOOK["banner_title"], 270 * S, 128 * S, tpx)
-    centred(d, BOOK["tagline"], 270 * S, 212 * S, font("Baloo2.ttf", 24), SUB)
+    if ST["script"]:  # author1: script author name, kicker, bubble title, tagline
+        centred(d, BOOK["author"], 270 * S, 30 * S, font(ST["script"], 30), INK)
+        centred(d, BOOK["kicker"], 270 * S, 92 * S, font(BODY, 22), SUB)
+        _, tpx = fit(d, BOOK["banner_title"], ST["title_font"], 60, 470)
+        bubble_text(cv, BOOK["banner_title"], 270 * S, 128 * S, tpx)
+        centred(d, BOOK["tagline"], 270 * S, 212 * S, font(BODY, 24), SUB)
+    else:  # author2: imprint line, poster title, yellow age/fact badge
+        centred(d, BOOK["imprint"], 270 * S, 34 * S, font(BODY, 20), ST["imprint"])
+        _, tpx = fit(d, BOOK["banner_title"], ST["title_font"], 74, 470)
+        bubble_text(cv, BOOK["banner_title"], 270 * S, 80 * S, tpx)
+        fb = font(BODY, 22)
+        bb = d.textbbox((0, 0), BOOK["badge"], font=fb)
+        bw, bh = bb[2] - bb[0] + 44 * S, 46 * S
+        x0, y0 = 270 * S - bw // 2, 196 * S
+        d.rounded_rectangle([x0, y0, x0 + bw, y0 + bh], radius=14 * S, fill=ST["badge"], outline=INK, width=3 * S)
+        centred(d, BOOK["badge"], 270 * S, y0 + (bh - (bb[3] - bb[1])) // 2 - bb[1], fb, INK)
     # mockup: inside page behind, cover in front
     pg = page_image(BOOK["banner_page"][0], 150 * S)
     paste_center(cv, with_shadow(pg, angle=-6, border=True), 785 * S, 150 * S)
@@ -196,12 +235,13 @@ def features():
     paste_center(cv, with_shadow(page_image(p2, 225 * S), angle=4, border=True), 340 * S, 310 * S)
     items = BOOK["features"]
     # one heading size for all four, set by the longest heading
-    hf, _ = fit(d, max((i[1] for i in items), key=len), "Sniglet-ExtraBold.ttf", 28, 380)
+    hf, _ = fit(d, max((i[1] for i in items), key=len), ST["title_font"], 28, 380)
+    sf = min((fit(d, i[2], BODY, 20, 380) for i in items), key=lambda r: r[1])[0]
     y = 112 * S
     for kind, head, sub in items:
         icon(d, kind, 520 * S, y + 22 * S, 30 * S)
         d.text((566 * S, y - 4 * S), head, font=hf, fill=INK)
-        d.text((566 * S, y + 36 * S), sub, font=font("Baloo2.ttf", 20), fill=SUB)
+        d.text((566 * S, y + 36 * S), sub, font=sf, fill=SUB)
         y += 104 * S
     return save(rounded(cv), "aplus_2_features", w, h)
 
@@ -218,7 +258,7 @@ def single_sided():
     # dimension arrows: 8.5 in across the bottom, 11 in up the left side
     left, right = cx - cw // 2, cx + cw // 2
     top, bot = cy - cov.height // 2, cy + cov.height // 2
-    fa = font("Baloo2.ttf", 22)
+    fa = font(BODY, 22)
     yb = bot + 22 * S
     d.line([(left, yb), (right, yb)], fill=INK, width=3 * S)
     for x, s in ((left, 1), (right, -1)):
@@ -237,7 +277,7 @@ def single_sided():
     paste_center(cv, with_shadow(blank, angle=7, border=True), 760 * S, 290 * S)
     paste_center(cv, with_shadow(page_image(BOOK["single_sided_page"][0], 220 * S), angle=-3, border=True), 670 * S, 280 * S)
     bubble_text(cv, "Single-sided pages", 690 * S, 22 * S, 38)
-    fb = font("Baloo2.ttf", 21)
+    fb = font(BODY, 21)
     centred(d, "Every design has a blank back. Slip a sheet of card", 690 * S, 512 * S, fb, INK)
     centred(d, "underneath to stop markers bleeding through.", 690 * S, 540 * S, fb, INK)
     return save(rounded(cv), "aplus_3_single_sided", w, h)

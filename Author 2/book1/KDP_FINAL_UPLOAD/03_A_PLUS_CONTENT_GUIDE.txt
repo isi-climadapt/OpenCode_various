@@ -1,0 +1,46 @@
+================================================================================
+AMAZON A+ CONTENT UPLOAD GUIDE (READY TO COPY & PASTE)
+Book Title: Space Wonders
+================================================================================
+
+Images to upload are in: KDP_FINAL_UPLOAD\03_A_PLUS_CONTENT\
+Use the plain files, not the _2x copies in aplus\ (those are for modules that ask for more pixels).
+
+BEFORE YOU START: KDP doesn't publish module sizes. Check the module you pick asks
+for the size listed below. If it asks for more, use the _2x file from aplus\.
+
+STEPS
+1. KDP > Marketing (top menu) > A+ Content card.
+2. Choose the marketplace (start with Amazon.com) > Manage A+ Content.
+3. Start creating A+ content. Name: "Space Wonders A+" (readers don't see it). Language: English.
+4. Add these four modules in order. Upload the image and paste the alt text.
+   Leave text fields empty (the images carry their text). If KDP insists on a
+   headline, use the one listed.
+
+   MODULE 1: Standard Image & Light Text Overlay (970 x 300)
+     Image:    aplus_1_banner_970x300.jpg
+     Alt text: Space Wonders colouring book by Flora Watt, cover and astronaut page
+     Headline (only if required): Space Wonders
+
+   MODULE 2: Standard Image Header With Text (970 x 600)
+     Image:    aplus_2_features_970x600.jpg
+     Alt text: Rocket and saturn colouring pages with the book's features
+     Headline (only if required): What's inside
+
+   MODULE 3: Standard Image Header With Text (970 x 600)
+     Image:    aplus_3_single_sided_970x600.jpg
+     Alt text: 8.5 by 11 inch book with single-sided colouring pages
+     Headline (only if required): Single-sided pages
+
+   MODULE 4: Standard Image Header With Text (970 x 600)
+     Image:    aplus_4_sample_grid_970x600.jpg
+     Alt text: Six sample pages: robot, Jupiter, Moon, flying saucer, moon buggy, comet
+     Headline (only if required): 50 big & bold space designs
+
+5. Next: Apply ASINs > search the paperback ISBN (KDP > Bookshelf) > add the paperback.
+6. Review & submit. Approved content appears within about eight business days.
+7. Repeat for Amazon.com.au and every other store you sell in (A+ is set per
+   marketplace). Copy the content across if KDP offers to.
+
+If Amazon rejects an image, the likely cause is the inside-page samples. Note the
+rejection message and rebuild that module.
