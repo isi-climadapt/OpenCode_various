@@ -37,12 +37,13 @@
 | F8 | OneDrive file lock on save | OSError | retry ×3 with sleep |
 | F9 | Caption doesn't match the image (wrong animal/scene) | `Author 1\scripts\caption_coherence.py` — stem-matches every caption against its page's scene text | rewrite caption to name what is actually in the scene; audit runs after EVERY typeset, must pass before contact sheet / PDF export |
 | F10 | Cover text overflows the safe zone (KDP previewer flags it) | back-cover title ink extends past x 150..2476 of the back panel | auto-shrink title font until width ≤ 2230px (baked into all create_cover_wrap scripts); always verify title ink extents after wrap build |
+| F11 | Print looks soft (Oct 2026: Aussie Cuties + Ocean Friends) | any art below 270 DPI at print size; halos round outlines; JPEG-75 PDFs | interiors vector-traced (`scripts\vectorize_line_art.py`, even-odd fill) and exported 600 DPI 1-bit lossless; cover hero ≥2K, never sharpened; cover PDF JPEG quality 100. Full rules: `Author 1\book1\PIPELINE.md` → "Print resolution rules" |
 
 ### Hard Rules (never break)
 
 0. **Author folder structure:** every pen name gets a top-level folder (`Author 1\`, `Author 2\`...) containing its own `publishing\` (brand identity, research, validations), `book1\`, `book2\`..., `scripts\` and upload folders. Author 1 = **Matilda Hayes / Gumleaf Kids Press** (verified brand). Author 2 = new pen name + different branding style, brand lock required before production (rule 0's verification applies new)
 0a. **Brand is FIXED FOREVER per author:** Matilda Hayes (author) / Gumleaf Kids Press (imprint) — already locked & verified clean; no re-verification, no renaming, no second pen name for the kids line (adult lines get their own, TBD)
-1. **OpenArt CLI / nano-banana-2 for ALL generation** (interiors + covers) — never Gemini, never Recraft
+1. **OpenArt CLI for ALL generation** — never Gemini, never Recraft. Interiors: nano-banana-2 (the CLI only returns 1K, so pages are vector-traced, F11). Cover hero: draft with nano-banana-2, then Ideogram 4.5 image2image from the CLI with the draft as reference, for 2K output (~44 credits); show the user old vs new before replacing
 2. **All lettering typeset programmatically** (Baloo 2 / Sniglet / Pacifico) — never AI-generated text
 3. **API keys live in Windows user env vars only** — never in files, never in git
 4. Fixed-position layout, art box ≤2150×2150, all margins ≥0.53"
@@ -52,6 +53,7 @@
 8. Trend research = **100-book analysis only**, latest + most-sold bestsellers on Amazon .au + .com (no broad scrapes)
 9. **F9 caption↔image coherence must pass** before any contact-sheet review or PDF export — every caption must describe what is actually in its image (`scripts/caption_coherence.py`, runs automatically after every batch typeset)
 10. **Uniform caption typography**: fixed font size across all pages of a book (80px @300DPI), word-wrap to max 2 lines — never per-page shrinking
+11. **Every book ships with A+ Content (Stage 7).** Run `aplus_build.py` after the final interior + cover exist. It must produce the 4 module images AND `KDP_FINAL_UPLOAD\03_A_PLUS_CONTENT_GUIDE.txt` — the step-by-step guide with, for each module, the KDP module to pick, the image file, the alt text and a fallback headline, filled in for this book. Show the user the 4 drafts before anything goes to KDP
 
 ---
 
@@ -107,7 +109,7 @@
 │  • Cream bg + double rounded border                               │
 │  • Sniglet bubble title (white fill, dark stroke, drop shadow)    │
 │  • Pacifico author script top, hero centred, Baloo subtitle       │
-│  • UnsharpMask(radius=2.0) on hero for 300 DPI print sharpness     │
+│  • Hero ≥2K (prints ≥270 DPI), NEVER sharpened (halos, F11)        │
 │  • Full wrap: 0.125" bleed + spine (pages×0.002252") + back cover │
 │    with blurb, 4 sample thumbs, bio box (≤42px font, 4 lines),     │
 │    KDP barcode zone 2×1.2" bottom-right                            │
@@ -123,6 +125,22 @@
 │    "OpenArt, Nano Banana 2"; text = No                            │
 │  • Pricing: .au floor A$13.99, anchor A$16.99 (A$4.91/sale)        │
 │  • Output: KDP_FINAL_UPLOAD/ folder (manuscript + cover + guide)   │
+└──────────────────────────┬─────────────────────────────────────────┘
+                           ▼
+┌────────────────────────────────────────────────────────────────────┐
+│  STAGE 7: A+ CONTENT AGENT (Amazon product page)                  │
+│  Tool: aplus_build.py (edit only the BOOK settings block)          │
+│  Pattern: #1 Oceans & Seas bestseller (Coco Wyo "Ocean Scene")     │
+│  • Module 1: brand banner + book mockup        970 x 300           │
+│  • Module 2: features + 2 sample pages         970 x 600           │
+│  • Module 3: single-sided pages explainer      970 x 600           │
+│  • Module 4: 6-page sample grid                970 x 600           │
+│  • Sample pages rendered from the print PDF (shows the real book)  │
+│  • Human checkpoint: user approves the 4 drafts                    │
+│  • Output: KDP_FINAL_UPLOAD/03_A_PLUS_CONTENT/ (4 images) +        │
+│    03_A_PLUS_CONTENT_GUIDE.txt — steps + per-module table:         │
+│    module to pick | image | alt text | fallback headline,          │
+│    ISBN/ASIN to apply it to, repeat per marketplace                │
 └────────────────────────────────────────────────────────────────────┘
 ```
 
@@ -138,6 +156,8 @@ Copy these from `book1/` for each new book:
 | Prompts | `PAGE-GENERATION-PROMPTS.md` template | 50 new scenes |
 | Facts | `captions.json` | 50 new one-liners |
 | Upload guide | `KDP_FINAL_UPLOAD/00_COPY_PASTE_INTO_KDP.txt` | new title/keywords |
+| Page tracer | `vectorize_pages.py` + `..\scripts\vectorize_line_art.py` | copy as-is |
+| A+ Content | `aplus_build.py` (from `Author 1\book2\`) | edit the `BOOK` block: titles, sample pages + animal names, features, panel colour, ISBN/ASIN |
 
 ### Book 2 Candidates (from Stage 1 research, ranked)
 
@@ -151,6 +171,6 @@ Copy these from `book1/` for each new book:
 |---|---|
 | OpenArt credits | ~3,000 (50 pages + regens + covers) |
 | Calendar time | 1–2 days (pipeline is fully scripted) |
-| Human checkpoints | 2 (contact-sheet approval, cover choice) |
+| Human checkpoints | 3 (contact-sheet approval, cover choice, A+ drafts) |
 | Unit economics (.au) | A$16.99 − A$5.28 print = **A$4.91/sale** |
 | Break-even | ~600 sales (vs. Starter credit cost) |
