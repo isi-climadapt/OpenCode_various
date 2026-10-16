@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Book 3 — KDP Interior Packager: Aussie Cuties at Halloween
-# 108 pages @ 300 DPI, 8.5x11in B&W, no-bleed, margins >= 0.53in.
+# 108 pages, 8.5x11in, 600 DPI 1-bit lossless, no-bleed, margins >= 0.53in.
 # Engine = book2/create_interior.py with:
 #   - BIGGER art box 2230x2520 (style upgrade per author)
 #   - UNIFORM caption rule: fixed 80px font, word-wrap max 2 lines (hard rule 10)
@@ -319,13 +319,14 @@ def make_art_page(i):
     caption_text = CAPTIONS.get(key, "")
     page_num = str(i * 2 + 3)
 
-    img = Image.open(raw2_path).convert("L")
-    img = ImageOps.autocontrast(img, cutoff=1)
-
-    # BIGGER art box: 2230 x 2520 (0.53" side margins at 2230)
-    scale = min(2230 / img.width, 2520 / img.height)
-    img = img.resize((int(img.width * scale), int(img.height * scale)), Image.LANCZOS)
-    img = img.point(lambda p: 0 if p < 110 else 255)
+    # F11: vector-trace the native art -> crisp at print size (no upscale softness/halos).
+    # BIGGER art box: 2230 x 2520 (0.53" side margins at 2230). Trace at 2x and reduce
+    # with Lanczos: the anti-aliased edges survive to the 600 DPI threshold in
+    # to_print_bw instead of 1/300 in stair-steps.
+    sys.path.append(os.path.join(os.path.dirname(ROOT), "scripts"))
+    from vectorize_line_art import vectorize_line_art
+    img = vectorize_line_art(raw2_path, None, target_w=2230 * 2, target_h=2520 * 2)
+    img = img.resize((img.width // 2, img.height // 2), Image.LANCZOS)
 
     page = Image.new("L", (W, H), 255)
     x_p = (W - img.width) // 2
@@ -481,48 +482,55 @@ def make_thank_you_page():
     return page
 
 
+def to_print_bw(page, line_art):
+    """2x Lanczos to 600 DPI, then 1-bit (same as book1). Line art is thresholded for
+    clean edges. On text pages dark greys go solid black and only lighter greys (95+)
+    are dithered, so they still print lighter."""
+    big = page.resize((W * 2, H * 2), Image.LANCZOS)
+    if line_art:
+        return big.point(lambda p: 0 if p < 128 else 255).convert("1", dither=Image.Dither.NONE)
+    return big.point(lambda p: 0 if p < 95 else (255 if p > 235 else p)).convert("1")
+
+
 def main():
     make_hero_crop()
     print("=== STEP 1: GENERATING 108 INTERIOR PAGES ===")
-    interior_pages = []
-
-    print("Building front matter (pages 1-4)...")
-    interior_pages.append(make_title_page())
-    interior_pages.append(make_copyright_page())
-    interior_pages.append(make_belongs_to_page())
-    interior_pages.append(make_tips_page())
-
-    print("Building 50 single-sided art pages (pages 5-104)...")
-    for i in range(1, 51):
-        interior_pages.append(make_art_page(i))
-        interior_pages.append(make_blank_page())
-        if i % 10 == 0:
-            print("  ...%d / 50 art pages built" % i)
-
-    print("Building back matter (pages 105-108)...")
-    interior_pages.append(make_checklist_page())
-    interior_pages.append(make_blank_page())
-    interior_pages.append(make_certificate_page())
-    interior_pages.append(make_thank_you_page())
-
-    print("Total interior pages assembled:", len(interior_pages))
-    assert len(interior_pages) == 108, "Page count must be exactly 108!"
+    # (builder, is_line_art) in page order. Each page is built, converted to 600 DPI
+    # 1-bit and written straight to disk: 108 pages at 600 DPI won't fit in memory.
+    plan = [(make_title_page, False), (make_copyright_page, False),       # pages 1-4
+            (make_belongs_to_page, False), (make_tips_page, False)]
+    for i in range(1, 51):                                                  # pages 5-104
+        plan += [(lambda i=i: make_art_page(i), True), (make_blank_page, True)]
+    plan += [(make_checklist_page, False), (make_blank_page, True),         # pages 105-108
+             (make_certificate_page, False), (make_thank_you_page, False)]
+    assert len(plan) == 108, "Page count must be exactly 108!"
 
     interior_pdf_path = os.path.join(OUTPUT_DIR, "HALLOWEEN_AUSSIE_CUTIES_INTERIOR_108P.pdf")
     upload_interior_path = os.path.join(FINAL_UPLOAD_DIR, "01_MANUSCRIPT_INTERIOR_108P.pdf")
-    print("Exporting Interior PDF to:", interior_pdf_path)
+    print("Exporting Interior PDF (600 DPI 1-bit, lossless img2pdf) to:", interior_pdf_path)
+    import img2pdf
+    page_png_dir = os.path.join(OUTPUT_DIR, "pages_png")
+    os.makedirs(page_png_dir, exist_ok=True)
+    png_paths = []
+    for idx, (builder, line_art) in enumerate(plan, start=1):
+        pp = os.path.join(page_png_dir, "pp_%03d.png" % idx)
+        bw = to_print_bw(builder(), line_art)
+        for attempt in range(4):  # F8 OneDrive lock retry
+            try:
+                bw.save(pp, dpi=(600, 600)); break
+            except OSError:
+                time.sleep(2 * (attempt + 1))
+        png_paths.append(pp)
+        if idx % 20 == 0:
+            print("  ...%d / 108 pages built" % idx)
     for attempt in range(4):
         try:
-            interior_pages[0].save(
-                interior_pdf_path,
-                save_all=True,
-                append_images=interior_pages[1:],
-                resolution=300.0,
-                optimize=True,
-            )
+            with open(interior_pdf_path, "wb") as fh:
+                fh.write(img2pdf.convert(png_paths))
             break
         except OSError:
             time.sleep(2 * (attempt + 1))
+    shutil.rmtree(page_png_dir, ignore_errors=True)
     shutil.copyfile(interior_pdf_path, upload_interior_path)
     print("Interior PDF export complete! Size: %.2f MB" % (os.path.getsize(interior_pdf_path) / (1024 * 1024)))
     print("Upload copy at:", upload_interior_path)

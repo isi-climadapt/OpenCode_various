@@ -1,11 +1,11 @@
 ﻿# -*- coding: utf-8 -*-
-# Book 3 â€” Full cover wrap builder (KDP paperback specs, locked formula).
+# Book 3 — Full cover wrap builder (KDP paperback specs, locked formula).
 # 108-page B&W white-paper spine: 108 * 0.002252 = 0.2432in -> 73px @300dpi
 # Total: 5248 x 3375 px @ 300 DPI. Usage: py create_cover_wrap3.py
 
 import os, sys, time
 from PIL import Image, ImageDraw, ImageFont
-from PIL import JpegImagePlugin  # noqa: F401 â€” registers JPEG handler needed by PDF save
+from PIL import JpegImagePlugin  # noqa: F401 — registers JPEG handler needed by PDF save
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONTS = os.path.join(HERE, "fonts")
@@ -28,14 +28,15 @@ def save(img, path):
 def build():
     wrap = Image.new("RGB", (CW, CH), BG)
 
-    # FRONT (right side): typeset cover option A scaled into bleed
+    # FRONT (right side): typeset cover_option_A at true size inside the trim.
+    # Stretching it into the bleed resampled the whole front unevenly (1.5% x 2.3%);
+    # the bleed takes the wrap background, which matches the front's cream.
     front = Image.open(os.path.join(HERE, "cover_option_A.png")).convert("RGB")
-    front = front.resize((2588, 3375), Image.LANCZOS)
-    wrap.paste(front, (CW - 2588, 0))
+    wrap.paste(front, (CW - BLEED - front.width, BLEED))
 
     d = ImageDraw.Draw(wrap)
 
-    # SPINE (clean tone, no text â€” 73px too narrow for reliable print text)
+    # SPINE (clean tone, no text — 73px too narrow for reliable print text)
     sx1 = BLEED + 2550
     sx2 = sx1 + 73
     d.rectangle([sx1, 0, sx2, CH], fill=(240, 228, 214))
@@ -68,7 +69,7 @@ def build():
         d.text((BLEED + (2550 - (bb[2] - bb[0])) // 2 - bb[0], y_b), line, fill=(70, 50, 40), font=f_blurb)
         y_b += 82
 
-    # 4 sample interior previews (crisp binarized thumbs â€” no grey mush at any render size)
+    # 4 sample interior previews (crisp binarized thumbs — no grey mush at any render size)
     sys.path.append(os.path.join(os.path.dirname(HERE), "scripts"))
     from thumb import crisp_thumb
     samples = ["page_01", "page_02", "page_11", "page_35"]
@@ -84,10 +85,10 @@ def build():
             wrap.paste(thumb.convert("RGB"), (tx + (thumb_w - thumb.width) // 2, thumb_y + (thumb_h - thumb.height) // 2))
 
     bullets = [
-        ("â€¢  50 BIG & BOLD DESIGNS", "Extra-thick lines, easy for crayons, markers, & little hands"),
-        ("â€¢  SPOOKY, NOT SCARY", "Eerie-but-adorable Aussie friends â€” perfect for young artists"),
-        ("â€¢  FUN FACTS ON EVERY PAGE", "Learn amazing secrets about Halloween and Aussie animals"),
-        ("â€¢  SINGLE-SIDED PAGES", "No bleed-through! Great for cutting out and displaying artwork"),
+        ("•  50 BIG & BOLD DESIGNS", "Extra-thick lines, easy for crayons, markers, & little hands"),
+        ("•  SPOOKY, NOT SCARY", "Eerie-but-adorable Aussie friends — perfect for young artists"),
+        ("•  FUN FACTS ON EVERY PAGE", "Learn amazing secrets about Halloween and Aussie animals"),
+        ("•  SINGLE-SIDED PAGES", "No bleed-through! Great for cutting out and displaying artwork"),
     ]
     f_bhead = ImageFont.truetype(FONT_BALOO, 58)
     f_bdesc = ImageFont.truetype(FONT_BALOO, 50)
@@ -121,7 +122,7 @@ def build():
     d.text((bc_x + 130, bc_y + 180), "[ KDP BARCODE AREA ]", fill=(180, 170, 160), font=f_bc)
 
     f_bimp = ImageFont.truetype(FONT_BALOO, 46)
-    d.text((BLEED + 220, 3160), "GUMLEAF KIDS PRESS  â€¢  MELBOURNE, AUSTRALIA", fill=(140, 125, 115), font=f_bimp)
+    d.text((BLEED + 220, 3160), "GUMLEAF KIDS PRESS  •  MELBOURNE, AUSTRALIA", fill=(140, 125, 115), font=f_bimp)
 
     return wrap
 
@@ -134,7 +135,8 @@ if __name__ == "__main__":
     png_path = os.path.join(out_dir, "HALLOWEEN_COVER_WRAP.png")
     pdf_path = os.path.join(out_dir, "HALLOWEEN_COVER_WRAP.pdf")
     save(wrap, png_path)
-    wrap.save(pdf_path, resolution=300.0)
+    # Pillow's default here is quality-75 JPEG; 100 with no chroma subsampling keeps outlines clean
+    wrap.save(pdf_path, resolution=300.0, quality=100, subsampling=0)
     prev = wrap.resize((1500, int(1500 * wrap.height / wrap.width)), Image.LANCZOS)
     save(prev, os.path.join(HERE, "cover_wrap_preview.png"))
     import shutil
