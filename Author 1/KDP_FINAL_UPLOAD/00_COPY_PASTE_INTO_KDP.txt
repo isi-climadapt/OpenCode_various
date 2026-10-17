@@ -82,14 +82,14 @@ Classify as any of these types?
 [ ] Low-content book   --> LEAVE UNCHECKED! (Do NOT check this box!)
 [ ] Large-print book   --> LEAVE UNCHECKED!
 
-Keywords (Copy one into each of the 7 boxes):
-Box 1: aussie animal coloring book for kids
-Box 2: australian wildlife coloring pages bold easy
-Box 3: koala kangaroo wombat platypus quokka colouring
-Box 4: cute and comfy coloring book cozy friends
-Box 5: simple large designs toddlers travel activity
-Box 6: australian outback animals kids activity book
-Box 7: educational fun facts animal gifts boys girls
+Keywords (copy each line into its own keyword box, in order):
+aussie animal coloring book for kids
+australian wildlife coloring pages bold easy
+koala kangaroo wombat platypus quokka colouring
+cute and comfy coloring book cozy friends
+simple large designs toddlers travel activity
+australian outback animals kids activity book
+educational fun facts animal gifts boys girls
 
 Publication Date:
 Select: "Publication date and release date are the same"

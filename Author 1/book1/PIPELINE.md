@@ -64,6 +64,7 @@
 3. Secrets (API keys) live in Windows user env vars ONLY — never in files, never in git (see .gitignore)
 4. Run full audit suite before the contact sheet goes for human review
 5. One book = one folder (book1, book2...) with identical file structure
+6. Build every stage from the latest layout: copy scripts from the most recently changed book, never from this book's older copies (AGENT-PIPELINE.md hard rule 15)
 
 ## Run commands
 

@@ -88,14 +88,14 @@ Classify as any of these types?
 [ ] Low-content book   --> LEAVE UNCHECKED! (Do NOT check this box!)
 [ ] Large-print book   --> LEAVE UNCHECKED!
 
-Keywords (Copy one into each of the 7 boxes):
-Box 1: halloween colouring book for kids
-Box 2: spooky coloring book bold and easy
-Box 3: cute not scary halloween book children
-Box 4: aussie animals halloween ghost witch
-Box 5: halloween coloring book ages 4-8 pumpkin
-Box 6: halloween gift book boys girls toddlers
-Box 7: australian animals colouring book kids
+Keywords (copy each line into its own keyword box, in order):
+halloween colouring book for kids
+spooky coloring book bold and easy
+cute not scary halloween book children
+aussie animals halloween ghost witch
+halloween coloring book ages 4-8 pumpkin
+halloween gift book boys girls toddlers
+australian animals colouring book kids
 
 Publication Date:
 Select: "Publication date and release date are the same"

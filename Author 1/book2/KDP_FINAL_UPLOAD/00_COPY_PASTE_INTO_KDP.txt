@@ -86,14 +86,14 @@ Classify as any of these types?
 [ ] Low-content book   --> LEAVE UNCHECKED! (Do NOT check this box!)
 [ ] Large-print book   --> LEAVE UNCHECKED!
 
-Keywords (Copy one into each of the 7 boxes):
-Box 1: great barrier reef coloring book for kids
-Box 2: coral reef coloring book bold easy
-Box 3: ocean animals coloring book ages 3-8
-Box 4: sea turtle clownfish manta ray maori wrasse
-Box 5: australian reef colouring book single sided
-Box 6: under the sea coloring book fun facts
-Box 7: nemo fish shark coloring book toddlers gift
+Keywords (copy each line into its own keyword box, in order):
+great barrier reef coloring book for kids
+coral reef coloring book bold easy
+ocean animals coloring book ages 3-8
+sea turtle clownfish manta ray maori wrasse
+australian reef colouring book single sided
+under the sea coloring book fun facts
+nemo fish shark coloring book toddlers gift
 
 Publication Date:
 Select: "Publication date and release date are the same"

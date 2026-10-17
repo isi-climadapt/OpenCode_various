@@ -63,6 +63,8 @@
     | 4 | Standard Image Header With Text (970 x 600 minimum) | `aplus_4_sample_grid_1940x1200.jpg` | … |
 12. **No em dashes (—) anywhere in a book** (user rule, Oct 2026): not in captions, interior pages, covers, descriptions, A+ panels, copy-paste guides or alt text. Use a full stop, comma or colon instead. Check before every build: `grep -rn "—"` over the book folder must return nothing.
 13. **The US is the primary market** (user decision, Oct 2026): Amazon.com is the KDP primary marketplace, US $9.99 is the lead price, research weights .com, and **all customer-facing text uses US spelling** ("coloring", "color", "favorite", "cozy", "check off"): title, subtitle, description, keywords, interior pages, back cover, A+ panels and alt text. Pen names, imprints and the Australian voice and facts stay. Books published before this decision keep their spelling unless the user asks.
+14. **Keyword section format** (user rule, Oct 2026): in `00_COPY_PASTE_INTO_KDP.txt`, list the 7 keywords as plain lines under "Keywords (copy each line into its own keyword box, in order):", with no "Box 1:" style labels, so each line pastes straight into KDP.
+15. **Always build from the latest layout** (user rule, Oct 2026): every agent starts each stage (generator, interior, cover, wrap, KDP guide, A+) by copying that stage's script from the author's most recently changed book, never from an older book, a template in this file or a copy taken earlier in the session. Before copying, and again before each checkpoint, check what changed: `git log -5 --stat -- "Author N"` plus `git status` and `git diff` for uncommitted work by other sessions. Layouts change while books are in progress, so a new layout that lands mid-build gets ported before the next checkpoint, and the agent tells the user what changed. Book-specific settings (titles, colours, page lists) are the only things a new book changes.
 
 ---
 
@@ -158,7 +160,7 @@
 
 ### Per-Book Reusable Asset Checklist
 
-Copy these from `book1/` for each new book:
+Copy these from the author's most recently changed book (hard rule 15), not from `book1/`:
 
 | Asset | File | Reuse |
 |---|---|---|

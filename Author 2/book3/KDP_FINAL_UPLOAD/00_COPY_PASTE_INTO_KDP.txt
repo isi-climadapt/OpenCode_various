@@ -90,14 +90,14 @@ Classify as any of these types?
 [ ] Low-content book   --> LEAVE UNCHECKED! (Do NOT check this box!)
 [ ] Large-print book   --> LEAVE UNCHECKED!
 
-Keywords (Copy one into each of the 7 boxes):
-Box 1: robots coloring book for boys
-Box 2: stem coloring book for kids ages 4-8
-Box 3: science coloring book for kids
-Box 4: space rover drone coloring pages
-Box 5: technology activity book for kids
-Box 6: engineering gifts for kids ages 3-8
-Box 7: cute robot coloring book toddlers preschool
+Keywords (copy each line into its own keyword box, in order):
+robots coloring book for boys
+stem coloring book for kids ages 4-8
+science coloring book for kids
+space rover drone coloring pages
+technology activity book for kids
+engineering gifts for kids ages 3-8
+cute robot coloring book toddlers preschool
 
 Publication Date:
 Select: "Publication date and release date are the same"
