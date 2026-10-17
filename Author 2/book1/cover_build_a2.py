@@ -93,6 +93,9 @@ def build_front(hero_tag):
     scale = min(1600 / hero.width, 1600 / hero.height)
     if 300.0 / scale < 270:
         print("WARNING: %s prints at %d DPI (needs 270+); regenerate at 2K" % (os.path.basename(hero_path), 300.0 / scale))
+    # AI backgrounds come back off-white (~253); lift near-white to pure white so the
+    # hero has no faint square against the white cover
+    hero = hero.point(lambda v: 255 if v > 244 else v)
     hero = hero.resize((int(hero.width * scale), int(hero.height * scale)), Image.LANCZOS)
     hx = (W - hero.width) // 2
     hy = 1400 + (1600 - hero.height) // 2
@@ -102,7 +105,8 @@ def build_front(hero_tag):
     f_tag = ImageFont.truetype(FONT_FREDO, 60)
     tag = "50 BIG & BOLD SPACE DESIGNS"
     tbb = d.textbbox((0, 0), tag, font=f_tag)
-    d.text(((W - (tbb[2] - tbb[0])) // 2 - tbb[0], 3090), tag, fill=BLUE, font=f_tag)
+    # 3090 sat on the yellow inner frame (y 3140-3150); 3045 clears it
+    d.text(((W - (tbb[2] - tbb[0])) // 2 - tbb[0], 3045), tag, fill=BLUE, font=f_tag)
 
     save(canvas, out_path)
     return out_path
