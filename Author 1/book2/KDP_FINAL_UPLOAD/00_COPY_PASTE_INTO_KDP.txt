@@ -29,7 +29,7 @@ Series (Optional):
 Click "Add to series"
 - Series Title: Aussie Cuties      <-- EXACTLY the same series title as Book 1,
 - Main Title: Book 2                   so Amazon links both books on one shelf.
-(NOTE: interior back-matter brands the wider line "Gumleaf Aussie Friends" â€”
+(NOTE: interior back-matter brands the wider line "Gumleaf Aussie Friends" —
 the KDP series field must still match Book 1's series title to link them.)
 
 Edition Number:
@@ -46,19 +46,19 @@ Description (Copy and paste directly into the KDP text box):
 --------------------------------------------------------------------------------
 G'day! It's time to dive in with Ocean Friends!
 
-Splash into the colourful underwater world of the Great Barrier Reef. Meet 50 adorably chubby, cheerful sea creatures ready to brighten your day â€” from gentle green sea turtles and smiling clownfish to gliding manta rays, friendly reef sharks, sleepy dugongs, and a baby turtle racing the moon!
+Splash into the colourful underwater world of the Great Barrier Reef. Meet 50 adorably chubby, cheerful sea creatures ready to brighten your day — from gentle green sea turtles and smiling clownfish to gliding manta rays, friendly reef sharks, sleepy dugongs, and a baby turtle racing the moon!
 
 Grab your favourite colours, find your cozy corner, and let the fun begin!
 
 Great Barrier Reef Ocean Friends has sweet and irresistible illustrations for colouring fans of all ages, and includes:
 
-â€¢ 50 Hand-Crafted Pages: Filled with the Great Barrier Reef's most lovable creatures in heartwarming, cheerful scenes.
-â€¢ Large, Bold Designs: Extra-thick outlines with generous open spaces that are relaxing and easy to colour.
-â€¢ Fun Facts on Every Page: Discover amazing secrets about the reef as you colour!
-â€¢ Single-Sided Pages: Every design is printed on a single sheet with a blank back to prevent marker bleed-through and make displaying your artwork easy.
-â€¢ Bonus Activity Pages: Includes a Colour Test Palette, a Reef Friends Checklist to tick off all 50 sea creatures, and an official Young Artist Certificate of Completion.
-â€¢ Crisp, High-Resolution Prints: 8.5 x 11 inch large format for clean, frustration-free colouring.
-â€¢ The Perfect Gift: A wonderful present for ocean animal lovers, birthdays, holidays, travel, and quiet cozy afternoons.
+• 50 Hand-Crafted Pages: Filled with the Great Barrier Reef's most lovable creatures in heartwarming, cheerful scenes.
+• Large, Bold Designs: Extra-thick outlines with generous open spaces that are relaxing and easy to colour.
+• Fun Facts on Every Page: Discover amazing secrets about the reef as you colour!
+• Single-Sided Pages: Every design is printed on a single sheet with a blank back to prevent marker bleed-through and make displaying your artwork easy.
+• Bonus Activity Pages: Includes a Colour Test Palette, a Reef Friends Checklist to tick off all 50 sea creatures, and an official Young Artist Certificate of Completion.
+• Crisp, High-Resolution Prints: 8.5 x 11 inch large format for clean, frustration-free colouring.
+• The Perfect Gift: A wonderful present for ocean animal lovers, birthdays, holidays, travel, and quiet cozy afternoons.
 
 Grab your snorkel, find your cozy corner, and bring the Great Barrier Reef's sweetest creatures to life!
 --------------------------------------------------------------------------------
@@ -79,7 +79,7 @@ Categories (Click "Choose categories"):
 1. Children's Books > Activities, Crafts & Games > Activity Books > Coloring Books
 2. Children's Books > Animals > Fish (Marine Life)
 3. Children's Books > Science, Nature & How It Works > Nature > Oceans & Seas
-(If exact paths differ in the live picker, choose the closest match â€”
+(If exact paths differ in the live picker, choose the closest match —
 keep one Coloring Books + one ocean/sea-animal category.)
 
 Classify as any of these types?
@@ -130,7 +130,7 @@ AI-Generated Content Disclosure:
 
 Launch Previewer:
 Click "Launch Previewer" to approve the digital proof.
-(Interior built to the same locked margins as Book 1 â€” 0 pages flagged.)
+(Interior built to the same locked margins as Book 1 — 0 pages flagged.)
 
 
 ================================================================================
@@ -150,7 +150,7 @@ Pricing (Amazon.com.au):
 
 Worldwide Pricing:
 - Amazon.com (US):   $9.99  ($3.15 profit/copy)
-- Amazon.co.uk (UK): Â£7.99  (Â£2.50 profit/copy)
+- Amazon.co.uk (UK): £7.99  (£2.50 profit/copy)
 
 Click: "Publish Your Paperback"!
 ================================================================================
