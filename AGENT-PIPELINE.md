@@ -50,7 +50,7 @@
 5. One book = one folder (`book1`, `book2`...) with identical structure
 6. Full F1–F8 audit suite must pass + human contact-sheet review before any PDF export
 7. Cover follows the Coco Wyo formula (researched live bestseller pattern)
-8. Trend research = **100-book analysis only**, latest + most-sold bestsellers on Amazon .au + .com (no broad scrapes)
+8. Trend research = **100-book analysis only**, latest + most-sold bestsellers, weighted to Amazon.com (primary market) with .com.au as secondary (no broad scrapes)
 9. **F9 caption↔image coherence must pass** before any contact-sheet review or PDF export — every caption must describe what is actually in its image (`scripts/caption_coherence.py`, runs automatically after every batch typeset)
 10. **Uniform caption typography**: fixed font size across all pages of a book (80px @300DPI), word-wrap to max 2 lines — never per-page shrinking
 11. **Every book ships with A+ Content (Stage 7).** Run `aplus_build.py` after the final interior + cover exist. It must produce the 4 module images AND `KDP_FINAL_UPLOAD\03_A_PLUS_CONTENT_GUIDE.txt` — the step-by-step guide with, for each module, the KDP module to pick, the image file, the alt text and a fallback headline, filled in for this book. Show the user the 4 drafts before anything goes to KDP. **Upload the 2x files** (1940 × 600 / 1940 × 1200): Amazon's 970 px sizes are minimums, and a 970 px file looks pixelated in KDP's preview and on high-resolution screens. **Every A+ hand-off ends with this table in the reply**, one per book (the script prints it, and it's at the top of the guide):
@@ -61,6 +61,8 @@
     | 2 | Standard Image Header With Text (970 x 600 minimum) | `aplus_2_features_1940x1200.jpg` | … |
     | 3 | Standard Image Header With Text (970 x 600 minimum) | `aplus_3_single_sided_1940x1200.jpg` | … |
     | 4 | Standard Image Header With Text (970 x 600 minimum) | `aplus_4_sample_grid_1940x1200.jpg` | … |
+12. **No em dashes (—) anywhere in a book** (user rule, Oct 2026): not in captions, interior pages, covers, descriptions, A+ panels, copy-paste guides or alt text. Use a full stop, comma or colon instead. Check before every build: `grep -rn "—"` over the book folder must return nothing.
+13. **The US is the primary market** (user decision, Oct 2026): Amazon.com is the KDP primary marketplace, US $9.99 is the lead price, research weights .com, and **all customer-facing text uses US spelling** ("coloring", "color", "favorite", "cozy", "check off"): title, subtitle, description, keywords, interior pages, back cover, A+ panels and alt text. Pen names, imprints and the Australian voice and facts stay. Books published before this decision keep their spelling unless the user asks.
 
 ---
 
@@ -83,7 +85,7 @@
 │  STAGE 2: NICHE VALIDATOR AGENT (research)                        │
 │  • Live SERP census (titles, prices, reviews, page counts)        │
 │  • BSR band check: winning = ≤250 reviews & BSR ≤30K              │
-│  • Price floor check: niche must support A$13.99+                 │
+│  • Price check: niche must support US $9.99 (A$13.99+ on .au)     │
 │  • Title collision check (exact-match search)                     │
 │  • Output: GO / GO-WITH-CHANGES + locked title & keywords         │
 └──────────────────────────┬─────────────────────────────────────────┘
@@ -130,7 +132,7 @@
 │  • NEVER check "low-content" box                                  │
 │  • AI disclosure: Yes → images "some with extensive editing" →     │
 │    "OpenArt, Nano Banana 2"; text = No                            │
-│  • Pricing: .au floor A$13.99, anchor A$16.99 (A$4.91/sale)        │
+│  • Pricing: US $9.99 primary; A$16.99 .au; £7.99 UK                │
 │  • Output: KDP_FINAL_UPLOAD/ folder (manuscript + cover + guide)   │
 └──────────────────────────┬─────────────────────────────────────────┘
                            ▼

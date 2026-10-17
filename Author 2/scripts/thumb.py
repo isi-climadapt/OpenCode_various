@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Crisp line-art thumbnail renderer for cover wraps (high-quality back-cover samples).
-# Downscale + re-binarize keeps lines pure black/white at ANY size — no grey mush,
+# Downscale + re-binarize keeps lines pure black/white at ANY size: no grey mush,
 # both in print and in Amazon's low-res gallery derivatives.
 from PIL import Image, ImageOps
 

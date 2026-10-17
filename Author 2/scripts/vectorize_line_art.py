@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# F11 — VECTOR LINE-ART UPSCALER (pixelation + halo cure, pipeline-wide)
+# F11: VECTOR LINE-ART UPSCALER (pixelation + halo cure, pipeline-wide)
 # 1024px native -> potracer vector trace -> render at target size.
 # Edges are mathematically smooth at ANY resolution: no upscale softness,
 # no UnsharpMask halos, pure black/white output -> print-crisp at 300 DPI.

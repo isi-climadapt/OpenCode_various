@@ -32,7 +32,7 @@
 
 - Every book: author "Flora Watt", publisher "Wattle Wonders Publishing" (KDP Publisher field + in-book imprint line)
 - One Author Central account per pen name; never merge; author photo = bright, energetic illustration style (contrast with Author 1's softness)
-- AU spelling customer-facing ("Colouring"); US "coloring" in backend slots
+- US spelling customer-facing ("Coloring") from Book 3 on: the US is the primary market (Oct 2026 decision). Space Wonders and Minibeast Wonders keep "Colouring"
 - Series naming: decide at Book 1 lock — suggested house line **"Wattle Wonders"** (e.g., "Big Book of Space: 50 Bold Designs for Kids Ages 3-8")
 - House formula candidates: "Big Book of [X]" · "The Complete [X] Colouring Book" · "[X] Wonders"
 

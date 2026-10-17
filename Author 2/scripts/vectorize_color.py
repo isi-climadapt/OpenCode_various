@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# F11b v3 — COLOUR cover-art vectorizer (winding-aware layers, ink-on-top):
+# F11b v3: COLOUR cover-art vectorizer (winding-aware layers, ink-on-top):
 #   1) quantize -> unique palette; bg = most common colour
 #   2) fill layers (non-bg, non-near-black), largest first, each traced with
 #      winding-aware hole handling + auto polarity check (F11a logic)

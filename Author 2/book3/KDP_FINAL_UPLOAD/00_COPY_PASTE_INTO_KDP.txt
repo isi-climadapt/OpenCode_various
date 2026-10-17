@@ -1,0 +1,172 @@
+================================================================================
+AMAZON KDP UPLOAD GUIDE & METADATA (READY TO COPY & PASTE)
+Book Title: Robot Wonders
+Author: Flora Watt, Wattle Wonders Publishing (AUTHOR 2), Book 3
+================================================================================
+
+All files you need to upload to Amazon KDP are in this folder:
+C:\Users\ibian\Desktop\OpenCode_Various\Author 2\book3\KDP_FINAL_UPLOAD\
+
+FILES TO UPLOAD:
+1. Manuscript (Interior):  01_MANUSCRIPT_INTERIOR_108P.pdf
+2. Cover:                  02_COVER_WRAP_PRINT_READY.pdf (ONE file: front + spine + back)
+3. Cover Visual Preview:   COVER_PREVIEW.png
+4. A+ Content:             03_A_PLUS_CONTENT\ + 03_A_PLUS_CONTENT_GUIDE.txt (after the book is live)
+
+IMPORTANT:
+- Same KDP account as Space Wonders
+- KDP "Publisher" field MUST be: Wattle Wonders Publishing
+- Link to the "Wattle Wonders" series as Book 3 (same series as Space and Minibeast Wonders)
+- Do NOT link to the "Aussie Cuties" series. It belongs to a different author brand.
+
+
+================================================================================
+SCREEN 1: PAPERBACK DETAILS
+================================================================================
+
+Language:
+English
+
+Book Title (Copy exactly):
+Robot Wonders
+
+Subtitle (Optional) (Copy exactly):
+A big and bold coloring book, perfect for robot lovers
+
+Series (Optional):
+Click "Add to series" and pick the existing series
+- Series Title: Wattle Wonders   <-- EXACTLY the same as Space and Minibeast Wonders
+- Main Title: Book 3
+
+Edition Number:
+(Leave blank)
+
+Primary Author:
+- First name: Flora
+- Last name:  Watt
+
+Contributors:
+(Leave completely blank)
+
+Description (Copy and paste directly into the KDP text box):
+--------------------------------------------------------------------------------
+Power up! It's time to meet the robots!
+
+Roll across Mars with a cheerful rover, watch a robot dog climb the stairs, and cheer for a robot doing backflips! Then meet real Aussie robots, like the giant driverless trucks at Australian mines and the reef robot that helps protect the Great Barrier Reef. Robot Wonders turns the amazing world of robots into 50 big, bold, and easy designs that young inventors can finish and feel proud of, with a real robot fact to discover on every single page.
+
+Why kids (and parents) love Robot Wonders:
+
+• 50 Hand-Crafted Pages: Mars rovers, robot dogs, drones, farm robots, rescue robots, robot chefs and many more friendly helpers.
+• Big & Bold Designs: Extra-thick outlines with huge open spaces that are relaxing and easy to color.
+• Fun Facts on Every Page: Learn real robot secrets as you color, from the first helicopter on Mars to a robot penguin chick!
+• Single-Sided Pages: Every design is printed on a single sheet with a blank back to prevent marker bleed-through and make displaying your artwork easy.
+• Bonus Activity Pages: Includes a Color Test Palette, a Robot Wonders Checklist to check off all 50 designs, and an official Robot Artist Award.
+• Crisp, High-Resolution Prints: 8.5 x 11 inch large format for clean, frustration-free coloring.
+• The Perfect Gift: A wonderful present for birthdays, Christmas stockings, STEM-loving kids, and quiet cozy afternoons.
+
+Grab your colors, little inventors. The robots are ready to be colored!
+--------------------------------------------------------------------------------
+
+Publishing Rights:
+Select: "I own the copyright and I hold necessary publishing rights."
+
+Primary Audience / Sexually Explicit:
+Select: "No"
+
+Reading Age:
+(Leave blank to keep universal appeal)
+
+Primary Marketplace:
+Amazon.com
+
+Categories (Click "Choose categories"):
+1. Children's Books > Activities, Crafts & Games > Activity Books > Coloring Books
+2. Children's Books > Science, Nature & How It Works > Machinery & Tools (or Robotics)
+3. Children's Books > Computers & Technology
+(If exact paths differ in the live picker, choose the closest match and
+keep one Coloring Books + one robots/technology category.)
+
+Classify as any of these types?
+[ ] Low-content book   --> LEAVE UNCHECKED! (Do NOT check this box!)
+[ ] Large-print book   --> LEAVE UNCHECKED!
+
+Keywords (Copy one into each of the 7 boxes):
+Box 1: robot coloring book for kids
+Box 2: robot coloring book fun facts
+Box 3: bold and easy robots coloring book
+Box 4: robots coloring book ages 3-8
+Box 5: stem coloring book boys girls
+Box 6: mars rover space robot coloring pages
+Box 7: science technology gifts for kids ages 3-8
+
+Publication Date:
+Select: "Publication date and release date are the same"
+
+Release Date:
+Select: "Release my book for sale now"
+
+
+================================================================================
+SCREEN 2: PAPERBACK CONTENT
+================================================================================
+
+ISBN:
+Select: "Assign free KDP ISBN"
+
+Print Options:
+- Interior & paper type: Black & white interior with white paper
+- Trim Size:             8.5 x 11 in (21.59 x 27.94 cm)
+- Bleed settings:        No Bleed
+- Cover finish:          Matte (matches the bright house style)
+
+Publisher / Imprint field (if prompted):
+Enter: Wattle Wonders Publishing   <-- NOT "Independently published"!
+
+Manuscript:
+Upload: 01_MANUSCRIPT_INTERIOR_108P.pdf
+
+Book Cover:
+Select: "Upload a cover you already have (print-ready PDF)"
+Upload: 02_COVER_WRAP_PRINT_READY.pdf
+
+AI-Generated Content Disclosure:
+- Did you use AI-based tools?  --> Select: "Yes"
+- Images:                      --> Select: "Some with extensive editing"
+- Tools used:                  --> Enter: OpenArt, Nano Banana 2, Ideogram 4.5
+- Text:                        --> Select: "No"
+
+Launch Previewer:
+Click "Launch Previewer" to approve the digital proof.
+(The previewer shows pages at screen resolution, so it looks softer than print.
+Order a proof copy to check print quality.)
+
+
+================================================================================
+SCREEN 3: PAPERBACK RIGHTS & PRICING
+================================================================================
+
+Territories:
+Select: "All territories (worldwide rights)"
+
+Primary Marketplace:
+Amazon.com
+
+Pricing (Amazon.com, primary market):
+- List Price:   $9.99
+- Royalty:      about $3.15 profit per copy
+
+Other marketplaces:
+- Amazon.com.au (AU): A$16.99  (about A$4.91 profit/copy)
+- Amazon.co.uk (UK):  £7.99   (about £2.50 profit/copy)
+
+Click: "Publish Your Paperback"
+
+================================================================================
+AFTER PUBLISH (in order):
+1. KDP → Publisher field verified = Wattle Wonders Publishing
+2. Price check at $9.99 on Amazon.com (and A$16.99 / £7.99 elsewhere)
+3. Series check: Space, Minibeast and Robot Wonders all show under "Wattle Wonders"
+4. A+ Content: follow 03_A_PLUS_CONTENT_GUIDE.txt (add the new ASIN to aplus_build.py, rerun)
+5. Author copies: KDP Bookshelf → "..." next to the paperback → "Order author copies"
+6. Never cross-link promo with Matilda Hayes / Gumleaf Kids Press listings
+================================================================================

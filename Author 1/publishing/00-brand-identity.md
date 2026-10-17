@@ -14,7 +14,7 @@
 - Every book: author "Matilda Hayes", publisher "Gumleaf Kids Press" (KDP "Publisher" field + in-book imprint line)
 - Series pages use the same pen name → catalogue synergy + follow button
 - One Author Central account per pen name; never merge identities
-- AU spelling the norm: "Colouring", "Cosy" — but load US "coloring" spellings in backend keywords
+- US spelling customer-facing from Book 4 on ("Coloring", "Cozy"): the US is the primary market (Oct 2026 decision). Books 1-3 keep "Colouring"
 
 ## About-the-Author page (drafted for book #1; prints in manuscript)
 
