@@ -1,0 +1,31 @@
+page_02 ok
+page_05 ok
+page_15 ok
+page_17 ok
+page_19 ok
+page_22 ok
+page_23 ok
+page_33 ok
+page_40 ok
+page_42 ok
+page_43 ok
+page_45 ok
+page_49 ok
+page_50 ok
+--- post-processing ---
+page_02 assembled QA-OK
+page_05 assembled QA-OK
+page_15 assembled QA-OK
+page_17 assembled QA-OK
+page_19 assembled QA-OK
+page_22 assembled QA-OK
+page_23 assembled QA-OK
+page_33 assembled QA-OK
+page_40 assembled QA-OK
+page_42 assembled QA-OK
+page_43 assembled QA-OK
+page_45 assembled QA-OK
+page_49 assembled QA-OK
+page_50 assembled QA-OK
+=== SUMMARY: 14 ok, 0 flagged ===
+F9 coherence: 50/50 captions match their images

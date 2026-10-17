@@ -1,0 +1,52 @@
+page_02 ok
+page_05 ok
+page_15 ok
+page_17 ok
+page_22 FAIL: error: POST /api/cli/v1/generate: Post "https://openart.ai/suite/api/cli/v1/generate": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+page_23 ok
+page_40 ok
+page_42 ok
+page_43 FAIL: error: POST /api/cli/v1/generate: Post "https://openart.ai/suite/api/cli/v1/generate": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+page_45 FAIL: error: POST /api/cli/v1/generate: Post "https://openart.ai/suite/api/cli/v1/generate": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+page_49 ok
+page_50 ok
+retry page_22 ok
+retry page_43 ok
+retry page_45 ok
+--- post-processing ---
+page_02 assembled QA-OK
+page_05 assembled QA-OK
+page_15 assembled QA-OK
+page_17 assembled ['F3 edge x0 y150']
+page_22 assembled QA-OK
+page_23 assembled QA-OK
+page_40 assembled ['F2 hline y=150', 'F3 edge x0 y150']
+page_42 assembled QA-OK
+page_43 assembled QA-OK
+page_45 assembled QA-OK
+page_49 assembled QA-OK
+page_50 assembled QA-OK
+=== SUMMARY: 10 ok, 2 flagged ===
+FLAG page_17 ['F3 edge x0 y150']
+FLAG page_40 ['F2 hline y=150', 'F3 edge x0 y150']
+F9 coherence: 50/50 captions match their images
+page_02 EDGE L 135, EDGE R 122
+page_03 EDGE B 157
+page_04 EDGE B 106, EDGE L 59, EDGE R 426
+page_07 EDGE B 175, EDGE L 369, EDGE R 348
+page_12 EDGE L 305, EDGE R 402
+page_15 EDGE L 128, EDGE R 483
+page_17 EDGE T 1759, EDGE B 1544
+page_21 EDGE L 71, EDGE R 66
+page_23 EDGE L 285, EDGE R 241
+page_26 EDGE L 130, EDGE R 140
+page_32 EDGE L 185, EDGE R 284
+page_34 EDGE L 48, EDGE R 293
+page_36 EDGE L 164, EDGE R 165
+page_40 EDGE T 864, EDGE B 864
+page_43 EDGE T 28, EDGE L 66, EDGE R 64
+page_49 EDGE L 91, EDGE R 227
+source check: 34/50 clean
