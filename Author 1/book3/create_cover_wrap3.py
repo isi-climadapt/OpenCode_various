@@ -86,7 +86,7 @@ def build():
 
     bullets = [
         ("•  50 BIG & BOLD DESIGNS", "Extra-thick lines, easy for crayons, markers, & little hands"),
-        ("•  SPOOKY, NOT SCARY", "Eerie-but-adorable Aussie friends — perfect for young artists"),
+        ("•  SPOOKY, NOT SCARY", "Eerie-but-adorable Aussie friends, perfect for young artists"),
         ("•  FUN FACTS ON EVERY PAGE", "Learn amazing secrets about Halloween and Aussie animals"),
         ("•  SINGLE-SIDED PAGES", "No bleed-through! Great for cutting out and displaying artwork"),
     ]
