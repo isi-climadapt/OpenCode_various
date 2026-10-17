@@ -14,9 +14,9 @@ MODULE TABLE
 
 | # | Module | Image | Alt text |
 |---|---|---|---|
-| 1 | Standard Image & Light Text Overlay (970 x 300 minimum) | `aplus_1_banner_1940x600.jpg` | Minibeast Wonders colouring book by Flora Watt, cover and honeybee page |
-| 2 | Standard Image Header With Text (970 x 600 minimum) | `aplus_2_features_1940x1200.jpg` | Ladybird and Christmas beetle colouring pages with the book's features |
-| 3 | Standard Image Header With Text (970 x 600 minimum) | `aplus_3_single_sided_1940x1200.jpg` | 8.5 by 11 inch book with single-sided colouring pages |
+| 1 | Standard Image & Light Text Overlay (970 x 300 minimum) | `aplus_1_banner_1940x600.jpg` | Minibeast Wonders coloring book by Flora Watt, cover and honeybee page |
+| 2 | Standard Image Header With Text (970 x 600 minimum) | `aplus_2_features_1940x1200.jpg` | Ladybug and Christmas beetle coloring pages with the book's features |
+| 3 | Standard Image Header With Text (970 x 600 minimum) | `aplus_3_single_sided_1940x1200.jpg` | 8.5 by 11 inch book with single-sided coloring pages |
 | 4 | Standard Image Header With Text (970 x 600 minimum) | `aplus_4_sample_grid_1940x1200.jpg` | Six sample pages: butterfly, dragonfly, dung beetle, spider, peacock spider, termite mound |
 
 STEPS
@@ -29,17 +29,17 @@ STEPS
 
    MODULE 1: Standard Image & Light Text Overlay (970 x 300 minimum)
      Image:    aplus_1_banner_1940x600.jpg
-     Alt text: Minibeast Wonders colouring book by Flora Watt, cover and honeybee page
+     Alt text: Minibeast Wonders coloring book by Flora Watt, cover and honeybee page
      Headline (only if required): Minibeast Wonders
 
    MODULE 2: Standard Image Header With Text (970 x 600 minimum)
      Image:    aplus_2_features_1940x1200.jpg
-     Alt text: Ladybird and Christmas beetle colouring pages with the book's features
+     Alt text: Ladybug and Christmas beetle coloring pages with the book's features
      Headline (only if required): What's inside
 
    MODULE 3: Standard Image Header With Text (970 x 600 minimum)
      Image:    aplus_3_single_sided_1940x1200.jpg
-     Alt text: 8.5 by 11 inch book with single-sided colouring pages
+     Alt text: 8.5 by 11 inch book with single-sided coloring pages
      Headline (only if required): Single-sided pages
 
    MODULE 4: Standard Image Header With Text (970 x 600 minimum)

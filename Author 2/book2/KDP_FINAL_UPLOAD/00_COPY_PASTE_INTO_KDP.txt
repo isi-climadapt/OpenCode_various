@@ -1,7 +1,7 @@
 ================================================================================
 AMAZON KDP UPLOAD GUIDE & METADATA (READY TO COPY & PASTE)
 Book Title: Minibeast Wonders
-Author: Flora Watt — Wattle Wonders Publishing (AUTHOR 2), Book 2
+Author: Flora Watt, Wattle Wonders Publishing (AUTHOR 2), Book 2
 ================================================================================
 
 All files you need to upload to Amazon KDP are in this folder:
@@ -17,7 +17,7 @@ IMPORTANT:
 - Same KDP account as Space Wonders
 - KDP "Publisher" field MUST be: Wattle Wonders Publishing
 - Link to the "Wattle Wonders" series as Book 2 (same series as Space Wonders)
-- Do NOT link to the "Aussie Cuties" series — different author brand
+- Do NOT link to the "Aussie Cuties" series. It belongs to a different author brand.
 
 
 ================================================================================
@@ -31,7 +31,7 @@ Book Title (Copy exactly):
 Minibeast Wonders
 
 Subtitle (Optional) (Copy exactly):
-A big and bold colouring book, perfect for bug lovers
+Bug Coloring Book for Kids Ages 3-8: 50 Big and Bold Insects, Butterflies, Bees, Ladybugs and Spiders with Fun Facts on Every Page
 
 Series (Optional):
 Click "Add to series" and pick the existing series
@@ -50,21 +50,21 @@ Contributors:
 
 Description (Copy and paste directly into the KDP text box):
 --------------------------------------------------------------------------------
-Grab your magnifying glass — it's time to meet the minibeasts!
+Minibeast Wonders is a bug coloring book for kids ages 3-8, with 50 big, bold insects, butterflies, bees, ladybugs, beetles and spiders to color, and a real bug fact on every page.
 
-Say hello to a hungry ladybird, a dancing honeybee, a glowing firefly and a dung beetle rolling a ball bigger than itself. Then meet Aussie stars like the shiny Christmas beetle, the dancing peacock spider and the glow-worms that light up Australian caves! Minibeast Wonders turns the tiny world under our feet into 50 big, bold, and easy designs that young explorers can finish and feel proud of — with a real fact to discover on every single page.
+Say hello to a hungry ladybug, a dancing honeybee, a glowing firefly and a dung beetle rolling a ball bigger than itself. Then meet Aussie stars like the shiny Christmas beetle, the dancing peacock spider and the glow-worms that light up Australian caves. Every design has thick outlines and big open spaces, so young explorers can finish each page and feel proud of it.
 
-Why kids (and parents) love Minibeast Wonders:
+Inside this insect coloring book:
 
-• 50 Hand-Crafted Pages: Ladybirds, bees, butterflies, beetles, spiders, snails, worms and 15 amazing Australian minibeasts.
-• Big & Bold Designs: Extra-thick outlines with huge open spaces that are relaxing and easy to colour.
-• Fun Facts on Every Page: Learn amazing bug secrets as you colour — from grasshoppers with ears on their tummies to spiders that dance!
-• Single-Sided Pages: Every design is printed on a single sheet with a blank back to prevent marker bleed-through and make displaying your artwork easy.
-• Bonus Activity Pages: Includes a Colour Test Palette, a Minibeast Wonders Checklist to tick off all 50 designs, and an official Minibeast Artist Award.
-• Crisp, High-Resolution Prints: 8.5 x 11 inch large format for clean, frustration-free colouring.
-• The Perfect Gift: A wonderful present for birthdays, Christmas stockings, nature-loving kids, and quiet cosy afternoons.
+• 50 Original Designs: Ladybugs, bees, butterflies, beetles, spiders, snails, worms and 15 amazing Australian bugs.
+• Big & Bold Pages: Extra-thick outlines and large open spaces, great for crayons, markers and little hands.
+• Fun Facts on Every Page: Learn real bug secrets as you color, from grasshoppers with ears on their tummies to spiders that dance.
+• Single-Sided Pages: Every design has a blank back, so markers don't bleed through and finished pictures are ready to display.
+• Bonus Pages: A Color Test Palette, a checklist to check off all 50 designs, and a Minibeast Artist Award.
+• Large 8.5 x 11 inch Format: Crisp, high-resolution prints.
+• A Great Gift: For birthdays, Christmas stockings, classrooms and nature-loving kids.
 
-Grab your colours, little explorers — the garden is waiting to be coloured!
+Grab your colors, little explorers. The garden is waiting!
 --------------------------------------------------------------------------------
 
 Publishing Rights:
@@ -77,13 +77,13 @@ Reading Age:
 (Leave blank to keep universal appeal)
 
 Primary Marketplace:
-Amazon.com.au
+Amazon.com
 
 Categories (Click "Choose categories"):
 1. Children's Books > Activities, Crafts & Games > Activity Books > Coloring Books
 2. Children's Books > Animals > Insects, Spiders, Etc.
 3. Children's Books > Science, Nature & How It Works > Nature
-(If exact paths differ in the live picker, choose the closest match —
+(If exact paths differ in the live picker, choose the closest match and
 keep one Coloring Books + one insects/nature category.)
 
 Classify as any of these types?
@@ -91,13 +91,13 @@ Classify as any of these types?
 [ ] Large-print book   --> LEAVE UNCHECKED!
 
 Keywords (Copy one into each of the 7 boxes):
-Box 1: bug coloring book for kids
-Box 2: insect coloring book kids fun facts
-Box 3: bold and easy bugs coloring book
-Box 4: minibeasts colouring book ages 3-8
-Box 5: australian insects colouring book kids
-Box 6: butterfly ladybug bee coloring pages
-Box 7: nature science gifts for kids ages 3-8
+Box 1: insect coloring book for kids
+Box 2: bugs and insects coloring book ages 4-8
+Box 3: butterfly coloring book for kids
+Box 4: ladybug bee spider caterpillar coloring pages
+Box 5: nature coloring book for toddlers preschool
+Box 6: science activity book for kids fun facts
+Box 7: garden animals coloring book boys girls gift
 
 Publication Date:
 Select: "Publication date and release date are the same"
@@ -149,23 +149,22 @@ Territories:
 Select: "All territories (worldwide rights)"
 
 Primary Marketplace:
-Amazon.com.au
+Amazon.com
 
-Pricing (Amazon.com.au):
-- List Price:   A$16.99
-- Print Cost:   A$5.28
-- Royalty (60%): A$4.91 net profit per copy sold
+Pricing (Amazon.com, primary market):
+- List Price:   $9.99  (do not go lower: below $9.99 the royalty drops from 60% to 50%)
+- Royalty:      about $3.15 profit per copy
 
-Worldwide Pricing:
-- Amazon.com (US):   $9.99  ($3.15 profit/copy)
-- Amazon.co.uk (UK): £7.99  (£2.50 profit/copy)
+Other marketplaces:
+- Amazon.com.au (AU): A$16.99  (about A$4.91 profit/copy)
+- Amazon.co.uk (UK):  £7.99   (about £2.50 profit/copy)
 
 Click: "Publish Your Paperback"
 
 ================================================================================
 AFTER PUBLISH (in order):
 1. KDP → Publisher field verified = Wattle Wonders Publishing
-2. Price check at A$16.99 (raise if defaulted lower)
+2. Price check at $9.99 on Amazon.com (and A$16.99 / £7.99 elsewhere)
 3. Series check: Space Wonders + Minibeast Wonders both show under "Wattle Wonders"
 4. A+ Content: follow 03_A_PLUS_CONTENT_GUIDE.txt (add the new ASIN to aplus_build.py, rerun)
 5. Author copies: KDP Bookshelf → "..." next to the paperback → "Order author copies"

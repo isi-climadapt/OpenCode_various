@@ -26,7 +26,6 @@ FONT_PACIFICO = os.path.join(FONTS_DIR, "Pacifico-Regular.ttf")
 W, H = 2550, 3300
 
 TITLE = "Robot Wonders"
-SUBTITLE_LONG = "A big and bold coloring book, perfect for robot lovers"
 
 HERO_CROP = os.path.join(ROOT, "robot_cropped.png")
 HERO_PAGE = "page_20.png"  # a robot that stands on its own (no landscape lines touching it)
@@ -165,7 +164,7 @@ def make_copyright_page():
     f_bold = ImageFont.truetype(FONT_FREDO, 54)
 
     lines = [
-        ("%s: %s" % (TITLE, SUBTITLE_LONG), f_bold),
+        (TITLE, f_bold),
         ("First Edition: November 2026", f_reg),
         ("", f_reg),
         ("Published by Wattle Wonders Publishing", f_bold),
@@ -475,15 +474,15 @@ def make_thank_you_page():
         "bookmakers create more adventures for kids!",
         "",
         "IN THE WATTLE WONDERS SERIES:",
-        u"\u2605 Space Wonders: Book 1",
-        u"\u2605 Minibeast Wonders: Book 2",
-        u"\u2605 Robot Wonders: Book 3",
+        u"\u2022 Space Wonders: Book 1",
+        u"\u2022 Minibeast Wonders: Book 2",
+        u"\u2022 Robot Wonders: Book 3",
     ]
     y = 650
     for line in msg:
         if line:
             bb = d.textbbox((0, 0), line, font=f_msg)
-            d.text(((W - (bb[2] - bb[0])) // 2 - bb[0], y), line, fill=30 if not line.startswith(u"\u2605") else 0, font=f_msg)
+            d.text(((W - (bb[2] - bb[0])) // 2 - bb[0], y), line, fill=30 if not line.startswith(u"\u2022") else 0, font=f_msg)
         y += 95
 
     f_imp = ImageFont.truetype(FONT_FREDO, 56)

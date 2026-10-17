@@ -31,7 +31,7 @@ Book Title (Copy exactly):
 Robot Wonders
 
 Subtitle (Optional) (Copy exactly):
-A big and bold coloring book, perfect for robot lovers
+Robot Coloring Book for Kids Ages 3-8: 50 Big and Bold Robots, Mars Rovers, Robot Dogs and Drones with Fun Facts on Every Page
 
 Series (Optional):
 Click "Add to series" and pick the existing series
@@ -50,21 +50,21 @@ Contributors:
 
 Description (Copy and paste directly into the KDP text box):
 --------------------------------------------------------------------------------
-Power up! It's time to meet the robots!
+Robot Wonders is a robot coloring book for kids ages 3-8, with 50 big, bold robots, Mars rovers, robot dogs, drones and friendly helper bots to color, and a real robot fact on every page.
 
-Roll across Mars with a cheerful rover, watch a robot dog climb the stairs, and cheer for a robot doing backflips! Then meet real Aussie robots, like the giant driverless trucks at Australian mines and the reef robot that helps protect the Great Barrier Reef. Robot Wonders turns the amazing world of robots into 50 big, bold, and easy designs that young inventors can finish and feel proud of, with a real robot fact to discover on every single page.
+Roll across Mars with a cheerful rover, watch a robot dog climb the stairs, and cheer for a robot doing backflips. Then meet real Aussie robots, like the giant driverless trucks at Australian mines and the reef robot that helps protect the Great Barrier Reef. Every design has thick outlines and big open spaces, so young inventors can finish each page and feel proud of it.
 
-Why kids (and parents) love Robot Wonders:
+Inside this STEM coloring book:
 
-• 50 Hand-Crafted Pages: Mars rovers, robot dogs, drones, farm robots, rescue robots, robot chefs and many more friendly helpers.
-• Big & Bold Designs: Extra-thick outlines with huge open spaces that are relaxing and easy to color.
-• Fun Facts on Every Page: Learn real robot secrets as you color, from the first helicopter on Mars to a robot penguin chick!
-• Single-Sided Pages: Every design is printed on a single sheet with a blank back to prevent marker bleed-through and make displaying your artwork easy.
-• Bonus Activity Pages: Includes a Color Test Palette, a Robot Wonders Checklist to check off all 50 designs, and an official Robot Artist Award.
-• Crisp, High-Resolution Prints: 8.5 x 11 inch large format for clean, frustration-free coloring.
-• The Perfect Gift: A wonderful present for birthdays, Christmas stockings, STEM-loving kids, and quiet cozy afternoons.
+• 50 Original Designs: Mars rovers, robot dogs, drones, farm robots, rescue robots, robot chefs and many more friendly helpers.
+• Big & Bold Pages: Extra-thick outlines and large open spaces, great for crayons, markers and little hands.
+• Fun Facts on Every Page: Learn real robot secrets as you color, from the first helicopter on Mars to a robot penguin chick.
+• Single-Sided Pages: Every design has a blank back, so markers don't bleed through and finished pictures are ready to display.
+• Bonus Pages: A Color Test Palette, a checklist to check off all 50 designs, and a Robot Artist Award.
+• Large 8.5 x 11 inch Format: Crisp, high-resolution prints.
+• A Great Gift: For birthdays, Christmas stockings, classrooms and STEM-loving kids.
 
-Grab your colors, little inventors. The robots are ready to be colored!
+Grab your colors, little inventors. The robots are ready!
 --------------------------------------------------------------------------------
 
 Publishing Rights:
@@ -91,13 +91,13 @@ Classify as any of these types?
 [ ] Large-print book   --> LEAVE UNCHECKED!
 
 Keywords (Copy one into each of the 7 boxes):
-Box 1: robot coloring book for kids
-Box 2: robot coloring book fun facts
-Box 3: bold and easy robots coloring book
-Box 4: robots coloring book ages 3-8
-Box 5: stem coloring book boys girls
-Box 6: mars rover space robot coloring pages
-Box 7: science technology gifts for kids ages 3-8
+Box 1: robots coloring book for boys
+Box 2: stem coloring book for kids ages 4-8
+Box 3: science coloring book for kids
+Box 4: space rover drone coloring pages
+Box 5: technology activity book for kids
+Box 6: engineering gifts for kids ages 3-8
+Box 7: cute robot coloring book toddlers preschool
 
 Publication Date:
 Select: "Publication date and release date are the same"
@@ -152,7 +152,7 @@ Primary Marketplace:
 Amazon.com
 
 Pricing (Amazon.com, primary market):
-- List Price:   $9.99
+- List Price:   $9.99  (do not go lower: below $9.99 the royalty drops from 60% to 50%)
 - Royalty:      about $3.15 profit per copy
 
 Other marketplaces:

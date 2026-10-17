@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Author 2 Book 2 — KDP Interior Packager: Minibeast Wonders (Wattle Wonders Publishing)
+# Author 2 Book 2: KDP Interior Packager: Minibeast Wonders (Wattle Wonders Publishing)
 # 108 pages @ 300 DPI, 8.5x11in B&W, no-bleed, margins >= 0.53in.
 # House look: Lilita One titles (solid poster caps), Fredoka prose/captions,
 # uniform caption rule (fixed 80px, max 2 lines), bigger art box 2230x2520.
@@ -26,7 +26,6 @@ FONT_PACIFICO = os.path.join(FONTS_DIR, "Pacifico-Regular.ttf")
 W, H = 2550, 3300
 
 TITLE = "Minibeast Wonders"
-SUBTITLE_LONG = "A big and bold colouring book, perfect for bug lovers"
 
 HERO_CROP = os.path.join(ROOT, "ladybird_cropped.png")
 HERO_BOX = (360, 380, 700, 650)  # ladybird body + leaf in raw2/page_01.png (1024 px); outlines touching it are kept whole
@@ -164,8 +163,8 @@ def make_copyright_page():
     f_bold = ImageFont.truetype(FONT_FREDO, 54)
 
     lines = [
-        ("%s: %s" % (TITLE, SUBTITLE_LONG), f_bold),
-        ("First Edition — November 2026", f_reg),
+        (TITLE, f_bold),
+        ("First Edition: November 2026", f_reg),
         ("", f_reg),
         ("Published by Wattle Wonders Publishing", f_bold),
         ("Melbourne, Australia", f_reg),
@@ -240,7 +239,7 @@ def make_tips_page():
         ("1. Put a Blank Sheet Behind Your Page", "When using juicy markers, place a scrap sheet behind your drawing to keep the next page perfectly clean!"),
         ("2. Start Light, Then Go Dark", "Colour lighter shades first, then layer darker tones on top for amazing depth and pop."),
         ("3. Mix Your Art Tools", "Try combining crayons, coloured pencils, and markers together on the same minibeast for fun textures."),
-        ("4. There Are No Mistakes In Art!", "Make your minibeasts any colour you want — purple ladybirds and rainbow snails are awesome!"),
+        ("4. There Are No Mistakes In Art!", "Make your minibeasts any colour you want. Purple ladybirds and rainbow snails are awesome!"),
     ]
     f_head = ImageFont.truetype(FONT_FREDO, 60)
     f_desc = ImageFont.truetype(FONT_FREDO, 48)
@@ -470,19 +469,19 @@ def make_thank_you_page():
         "with Flora Watt.",
         "",
         "If you loved this book, please consider leaving a kind",
-        "review on Amazon — it helps independent Australian",
+        "review on Amazon. It helps independent Australian",
         "bookmakers create more adventures for kids!",
         "",
         "IN THE WATTLE WONDERS SERIES:",
-        u"\u2605 Space Wonders — Book 1",
-        u"\u2605 Minibeast Wonders — Book 2",
-        u"\u2605 Robot Wonders — Coming Soon",
+        u"\u2022 Space Wonders: Book 1",
+        u"\u2022 Minibeast Wonders: Book 2",
+        u"\u2022 Robot Wonders: Book 3",
     ]
     y = 650
     for line in msg:
         if line:
             bb = d.textbbox((0, 0), line, font=f_msg)
-            d.text(((W - (bb[2] - bb[0])) // 2 - bb[0], y), line, fill=30 if not line.startswith(u"\u2605") else 0, font=f_msg)
+            d.text(((W - (bb[2] - bb[0])) // 2 - bb[0], y), line, fill=30 if not line.startswith(u"\u2022") else 0, font=f_msg)
         y += 95
 
     f_imp = ImageFont.truetype(FONT_FREDO, 56)

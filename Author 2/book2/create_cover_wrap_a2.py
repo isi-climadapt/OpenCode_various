@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# Author 2 Book 2 — Full cover wrap builder: Minibeast Wonders (KDP paperback specs).
+# Author 2 Book 2: Full cover wrap builder: Minibeast Wonders (KDP paperback specs).
 # 108-page B&W white-paper spine: 108 * 0.002252 = 0.2432in -> 73px @300dpi
 # Total: 0.125 bleed + 8.5 back + 0.2432 spine + 8.5 front + 0.125 bleed = 17.4932in x 11.25in
 # = 5248 x 3375 px @ 300 DPI. Usage: py create_cover_wrap_a2.py
@@ -35,7 +35,7 @@ def build():
 
     # FRONT (right side): typeset cover option A at true size inside the trim.
     # Stretching it into the bleed resampled the whole front unevenly (1.5% x 2.3%);
-    # the front's bleed is filled with its own edge colour instead.
+    # the front's bleed is filled with its own edge color instead.
     front = Image.open(os.path.join(HERE, "cover_option_A.png")).convert("RGB")
     fx = CW - BLEED - front.width
     ImageDraw.Draw(wrap).rectangle([fx, 0, CW, CH], fill=front.getpixel((2, 2)))
@@ -43,14 +43,14 @@ def build():
 
     d = ImageDraw.Draw(wrap)
 
-    # SPINE (clean tone, no text — 73px too narrow for reliable print text)
+    # SPINE (clean tone, no text: 73px too narrow for reliable print text)
     sx1 = BLEED + 2550
     sx2 = sx1 + 73
     d.rectangle([sx1, 0, sx2, CH], fill=(240, 235, 225))
     d.line([(sx1, 0), (sx1, CH)], fill=(200, 195, 190), width=3)
     d.line([(sx2, 0), (sx2, CH)], fill=(200, 195, 190), width=3)
 
-    # BACK cover (left side) — auto-shrink title into safe zone (max 2230px, rule F10)
+    # BACK cover (left side): auto-shrink title into safe zone (max 2230px, rule F10)
     bk_t = "MEET THE MINIBEASTS!"
     size = 130
     f_bktitle = ImageFont.truetype(FONT_LILITA, size)
@@ -63,10 +63,10 @@ def build():
 
     f_blurb = ImageFont.truetype(FONT_FREDO, 62)
     blurb_lines = [
-        "Grab your magnifying glass! Meet a hungry ladybird,",
+        "Grab your magnifying glass! Meet a hungry ladybug,",
         "a dancing honeybee, a glowing firefly, a ball-rolling",
         "dung beetle and Aussie stars like the rainbow stag",
-        "beetle — 50 big, bold, easy designs for young explorers,",
+        "beetle. 50 big, bold, easy designs for young explorers,",
         "with a fun fact to discover on every single page.",
     ]
     y_b = 480
@@ -78,7 +78,7 @@ def build():
     # 4 sample interior previews (crisp binarized thumbs)
     sys.path.append(os.path.join(os.path.dirname(HERE), "scripts"))
     from thumb import art_thumb
-    samples = ["page_01", "page_03", "page_17", "page_35"]  # ladybird, honeybee, Christmas beetle, peacock spider
+    samples = ["page_01", "page_03", "page_17", "page_35"]  # ladybug, honeybee, Christmas beetle, peacock spider
     thumb_w = thumb_h = 520  # square art cards, no captions: Amazon's back image is ~1000 px wide
     thumb_y = 990
     for idx, s_key in enumerate(samples):
@@ -94,7 +94,7 @@ def build():
         ("•  50 BIG & BOLD DESIGNS", "Extra-thick lines, easy for crayons, markers, & little hands"),
         ("•  FUN FACTS ON EVERY PAGE", "Bug secrets, from ears on tummies to glowing cave worms!"),
         ("•  SINGLE-SIDED PAGES", "No bleed-through! Great for cutting out and displaying artwork"),
-        ("•  LEARN & COLOUR", "Backyard bugs and Aussie minibeasts for curious kids 3-8"),
+        ("•  LEARN & COLOR", "Backyard bugs and Aussie minibeasts for curious kids 3-8"),
     ]
     f_bhead = ImageFont.truetype(FONT_FREDO, 58)
     f_bdesc = ImageFont.truetype(FONT_FREDO, 50)
@@ -104,16 +104,16 @@ def build():
         d.text((BLEED + 220, y_bull + 65), desc, fill=(95, 100, 110), font=f_bdesc)
         y_bull += 160
 
-    # Bio box (locked author bio — Wattle Wonders voice)
+    # Bio box (author bio: Wattle Wonders voice)
     d.rounded_rectangle([BLEED + 160, 2540, BLEED + 1660, 3020], radius=35, fill=(255, 255, 255), outline=(40, 45, 55), width=6)
     f_bio_title = ImageFont.truetype(FONT_LILITA, 56)
     d.text((BLEED + 220, 2585), "ABOUT FLORA WATT", fill=BLUE, font=f_bio_title)
     f_bio = ImageFont.truetype(FONT_FREDO, 42)
     bio_lines = [
-        "Flora Watt is an Australian author and illustrator who believes",
-        "learning and colouring belong together. Her books turn big,",
-        "exciting topics into friendly, bold designs that young artists",
-        "can finish and feel proud of — made with love in Australia.",
+        "Flora Watt is an Australian author who believes learning and",
+        "coloring belong together. Her books turn big, exciting topics",
+        "into friendly, bold designs that young artists can finish and",
+        "feel proud of. Made with love in Australia.",
     ]
     yb = 2680
     for line in bio_lines:

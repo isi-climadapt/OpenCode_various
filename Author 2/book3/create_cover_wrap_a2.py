@@ -104,16 +104,16 @@ def build():
         d.text((BLEED + 220, y_bull + 65), desc, fill=(95, 100, 110), font=f_bdesc)
         y_bull += 160
 
-    # Bio box (locked author bio: Wattle Wonders voice)
+    # Bio box (author bio: Wattle Wonders voice)
     d.rounded_rectangle([BLEED + 160, 2540, BLEED + 1660, 3020], radius=35, fill=(255, 255, 255), outline=(40, 45, 55), width=6)
     f_bio_title = ImageFont.truetype(FONT_LILITA, 56)
     d.text((BLEED + 220, 2585), "ABOUT FLORA WATT", fill=BLUE, font=f_bio_title)
     f_bio = ImageFont.truetype(FONT_FREDO, 42)
     bio_lines = [
-        "Flora Watt is an Australian author and illustrator who believes",
-        "learning and coloring belong together. Her books turn big,",
-        "exciting topics into friendly, bold designs that young artists",
-        "can finish and feel proud of. Made with love in Australia.",
+        "Flora Watt is an Australian author who believes learning and",
+        "coloring belong together. Her books turn big, exciting topics",
+        "into friendly, bold designs that young artists can finish and",
+        "feel proud of. Made with love in Australia.",
     ]
     yb = 2680
     for line in bio_lines:

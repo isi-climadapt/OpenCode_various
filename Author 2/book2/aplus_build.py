@@ -32,7 +32,7 @@ BOOK = {
     "isbn": "",                  # fill in after KDP assigns it, then rerun
     "asin": "",                  # fill in once the book is live, then rerun
     "banner_page": (3, "honeybee"),
-    "feature_pages": [(1, "ladybird"), (17, "Christmas beetle")],
+    "feature_pages": [(1, "ladybug"), (17, "Christmas beetle")],
     "single_sided_page": (28, "snail"),
     "grid_title": "Meet 50 amazing minibeasts",
     "grid_pages": [(6, "butterfly"), (14, "dragonfly"), (19, "dung beetle"),
@@ -107,7 +107,7 @@ def paste_center(canvas, rgba, cx, cy):
     canvas.paste(rgba, (int(cx - rgba.width / 2), int(cy - rgba.height / 2)), rgba)
 
 def background(w, h, seed):
-    """Panel in the book's colour with soft wave bands, bubbles and sparkles."""
+    """Panel in the book's color with soft wave bands, bubbles and sparkles."""
     W, H = w * S, h * S
     bg = Image.new("RGB", (W, H), SKY)
     d = ImageDraw.Draw(bg)
@@ -359,12 +359,12 @@ def write_guide(files):
     grid_names = ", ".join(a for _, a in BOOK["grid_pages"])
     rows = [
         ("1", "Standard Image & Light Text Overlay (970 x 300 minimum)", files[0],
-         "%s colouring book by %s, cover and %s page" % (BOOK["title"], BOOK["author"], BOOK["banner_page"][1]),
+         "%s coloring book by %s, cover and %s page" % (BOOK["title"], BOOK["author"], BOOK["banner_page"][1]),
          BOOK["title"]),
         ("2", "Standard Image Header With Text (970 x 600 minimum)", files[1],
-         "%s colouring pages with the book's features" % (feat[:1].upper() + feat[1:]), "What's inside"),
+         "%s coloring pages with the book's features" % (feat[:1].upper() + feat[1:]), "What's inside"),
         ("3", "Standard Image Header With Text (970 x 600 minimum)", files[2],
-         "8.5 by 11 inch book with single-sided colouring pages", "Single-sided pages"),
+         "8.5 by 11 inch book with single-sided coloring pages", "Single-sided pages"),
         ("4", "Standard Image Header With Text (970 x 600 minimum)", files[3],
          "Six sample pages: %s" % grid_names, BOOK["grid_title"]),
     ]
