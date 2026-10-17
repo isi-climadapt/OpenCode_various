@@ -46,7 +46,12 @@ def vectorize_line_art(src_path, out_path=None, target_w=2230, target_h=2520, dp
     PRE = 4
     img = img.resize((img.width * PRE, img.height * PRE), Image.LANCZOS)
 
-    path = potrace.Bitmap(img).trace(turdsize=8 * PRE * PRE)
+    try:
+        path = potrace.Bitmap(img).trace(turdsize=8 * PRE * PRE)
+    except ValueError:
+        # potracer's curve optimiser can take sqrt of a negative on rare shapes
+        # (Minibeast Wonders page 24); tracing without it avoids that code path
+        path = potrace.Bitmap(img).trace(turdsize=8 * PRE * PRE, opticurve=False)
 
     scale = min(target_w / img.width, target_h / img.height)
     W = max(1, int(round(img.width * scale)))
