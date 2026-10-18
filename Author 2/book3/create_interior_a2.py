@@ -116,6 +116,13 @@ def draw_uniform_caption(d, caption_text):
             d.text(((W - (bb[2] - bb[0])) // 2 - bb[0], 2840 + i * 92), ln, fill=0, font=font)
 
 
+def framed_page_number(d, num):
+    """Page number on framed pages: right edge at x 2310, inside the frame (not on its line)."""
+    f = ImageFont.truetype(FONT_FREDO, 55)
+    bb = d.textbbox((0, 0), num, font=f)
+    d.text((2310 - bb[2], 3020), num, fill=120, font=f)
+
+
 def make_title_page():
     page = Image.new("L", (W, H), 255)
     d = ImageDraw.Draw(page)
@@ -314,8 +321,7 @@ def make_tips_page():
     f_sig_lbl = ImageFont.truetype(FONT_FREDO, 44)
     d.text((box_x + 60, y_bottom + 625), "ARTIST SIGNATURE", fill=120, font=f_sig_lbl)
 
-    f_pnum = ImageFont.truetype(FONT_FREDO, 55)
-    d.text((W - 180, 3110), "4", fill=120, font=f_pnum)
+    framed_page_number(d, "4")
 
     return page
 
@@ -392,7 +398,7 @@ def make_checklist_page():
         d.rectangle([x, y + 6, x + 38, y + 44], outline=0, width=5)
         d.text((x + 60, y), name, fill=30, font=f_item)
 
-    d.text((W - 220, 3010), "105", fill=120, font=ImageFont.truetype(FONT_FREDO, 60))
+    framed_page_number(d, "105")
     return page
 
 
@@ -435,8 +441,9 @@ def make_certificate_page():
     draw_star(d, W // 2, 1950, 160, fill=0)
     draw_star(d, W // 2, 1950, 110, fill=255)
     f_star = ImageFont.truetype(FONT_LILITA, 60)
-    stxt = u"\u2605 50 \u2605"
-    d.text((W // 2 - 80, 1910), stxt, fill=0, font=f_star)
+    stxt = "50"  # Lilita One has no star glyph (U+2605 prints as a box)
+    sb = d.textbbox((0, 0), stxt, font=f_star)
+    d.text((W // 2 - (sb[2] - sb[0]) // 2 - sb[0], 1950 - (sb[3] + sb[1]) // 2), stxt, fill=0, font=f_star)
 
     d.line([(350, 2600), (950, 2600)], fill=0, width=6)
     d.line([(W - 950, 2600), (W - 350, 2600)], fill=0, width=6)
@@ -448,7 +455,7 @@ def make_certificate_page():
     d.text((540, 2630), "AUTHOR", fill=100, font=f_siglbl)
     d.text((W - 760, 2630), "DATE", fill=100, font=f_siglbl)
 
-    d.text((W - 220, 3010), "107", fill=120, font=ImageFont.truetype(FONT_FREDO, 60))
+    framed_page_number(d, "107")
     return page
 
 
@@ -490,7 +497,7 @@ def make_thank_you_page():
     bb = d.textbbox((0, 0), imp, font=f_imp)
     d.text(((W - (bb[2] - bb[0])) // 2 - bb[0], 2850), imp, fill=100, font=f_imp)
 
-    d.text((W - 220, 3010), "108", fill=120, font=ImageFont.truetype(FONT_FREDO, 60))
+    framed_page_number(d, "108")
     return page
 
 
