@@ -1,0 +1,180 @@
+page_01 cached
+page_02 ok
+page_03 ok
+page_04 ok
+page_05 ok
+page_06 ok
+page_07 ok
+page_08 ok
+page_09 ok
+page_10 ok
+page_11 ok
+page_12 ok
+page_13 ok
+page_14 ok
+page_15 ok
+page_16 ok
+page_17 ok
+page_18 ok
+page_19 ok
+page_20 ok
+page_21 ok
+page_22 ok
+page_23 ok
+page_24 ok
+page_25 ok
+page_26 ok
+page_27 ok
+page_28 ok
+page_29 ok
+page_30 ok
+page_31 ok
+page_32 ok
+page_33 ok
+page_34 ok
+page_35 ok
+page_36 ok
+page_37 ok
+page_38 ok
+page_39 ok
+page_40 ok
+page_41 ok
+page_42 ok
+page_43 ok
+page_44 ok
+page_45 ok
+page_46 ok
+page_47 ok
+page_48 ok
+page_49 ok
+page_50 ok
+--- post-processing ---
+page_01 assembled QA-OK
+page_02 assembled QA-OK
+page_03 assembled QA-OK
+page_04 assembled QA-OK
+page_05 assembled ['F3 edge x0 y150']
+page_06 assembled QA-OK
+page_07 assembled QA-OK
+page_08 assembled ['F3 edge x0 y150']
+page_09 assembled QA-OK
+page_10 assembled QA-OK
+page_11 assembled QA-OK
+page_12 assembled QA-OK
+page_13 assembled QA-OK
+page_14 assembled QA-OK
+page_15 assembled QA-OK
+page_16 assembled QA-OK
+page_17 assembled QA-OK
+page_18 assembled QA-OK
+page_19 assembled QA-OK
+page_20 assembled QA-OK
+page_21 assembled QA-OK
+page_22 assembled QA-OK
+page_23 assembled QA-OK
+page_24 assembled QA-OK
+page_25 assembled ['F2 hline y=150', 'F3 edge x0 y150']
+page_26 assembled ['F3 edge x0 y150']
+page_27 assembled QA-OK
+page_28 assembled ['F1 colour 4.10%']
+page_29 assembled QA-OK
+page_30 assembled QA-OK
+page_31 assembled QA-OK
+page_32 assembled QA-OK
+page_33 assembled QA-OK
+page_34 assembled QA-OK
+page_35 assembled QA-OK
+page_36 assembled QA-OK
+page_37 assembled QA-OK
+page_38 assembled QA-OK
+page_39 assembled QA-OK
+page_40 assembled ['F3 edge x0 y150']
+page_41 assembled QA-OK
+page_42 assembled QA-OK
+page_43 assembled QA-OK
+page_44 assembled QA-OK
+page_45 assembled QA-OK
+page_46 assembled QA-OK
+page_47 assembled QA-OK
+page_48 assembled QA-OK
+page_49 assembled QA-OK
+page_50 assembled QA-OK
+=== SUMMARY: 44 ok, 6 flagged ===
+FLAG page_05 ['F3 edge x0 y150']
+FLAG page_08 ['F3 edge x0 y150']
+FLAG page_25 ['F2 hline y=150', 'F3 edge x0 y150']
+FLAG page_26 ['F3 edge x0 y150']
+FLAG page_28 ['F1 colour 4.10%']
+FLAG page_40 ['F3 edge x0 y150']
+F9 coherence: 50/50 captions match their images
+page_01 EDGE L 219, EDGE R 121
+page_02 EDGE L 255, EDGE R 262
+page_05 EDGE T 823, EDGE B 815
+page_08 EDGE T 808, EDGE B 808
+page_14 EDGE B 106, EDGE L 338, EDGE R 229
+page_15 EDGE L 179, EDGE R 364
+page_17 EDGE R 92
+page_18 EDGE L 86, EDGE R 90
+page_22 EDGE L 257, EDGE R 584
+page_25 EDGE T 833, EDGE B 833
+page_26 EDGE T 787, EDGE B 790
+page_27 EDGE L 1110, EDGE R 927
+page_28 EDGE L 105, EDGE R 1561
+page_29 EDGE L 846, EDGE R 511
+page_36 EDGE B 242, EDGE L 459, EDGE R 509
+page_39 EDGE B 550, EDGE L 276, EDGE R 325
+page_40 EDGE T 782, EDGE B 782
+page_42 EDGE B 188, EDGE L 380, EDGE R 888
+page_44 EDGE L 520, EDGE R 549
+page_49 EDGE L 151, EDGE R 53
+page_50 EDGE L 63, EDGE R 62
+source check: 29/50 clean
+=== gen_log_r2.txt
+page_03 ok
+page_05 ok
+page_08 ok
+page_09 ok
+page_25 ok
+page_26 ok
+page_27 ok
+page_28 ok
+page_40 ok
+page_47 ok
+page_49 ok
+--- post-processing ---
+page_03 assembled QA-OK
+page_05 assembled QA-OK
+page_08 assembled QA-OK
+page_09 assembled QA-OK
+page_25 assembled QA-OK
+page_26 assembled ['F3 edge x0 y150']
+page_27 assembled QA-OK
+page_28 assembled ['F3 edge x0 y150']
+page_40 assembled QA-OK
+page_47 assembled QA-OK
+page_49 assembled QA-OK
+=== SUMMARY: 9 ok, 2 flagged ===
+FLAG page_26 ['F3 edge x0 y150']
+FLAG page_28 ['F3 edge x0 y150']
+F9 coherence: 50/50 captions match their images
+=== gen_log_r3.txt
+page_03 ok
+page_26 ok
+page_28 ok
+page_40 ok
+--- post-processing ---
+page_03 assembled QA-OK
+page_26 assembled QA-OK
+page_28 assembled ['F1 colour 28.90%']
+page_40 assembled QA-OK
+=== SUMMARY: 3 ok, 1 flagged ===
+FLAG page_28 ['F1 colour 28.90%']
+F9 coherence: 50/50 captions match their images
+=== gen_log_r4.txt
+page_03 ok
+page_28 ok
+--- post-processing ---
+page_03 assembled QA-OK
+page_28 assembled QA-OK
+=== SUMMARY: 2 ok, 0 flagged ===
+F9 coherence: 50/50 captions match their images
