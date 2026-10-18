@@ -1,0 +1,195 @@
+================================================================================
+AMAZON KDP UPLOAD GUIDE & METADATA (READY TO COPY & PASTE)
+Book Title: Who Peeled My Tree?
+Author: Hattie Moss, Saltbush Story House (AUTHOR 3), Book 1
+================================================================================
+
+All files you need to upload to Amazon KDP are in this folder:
+C:\Users\ibian\Desktop\OpenCode_Various\Author 3\book1\KDP_FINAL_UPLOAD\
+
+FILES TO UPLOAD:
+1. Manuscript (Interior):  01_MANUSCRIPT_INTERIOR_32P.pdf
+2. Cover:                  02_COVER_WRAP_PRINT_READY.pdf (ONE file: front + spine + back)
+3. Cover Visual Preview:   COVER_PREVIEW.png
+4. A+ Content:             03_A_PLUS_CONTENT\ + 03_A_PLUS_CONTENT_GUIDE.txt (after the book is live)
+
+IMPORTANT:
+- Hattie Moss is a NEW pen name. Add her as a new author in the same KDP account;
+  give her her own Author Central page. Never merge with Matilda Hayes or Flora Watt.
+- KDP "Publisher" field MUST be: Saltbush Story House
+- Start a new series "Banjo and Olive" (Book 1). Don't link to "Aussie Cuties"
+  or "Wattle Wonders".
+- This is a 32-page full-color picture book: premium color ink, bleed ON. KDP
+  hardcover needs 75+ pages, so this book is paperback (and Kindle) only.
+
+
+================================================================================
+SCREEN 1: PAPERBACK DETAILS
+================================================================================
+
+Language:
+English
+
+Book Title (Copy exactly):
+Who Peeled My Tree?
+
+Subtitle (Optional) (Copy exactly):
+A Funny Sugar Glider Picture Book About Change and Growing Up, for Kids Ages 3-6
+
+Series (Optional):
+Click "Add to series" and create a new series
+- Series Title: Banjo and Olive
+- Number in series: 1
+
+Edition Number:
+(Leave blank)
+
+Primary Author:
+- First name: Hattie
+- Last name:  Moss
+
+Contributors:
+(Leave completely blank)
+
+Description (Copy and paste directly into the KDP text box):
+--------------------------------------------------------------------------------
+Somebody is peeling Banjo's tree!
+
+Banjo the sugar glider loves his big, smooth gum tree. So when long strips of bark start curling off it, he knows just what to do: find the tree peeler! Was it Cockatoo, who chews everything? Possum, with that suspiciously soft bed? Echidna, scratching at the roots? Or Wombat, who says wombats don't climb trees?
+
+Olive the koala knows the answer. If only she could stay awake.
+
+Who Peeled My Tree? is a funny read-aloud mystery set in the Australian bush, with big expressions, silly suspects and a twist on the very last page. It's also a gentle story about change: sometimes things that look broken are really just growing.
+
+Inside this picture book:
+
+• A laugh-out-loud mystery with a cast of real Australian animals: a sugar glider, a koala, a cockatoo, a possum, an echidna, a wombat and a kookaburra.
+• Short, punchy dialogue that's fun to read aloud, with big shouted words kids love to join in on.
+• A gentle message about change and growing up, for kids facing something new.
+• True Facts from the Bush: two pages of real facts about gum trees, sugar gliders, koalas and more (yes, wombats really do make cube-shaped poop).
+• Soft, glowing twilight illustrations on every page.
+• A great bedtime story and a thoughtful gift for kids ages 3 to 6.
+
+Start with Banjo and Olive, and find out who really peeled that tree.
+--------------------------------------------------------------------------------
+
+Publishing Rights:
+Select: "I own the copyright and I hold necessary publishing rights."
+
+Primary Audience / Sexually Explicit:
+Select: "No"
+
+Reading Age:
+Minimum: 3   Maximum: 6
+
+Primary Marketplace:
+Amazon.com
+
+Categories (Click "Choose categories"):
+1. Children's Books > Geography & Cultures > Explore the World > Australia & Oceania
+2. Children's Books > Animals > Mammals
+3. Children's Books > Humor
+(If exact paths differ in the live picker, choose the closest match and keep one
+Australia category, one animals category and one humor or emotions/growing-up
+category. Checked 18 Oct 2026: Diary of a Wombat is #8 in "Children's Australia &
+Oceania Books" at #35,057 overall, so a few sales a day can rank there.)
+
+Classify as any of these types?
+[ ] Low-content book   --> LEAVE UNCHECKED!
+[ ] Large-print book   --> LEAVE UNCHECKED!
+
+Keywords (copy each line into its own keyword box, in order):
+sugar glider picture book for kids
+funny australian animal books for kids 3-6
+koala bedtime story for preschoolers
+picture book about change and growing up
+read aloud mystery book for kindergarten
+gum tree nature book with animal facts
+australia books for kids ages 4-8
+
+Publication Date:
+Select: "Publication date and release date are the same"
+
+Release Date:
+Select: "Release my book for sale now"
+
+
+================================================================================
+SCREEN 2: PAPERBACK CONTENT
+================================================================================
+
+ISBN:
+Select: "Assign free KDP ISBN"
+
+Print Options:
+- Interior & paper type: Premium color interior with white paper
+- Trim Size:             8.5 x 8.5 in (21.59 x 21.59 cm)
+- Bleed settings:        Bleed (PDF only)   <-- must be ON, the art runs to the edge
+- Cover finish:          Glossy (makes the twilight colors pop; matte also works)
+
+Publisher / Imprint field (if prompted):
+Enter: Saltbush Story House   <-- NOT "Independently published"!
+
+Manuscript:
+Upload: 01_MANUSCRIPT_INTERIOR_32P.pdf
+(32 pages, 8.625 x 8.75 in pages with bleed, text kept 0.5 in inside the trim)
+
+Book Cover:
+Select: "Upload a cover you already have (print-ready PDF)"
+Upload: 02_COVER_WRAP_PRINT_READY.pdf
+(17.327 x 8.75 in: 0.125 bleed + 8.5 back + 0.0751 spine + 8.5 front + 0.125 bleed.
+No spine text: KDP allows spine text from 79 pages. Barcode area: white box,
+bottom right of the back cover. Leave "Amazon adds the barcode" selected.)
+
+AI-Generated Content Disclosure (YOUR CALL: answer for what actually happened):
+- Did you use AI-based tools?  --> Select: "Yes"
+- Images:  all illustrations were made with AI, then typeset and composited.
+           Suggested: "Entire work, with minimal or no editing"
+           Tools: OpenArt (Nano Banana Pro, Ideogram 4.5)
+- Text:    the story, description and facts were drafted with AI (Claude).
+           If you used it as written: "Entire work, with minimal or no editing".
+           If you rewrote it yourself: "Entire work, with extensive editing".
+           Tool: Claude
+KDP doesn't show this disclosure to readers, but it must be accurate.
+
+Launch Previewer:
+Click "Launch Previewer" and check every spread: no text or faces near the trim
+or the gutter, and the spine sits on the spine line. The previewer looks softer
+than print. Order a proof copy before running ads.
+
+
+================================================================================
+SCREEN 3: PAPERBACK RIGHTS & PRICING
+================================================================================
+
+Territories:
+Select: "All territories (worldwide rights)"
+
+Primary Marketplace:
+Amazon.com
+
+Pricing (Amazon.com, primary market):
+- List Price:   $11.99
+- Royalty:      about $2.99 per copy (60% of $11.99 = $7.19, minus $4.20 print cost
+                for a 32-page premium color large-trim paperback)
+- Don't go below $9.99: the royalty falls to $1.79 there.
+
+Other marketplaces:
+- Amazon.com.au (AU): A$19.99  (60% = A$11.99, minus A$6.42 print = about A$5.57/copy)
+- Amazon.co.uk (UK):  £8.99   (60% = £5.39, minus £3.24 print = about £2.15/copy)
+(Print costs from KDP's Paperback Printing Cost page, checked 17 Oct 2026. KDP's
+pricing screen shows the exact royalty; trust it over these figures.)
+
+Click: "Publish Your Paperback"
+
+================================================================================
+AFTER PUBLISH (in order):
+1. KDP: Publisher field verified = Saltbush Story House
+2. Price check at $11.99 on Amazon.com (and A$19.99 / £8.99 elsewhere)
+3. Author Central: create the Hattie Moss author page and add the bio
+   (pick option A or B in Author 3\publishing\00-brand-identity.md)
+4. A+ Content: follow 03_A_PLUS_CONTENT_GUIDE.txt (add the new ASIN to aplus_build.py, rerun)
+5. Kindle edition: build a fixed-layout ebook from the typeset pages with Kindle
+   Kids' Book Creator (separate step, not in this folder yet)
+6. Author copies: KDP Bookshelf → "..." next to the paperback → "Order author copies"
+================================================================================

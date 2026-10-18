@@ -1,0 +1,19 @@
+﻿drafts/p01.png ok
+drafts/p03.png ok
+drafts/p04.png ok
+drafts/p05.png cached
+drafts/p06.png ok
+drafts/p07.png ok
+drafts/p09.png ok
+drafts/p10.png ok
+drafts/p11.png ok
+pages/p01.png FAIL: error: POST /api/upload/sign: Post "https://openart.ai/suite/api/upload/sign": context deadline exceeded (Client.Timeout exceeded while awaiting headers)
+
+pages/p03.png ok
+pages/p04.png ok
+pages/p05.png ok
+pages/p06.png ok
+pages/p07.png ok
+pages/p09.png ok
+pages/p10.png ok
+pages/p11.png ok
