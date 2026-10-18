@@ -182,6 +182,8 @@ Copy these from the author's most recently changed book (hard rule 15), not from
 | Facts | `captions.json` | 50 new one-liners |
 | Upload guide | `KDP_FINAL_UPLOAD/00_COPY_PASTE_INTO_KDP.txt` | new title/keywords |
 | Page tracer | `vectorize_pages.py` + `..\scripts\vectorize_line_art.py` | copy as-is |
+| Front cover | `cover_build*.py` from the newest book | thumbnail-first layout: solid dark one-line title, cropped hero, "COLORING BOOK / FOR KIDS AGES 3-8" band; edit title, colours, hero prompts |
+| Cover wrap | `create_cover_wrap*.py` from the newest book + `..\scripts\back600.py` | the back panel is one `draw_back(...)` call (F13): back title, 4 close-up cards as (path, zoom, cx, cy), 3 short bullets, imprint footer; barcode zone and check built in (F12). Check `back_cover_600px_preview.png` by eye before upload |
 | A+ Content | `aplus_build.py` (from `Author 1\book2\`) | edit the `BOOK` block: titles, sample pages + animal names, features, panel colour, ISBN/ASIN |
 
 ### Book 2 Candidates (from Stage 1 research, ranked)
