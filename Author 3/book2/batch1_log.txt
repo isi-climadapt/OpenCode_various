@@ -1,0 +1,13 @@
+drafts/p03.png ok
+drafts/p07.png ok
+drafts/p08.png ok
+drafts/p10.png ok
+drafts/p21.png ok
+drafts/p23.png ok
+pages/p03.png ok
+pages/p07.png ok
+pages/p08.png ok
+pages/p10.png ok
+pages/p21.png ok
+pages/p23.png ok
+EXIT 0

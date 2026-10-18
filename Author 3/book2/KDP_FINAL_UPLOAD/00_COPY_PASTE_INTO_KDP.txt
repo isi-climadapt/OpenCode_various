@@ -1,0 +1,198 @@
+================================================================================
+AMAZON KDP UPLOAD GUIDE & METADATA (READY TO COPY & PASTE)
+Book Title: Who Frosted My Tree?
+Author: Hattie Moss, Saltbush Story House (AUTHOR 3), Book 2
+================================================================================
+
+All files you need to upload to Amazon KDP are in this folder:
+C:\Users\ibian\Desktop\OpenCode_Various\Author 3\book2\KDP_FINAL_UPLOAD\
+
+FILES TO UPLOAD:
+1. Manuscript (Interior):  01_MANUSCRIPT_INTERIOR_32P.pdf
+2. Cover:                  02_COVER_WRAP_PRINT_READY.pdf (ONE file: front + spine + back)
+3. Cover Visual Preview:   COVER_PREVIEW.png
+4. A+ Content:             03_A_PLUS_CONTENT\ + 03_A_PLUS_CONTENT_GUIDE.txt (after the book is live)
+5. Kindle edition:         04_KINDLE\ + 04_KINDLE_GUIDE.txt
+
+IMPORTANT:
+- Author is Hattie Moss (already set up for Book 1). Never merge with Matilda Hayes
+  or Flora Watt.
+- KDP "Publisher" field MUST be: Saltbush Story House
+- Add to the EXISTING series "Banjo and Olive" as Book 2 (Book 1: Who Peeled My Tree?).
+- This is a 32-page full-color picture book: premium color ink, bleed ON. KDP
+  hardcover needs 75+ pages, so this book is paperback (and Kindle) only.
+- Timing: upload in early November 2026, so the book is live for Black Friday to
+  Christmas gifting and the January to February classroom winter units.
+
+
+================================================================================
+SCREEN 1: PAPERBACK DETAILS
+================================================================================
+
+Language:
+English
+
+Book Title (Copy exactly):
+Who Frosted My Tree?
+
+Subtitle (Optional) (Copy exactly):
+A Funny Winter Picture Book About Snow and Hibernation, for Kids Ages 3-5
+
+Series (Optional):
+Click "Add to series" and pick the existing series
+- Series Title: Banjo and Olive
+- Number in series: 2
+
+Edition Number:
+(Leave blank)
+
+Primary Author:
+- First name: Hattie
+- Last name:  Moss
+
+Contributors:
+(Leave completely blank)
+
+Description (Copy and paste directly into the KDP text box):
+--------------------------------------------------------------------------------
+Somebody frosted Banjo's tree!
+
+Banjo the sugar glider has never seen snow. So when he wakes up and finds his gum tree covered in white, like a giant cake, he knows just what to do: find the tree froster! Was it Cockatoo, who is suspiciously white all over? Possum, whose face is covered in the stuff? Or Wombat, pushing a giant white ball? And why has Echidna disappeared?
+
+Olive the koala knows the answer. If only she could stay awake.
+
+Who Frosted My Tree? is a funny winter read-aloud set in the Australian bush, with silly suspects, a missing friend and a snowy surprise on the very last page. Along the way, kids discover what snow is and why some animals sleep right through the winter.
+
+Inside this picture book:
+
+• A laugh-out-loud snow-day mystery with real Australian animals: a sugar glider, a koala, a cockatoo, a possum, a wombat and an echidna.
+• A gentle introduction to hibernation, perfect for winter units at home, in preschool and in kindergarten.
+• Short, punchy dialogue that's fun to read aloud, with big shouted words kids love to join in on.
+• True Facts from the Bush: two pages of real facts about snow in Australia, snowflakes and animals that hibernate.
+• Soft, glowing winter illustrations on every page.
+• A cozy bedtime story and a thoughtful winter gift for kids ages 3 to 5.
+
+Book 2 in the Banjo and Olive series. Each story stands on its own.
+--------------------------------------------------------------------------------
+
+Publishing Rights:
+Select: "I own the copyright and I hold necessary publishing rights."
+
+Primary Audience / Sexually Explicit:
+Select: "No"
+
+Reading Age:
+Minimum: 3   Maximum: 5   (age band locked in Author 3\publishing\04-book2-research.md)
+
+Primary Marketplace:
+Amazon.com
+
+Categories (Click "Choose categories"):
+1. Children's Books > Science, Nature & How It Works > Nature > Weather
+2. Children's Books > Geography & Cultures > Explore the World > Australia & Oceania
+3. Children's Books on Seasons (type "Seasons" in the picker's search box)
+(If exact paths differ in the live picker, choose the closest match and keep one
+weather or snow category, one Australia category and one seasons category.
+Checked 18 Oct 2026: #30 in Weather sits at #33,496 overall and #10 in Australia &
+Oceania at #38,336, so a few sales a day can rank there. Winter titles in Seasons
+run #6,000 to #40,000 in season.)
+
+Classify as any of these types?
+[ ] Low-content book   --> LEAVE UNCHECKED!
+[ ] Large-print book   --> LEAVE UNCHECKED!
+
+Keywords (copy each line into its own keyword box, in order):
+winter books for kids ages 3-5
+snow books for kids
+hibernation books for preschool
+winter picture books for children
+snow books for kindergarten
+funny animal mystery books for kids
+australian animal story sugar glider koala
+
+Publication Date:
+Select: "Publication date and release date are the same"
+
+Release Date:
+Select: "Release my book for sale now"
+
+
+================================================================================
+SCREEN 2: PAPERBACK CONTENT
+================================================================================
+
+ISBN:
+Select: "Assign free KDP ISBN"
+
+Print Options:
+- Interior & paper type: Premium color interior with white paper
+- Trim Size:             8.5 x 8.5 in (21.59 x 21.59 cm)
+- Bleed settings:        Bleed (PDF only)   <-- must be ON, the art runs to the edge
+- Cover finish:          Glossy (makes the snow and twilight colors pop; matte also works)
+
+Publisher / Imprint field (if prompted):
+Enter: Saltbush Story House   <-- NOT "Independently published"!
+
+Manuscript:
+Upload: 01_MANUSCRIPT_INTERIOR_32P.pdf
+(32 pages, 8.625 x 8.75 in pages with bleed, text kept 0.5 in inside the trim)
+
+Book Cover:
+Select: "Upload a cover you already have (print-ready PDF)"
+Upload: 02_COVER_WRAP_PRINT_READY.pdf
+(17.327 x 8.75 in: 0.125 bleed + 8.5 back + 0.0751 spine + 8.5 front + 0.125 bleed.
+No spine text: KDP allows spine text from 79 pages. Barcode area: white box,
+bottom right of the back cover, where KDP prints the barcode. Leave "Amazon adds
+the barcode" selected.)
+
+AI-Generated Content Disclosure (YOUR CALL: answer for what actually happened):
+- Did you use AI-based tools?  --> Select: "Yes"
+- Images:  all illustrations were made with AI, then typeset and composited.
+           Suggested: "Entire work, with minimal or no editing"
+           Tools: OpenArt (Nano Banana Pro, Ideogram 4.5)
+- Text:    the story, description and facts were drafted with AI (Claude).
+           If you used it as written: "Entire work, with minimal or no editing".
+           If you rewrote it yourself: "Entire work, with extensive editing".
+           Tool: Claude
+KDP doesn't show this disclosure to readers, but it must be accurate.
+
+Launch Previewer:
+Click "Launch Previewer" and check every spread: no text or faces near the trim
+or the gutter, and the spine sits on the spine line. The previewer looks softer
+than print. Order a proof copy before running ads.
+
+
+================================================================================
+SCREEN 3: PAPERBACK RIGHTS & PRICING
+================================================================================
+
+Territories:
+Select: "All territories (worldwide rights)"
+
+Primary Marketplace:
+Amazon.com
+
+Pricing (Amazon.com, primary market):
+- List Price:   $11.99
+- Royalty:      about $2.99 per copy (60% of $11.99 = $7.19, minus $4.20 print cost
+                for a 32-page premium color large-trim paperback)
+- Don't go below $9.99: the royalty falls to $1.79 there.
+
+Other marketplaces:
+- Amazon.com.au (AU): A$19.99  (60% = A$11.99, minus A$6.42 print = about A$5.57/copy)
+- Amazon.co.uk (UK):  £8.99   (60% = £5.39, minus £3.24 print = about £2.15/copy)
+(Same prices as Book 1. Print costs from KDP's Paperback Printing Cost page, checked
+17 Oct 2026. KDP's pricing screen shows the exact royalty; trust it over these figures.)
+
+Click: "Publish Your Paperback"
+
+================================================================================
+AFTER PUBLISH (in order):
+1. KDP: Publisher field verified = Saltbush Story House
+2. Series page: check Book 1 and Book 2 both show under "Banjo and Olive"
+3. Price check at $11.99 on Amazon.com (and A$19.99 / £8.99 elsewhere)
+4. Author Central: claim the new book on the Hattie Moss author page
+5. A+ Content: follow 03_A_PLUS_CONTENT_GUIDE.txt (add the new ASIN to aplus_build.py, rerun)
+6. Kindle edition: follow 04_KINDLE_GUIDE.txt (files in 04_KINDLE\, $4.99 at 70%)
+7. Author copies: KDP Bookshelf → "..." next to the paperback → "Order author copies"
+================================================================================
