@@ -534,86 +534,21 @@ def make_full_cover_wrap():
     d.line([(spine_x1, 0), (spine_x1, CH)], fill=(210, 195, 180), width=3)
     d.line([(spine_x2, 0), (spine_x2, CH)], fill=(210, 195, 180), width=3)
     
-    # 3. BACK COVER (Left side)
-    # Title at top of back cover
-    f_bktitle = ImageFont.truetype(FONT_SNIGLET, 130)
-    bk_t = "MEET YOUR AUSSIE CUTIES!"
-    bb = d.textbbox((0, 0), bk_t, font=f_bktitle)
-    d.text((38 + (2550 - (bb[2]-bb[0])) // 2 - bb[0], 240), bk_t, fill=(45, 30, 20), font=f_bktitle)
-    
-    # Marketing Blurb
-    f_blurb = ImageFont.truetype(FONT_BALOO, 62)
-    blurb_lines = [
-        "Hop into the wonderful world of Aussie Cuties! From cuddly",
-        "koalas asleep in gum trees to bounding kangaroos, cheeky quokkas,",
-        "and playful dolphins, this delightful book is packed with 50 big,",
-        "bold, and easy designs created specially for young artists."
-    ]
-    y_b = 480
-    for line in blurb_lines:
-        bb = d.textbbox((0, 0), line, font=f_blurb)
-        d.text((38 + (2550 - (bb[2]-bb[0])) // 2 - bb[0], y_b), line, fill=(70, 50, 40), font=f_blurb)
-        y_b += 82
-        
-    # 4 Sample Interior Previews (Koala, Quokka, Platypus, Dolphin)
-    # Shows parents Look-Inside proof — crisp binarized thumbs (no grey mush at any render size)
+    # 3. BACK COVER (Left side): built to read in Amazon's 600 x 776 back image (F13),
+    # barcode zone where KDP prints it (F12)
     sys.path.append(os.path.join(os.path.dirname(ROOT), "scripts"))
-    from thumb import art_thumb
-    samples = ["page_01", "page_09", "page_08", "page_41"]
-    thumb_w = thumb_h = 520  # square art cards, no captions: Amazon's back image is ~1000 px wide
-    thumb_y = 960
-    for idx, s_key in enumerate(samples):
-        s_path = os.path.join(ROOT, "raw2_1k", "%s.png" % s_key)  # 1K line art
-        if os.path.exists(s_path):
-            thumb = art_thumb(s_path, thumb_w - 40)
-            tx = 38 + 160 + idx * (thumb_w + 50)
-            # Rounded drop shadow frame
-            d.rounded_rectangle([tx - 10, thumb_y - 10, tx + thumb_w + 10, thumb_y + thumb_h + 10], radius=30, fill=(255, 255, 255), outline=(40, 25, 15), width=8)
-            wrap.paste(thumb.convert("RGB"), (tx + (thumb_w - thumb.width) // 2, thumb_y + (thumb_h - thumb.height) // 2))
-            
-    # Feature Bullet Points
-    bullets = [
-        ("•  50 BIG & BOLD DESIGNS", "Extra-thick lines, easy for crayons, markers, & little hands"),
-        ("•  FUN FACTS ON EVERY PAGE", "Learn amazing secrets about Australia's iconic animals"),
-        ("•  SINGLE-SIDED PAGES", "No bleed-through! Great for cutting out and displaying artwork"),
-        ("•  PERFECT GIFT IDEA", "Great for quiet afternoons, road trips, birthdays, & creative fun")
-    ]
-    f_bhead = ImageFont.truetype(FONT_BALOO, 58)
-    f_bdesc = ImageFont.truetype(FONT_BALOO, 50)
-    y_bull = 1760
-    for head, desc in bullets:
-        d.text((38 + 220, y_bull), head, fill=(35, 25, 20), font=f_bhead)
-        d.text((38 + 220, y_bull + 65), desc, fill=(90, 75, 65), font=f_bdesc)
-        y_bull += 160
-        
-    # Matilda Hayes Bio Box on Back Cover (generous width + safe 4-line wrap)
-    d.rounded_rectangle([38 + 160, 2500, 38 + 1660, 2980], radius=35, fill=(255, 255, 255), outline=(60, 40, 30), width=6)
-    f_bio_title = ImageFont.truetype(FONT_SNIGLET, 56)
-    d.text((38 + 220, 2545), "ABOUT MATILDA HAYES", fill=(45, 30, 20), font=f_bio_title)
-    f_bio = ImageFont.truetype(FONT_BALOO, 42)
-    bio_lines = [
-        "Matilda Hayes is an Australian author who creates cheerful, bold,",
-        "and easy colouring books designed to spark imagination and",
-        "creativity. She lives under wide sunny skies with two cheeky kids",
-        "and a sleepy Australian kelpie named Banjo."
-    ]
-    yb = 2640
-    for line in bio_lines:
-        d.text((38 + 220, yb), line, fill=(80, 65, 55), font=f_bio)
-        yb += 64
-        
-    # Barcode reservation area (KDP requirement: 2.0 x 1.2 in = 600 x 360 px at bottom-right of back cover)
-    # Leave this area completely empty
-    bc_x = 38 + 2550 - 680 - 60
-    bc_y = CH - 38 - 420 - 60
-    d.rounded_rectangle([bc_x, bc_y, bc_x + 680, bc_y + 420], radius=20, fill=(255, 255, 255), outline=(210, 200, 190), width=3)
-    f_bc = ImageFont.truetype(FONT_BALOO, 38)
-    d.text((bc_x + 130, bc_y + 180), "[ KDP BARCODE AREA ]", fill=(180, 170, 160), font=f_bc)
-    
-    # Bottom Imprint on Back Cover
-    f_bimp = ImageFont.truetype(FONT_BALOO, 46)
-    d.text((38 + 220, 3120), "GUMLEAF KIDS PRESS  •  MELBOURNE, AUSTRALIA", fill=(140, 125, 115), font=f_bimp)
-    
+    from back600 import draw_back
+    smallest = draw_back(
+        wrap,
+        title="MEET YOUR AUSSIE CUTIES!",
+        cards=[os.path.join(ROOT, "raw2_1k", "page_%s.png" % k) for k in ("01", "09", "08", "41")],
+        bullets=["50 big & bold designs", "A fun fact on every page", "Single-sided pages"],
+        footer=["Made with love in Australia", "GUMLEAF KIDS PRESS"],
+        fonts=dict(title=FONT_SNIGLET, body=FONT_BALOO),
+        colors=dict(ink=(35, 25, 20), title=(45, 30, 20), card=(40, 25, 15), accent=(70, 120, 80), footer=(70, 55, 45)),
+    )
+    print("back cover: smallest text %d px (%.0f px in Amazon's 600 px image)" % (smallest, smallest * 600 / 2550))
+
     return wrap
 
 # ==============================================================================
@@ -643,7 +578,59 @@ def to_print_bw(page, line_art):
         return big.point(lambda p: 0 if p < 128 else 255).convert("1", dither=Image.Dither.NONE)
     return big.point(lambda p: 0 if p < 95 else (255 if p > 235 else p)).convert("1")
 
+def build_cover_wrap():
+    """Step 2 on its own: py create_kdp_package.py --cover-only rebuilds just the wrap."""
+    import shutil
+    from PIL import JpegImagePlugin  # noqa: F401, registers the JPEG writer the PDF save needs
+    from back600 import save_back_preview
+    FINAL_UPLOAD_DIR = os.path.join(os.path.dirname(ROOT), "KDP_FINAL_UPLOAD")
+    print("\n=== STEP 2: GENERATING FULL COVER WRAP (KDP SPECS) ===")
+    cover_wrap = make_full_cover_wrap()
+    cover_png_path = os.path.join(OUTPUT_DIR, "AUSSIE_CUTIES_COVER_WRAP.png")
+    cover_pdf_path = os.path.join(OUTPUT_DIR, "AUSSIE_CUTIES_COVER_WRAP.pdf")
+    cover_small_path = os.path.join(OUTPUT_DIR, "AUSSIE_CUTIES_COVER_WRAP_PREVIEW.png")
+    upload_cover_path = os.path.join(FINAL_UPLOAD_DIR, "02_COVER_WRAP_PRINT_READY.pdf")
+    upload_preview_path = os.path.join(FINAL_UPLOAD_DIR, "COVER_PREVIEW.png")
+    
+    print("Saving cover PNG...")
+    import time
+    for attempt in range(4):
+        try:
+            cover_wrap.save(cover_png_path, dpi=(300, 300))
+            break
+        except OSError:
+            time.sleep(2)
+            
+    print("Saving cover PDF...")
+    for attempt in range(4):
+        try:
+            # Pillow can only store RGB in a PDF as JPEG; its default quality 75 blurred fine detail
+            cover_wrap.save(cover_pdf_path, resolution=300.0, quality=100, subsampling=0)
+            shutil.copyfile(cover_pdf_path, upload_cover_path)
+            break
+        except OSError:
+            time.sleep(2)
+    print("Saving preview...")
+    preview_img = cover_wrap.resize((1500, int(1500 * cover_wrap.height / cover_wrap.width)), Image.LANCZOS)
+    for attempt in range(4):
+        try:
+            preview_img.save(cover_small_path)
+            preview_img.save(upload_preview_path)
+            break
+        except OSError:
+            time.sleep(2)
+    
+    print("Cover Wrap complete! PDF Size: %.2f MB" % (os.path.getsize(cover_pdf_path) / (1024*1024)))
+    print("All files ready in:", OUTPUT_DIR)
+    print("Upload folder ready in:", FINAL_UPLOAD_DIR)
+    save_back_preview(cover_wrap, os.path.join(ROOT, "back_cover_600px_preview.png"))
+
+
 def main():
+    if "--cover-only" in sys.argv:
+        sys.path.append(os.path.join(os.path.dirname(ROOT), "scripts"))
+        build_cover_wrap()
+        return
     low = preflight()
     if low:
         print("LOW-RESOLUTION ART (needs %d+ DPI; enlarged AI art prints soft):" % MIN_DPI)
@@ -688,45 +675,7 @@ def main():
     shutil.copyfile(interior_pdf_path, upload_interior_path)
     print("Interior PDF export complete! Size: %.2f MB" % (os.path.getsize(interior_pdf_path) / (1024*1024)))
     
-    print("\n=== STEP 2: GENERATING FULL COVER WRAP (KDP SPECS) ===")
-    cover_wrap = make_full_cover_wrap()
-    cover_png_path = os.path.join(OUTPUT_DIR, "AUSSIE_CUTIES_COVER_WRAP.png")
-    cover_pdf_path = os.path.join(OUTPUT_DIR, "AUSSIE_CUTIES_COVER_WRAP.pdf")
-    cover_small_path = os.path.join(OUTPUT_DIR, "AUSSIE_CUTIES_COVER_WRAP_PREVIEW.png")
-    upload_cover_path = os.path.join(FINAL_UPLOAD_DIR, "02_COVER_WRAP_PRINT_READY.pdf")
-    upload_preview_path = os.path.join(FINAL_UPLOAD_DIR, "COVER_PREVIEW.png")
-    
-    print("Saving cover PNG...")
-    import time
-    for attempt in range(4):
-        try:
-            cover_wrap.save(cover_png_path, dpi=(300, 300))
-            break
-        except OSError:
-            time.sleep(2)
-            
-    print("Saving cover PDF...")
-    for attempt in range(4):
-        try:
-            # Pillow can only store RGB in a PDF as JPEG; its default quality 75 blurred fine detail
-            cover_wrap.save(cover_pdf_path, resolution=300.0, quality=100, subsampling=0)
-            shutil.copyfile(cover_pdf_path, upload_cover_path)
-            break
-        except OSError:
-            time.sleep(2)
-    print("Saving preview...")
-    preview_img = cover_wrap.resize((1500, int(1500 * cover_wrap.height / cover_wrap.width)), Image.LANCZOS)
-    for attempt in range(4):
-        try:
-            preview_img.save(cover_small_path)
-            preview_img.save(upload_preview_path)
-            break
-        except OSError:
-            time.sleep(2)
-    
-    print("Cover Wrap complete! PDF Size: %.2f MB" % (os.path.getsize(cover_pdf_path) / (1024*1024)))
-    print("All files ready in:", OUTPUT_DIR)
-    print("Upload folder ready in:", FINAL_UPLOAD_DIR)
+    build_cover_wrap()
 
 if __name__ == "__main__":
     main()

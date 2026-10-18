@@ -39,6 +39,7 @@
 | F10 | Cover text overflows the safe zone (KDP previewer flags it) | back-cover title ink extends past x 150..2476 of the back panel | auto-shrink title font until width ≤ 2230px (baked into all create_cover_wrap scripts); always verify title ink extents after wrap build |
 | F11 | Print looks soft (Oct 2026: Aussie Cuties + Ocean Friends) | any art below 270 DPI at print size; halos round outlines; JPEG-75 PDFs | interiors vector-traced (`scripts\vectorize_line_art.py`, even-odd fill) and exported 600 DPI 1-bit lossless; cover hero ≥2K, never sharpened; cover PDF JPEG quality 100. Full rules: `Author 1\book1\PIPELINE.md` → "Print resolution rules" |
 | F12 | KDP's barcode lands on artwork (Oct 2026: Who Peeled My Tree?, first upload) | white zone placed from the 0.5 in text safe margin, so KDP's barcode sat half on the background | KDP prints the barcode 2 x 1.2 in, **0.25 in from the spine fold and 0.25 in from the bottom trim** of the back cover. The white zone covers exactly that area plus 0.15 in all round; the wrap script fails the build unless that area is solid white (`check_barcode` in `Author 3\book1\create_cover_wrap.py`). Confirm in the KDP previewer before approving |
+| F13 | Back cover blurs on Amazon (Oct 2026: Space Wonders live listing) | Amazon stores the paperback back-cover image at only **600 x 776 px** (front 1000 x 1293), so a 2550 px back is shrunk 4.25x; blurb, bullet descriptions and bio at 42-62 px ended up 9-14 px tall | Back built with `scriptsack600.py` (`draw_back`, one copy per author): one-line title up to 150 px, four 900 px art cards, three short bullets at 92 px and two footer lines at 80 px, SemiBold, dark ink; no blurb or bio (the description, A+ and Author Central carry them). Every wrap script saves `back_cover_600px_preview.png`; check it by eye before upload: every word must read at that size |
 
 ### Hard Rules (never break)
 
@@ -129,7 +130,8 @@
 │  • Pacifico author script top, hero centred, Baloo subtitle       │
 │  • Hero ≥2K (prints ≥270 DPI), NEVER sharpened (halos, F11)        │
 │  • Full wrap: 0.125" bleed + spine (pages×0.002252") + back cover │
-│    with blurb, 4 sample thumbs, bio box (≤42px font, 4 lines),     │
+│    built to read at Amazon's 600 px (F13): title, 4 big art cards, │
+│    3 short bullets ≥80 px, imprint; check back_cover_600px_preview │
 │    KDP barcode zone (F12): white, covering KDP's 2×1.2" barcode    │
 │    0.25" from the spine fold and bottom trim, +0.15" all round;    │
 │    build fails unless that area is solid white                     │
