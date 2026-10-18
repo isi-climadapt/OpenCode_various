@@ -51,7 +51,13 @@ def build():
     smallest = draw_back(
         wrap,
         title="DIVE IN WITH YOUR REEF FRIENDS!",
-        cards=[os.path.join(HERE, "raw2", "page_%s.png" % k) for k in ('01', '03', '07', '35')],
+        # close-up crops (path, zoom, centre x, centre y) where the character sits off-centre
+        cards=[
+            os.path.join(HERE, "raw2", "page_01.png"),
+            (os.path.join(HERE, "raw2", "page_03.png"), 0.8, 0.48, 0.5),
+            (os.path.join(HERE, "raw2", "page_07.png"), 0.82, 0.48, 0.45),
+            (os.path.join(HERE, "raw2", "page_35.png"), 0.85, 0.5, 0.5),
+        ],
         bullets=["50 big & bold designs", "A fun fact on every page", "Single-sided pages"],
         footer=["Made with love in Australia", "GUMLEAF KIDS PRESS"],
         fonts=dict(title=FONT_SNIGLET, body=FONT_BALOO),

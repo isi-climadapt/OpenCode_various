@@ -57,7 +57,13 @@ def build():
     smallest = draw_back(
         wrap,
         title="JOIN THE SPACE CREW!",
-        cards=[os.path.join(HERE, "raw2", "page_%s.png" % k) for k in ('01', '03', '09', '37')],
+        # close-up crops (path, zoom, centre x, centre y) where the character sits off-centre
+        cards=[
+            os.path.join(HERE, "raw2", "page_01.png"),
+            os.path.join(HERE, "raw2", "page_03.png"),
+            os.path.join(HERE, "raw2", "page_09.png"),
+            os.path.join(HERE, "raw2", "page_37.png"),
+        ],
         bullets=["50 big & bold designs", "A fun fact on every page", "Single-sided pages"],
         footer=["Made with love in Australia", "WATTLE WONDERS PUBLISHING"],
         fonts=dict(title=FONT_LILITA, body=FONT_FREDO),

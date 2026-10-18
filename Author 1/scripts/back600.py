@@ -18,6 +18,7 @@ BLEED, TRIM_W, TRIM_H = 38, 2550, 3300        # px at 300 DPI
 BARCODE_W, BARCODE_H, BARCODE_GAP, BARCODE_PAD = 600, 360, 75, 45   # KDP: 2 x 1.2 in, 0.25 in in
 SAFE = 150                                     # text margin from the back trim
 CARD, CARD_GAP, CARD_Y = 900, 70, 400          # 2 x 2 art cards
+CARD_ZOOM = 0.72   # cards show the central 72% of the page: a whole busy page turns to mush at 600 px
 TITLE_PX, BULLET_PX, FOOTER_PX = 150, 92, 80
 PREVIEW_W, PREVIEW_H = 600, 776                # Amazon's stored back-cover size
 
@@ -58,6 +59,20 @@ def _fit(d, text, font_path, px, max_w, weight=None):
     return f, px
 
 
+def _closeup(card):
+    """Crop a page to a close-up of its main character and return the temp file path.
+    card is a path, or (path, zoom, cx, cy) with the centre as fractions of the page."""
+    import tempfile
+    path, zoom, fx, fy = (card, CARD_ZOOM, 0.5, 0.5) if isinstance(card, str) else card
+    im = Image.open(path).convert("L")
+    cw, ch = int(im.width * zoom), int(im.height * zoom)
+    x = min(max(0, int(im.width * fx - cw / 2)), im.width - cw)
+    y = min(max(0, int(im.height * fy - ch / 2)), im.height - ch)
+    out = os.path.join(tempfile.gettempdir(), "back600_card_%d.png" % abs(hash(card)))
+    im.crop((x, y, x + cw, y + ch)).save(out)
+    return out
+
+
 def draw_back(wrap, title, cards, bullets, footer, fonts, colors, card_boost=0.0075):
     """Draw the back panel onto wrap (left of the spine). Returns the smallest text size used."""
     d = ImageDraw.Draw(wrap)
@@ -75,12 +90,12 @@ def draw_back(wrap, title, cards, bullets, footer, fonts, colors, card_boost=0.0
     sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
     from thumb import art_thumb
     left = x0 + (TRIM_W - (2 * CARD + CARD_GAP)) // 2
-    for i, path in enumerate(cards[:4]):
+    for i, card in enumerate(cards[:4]):
         cx = left + (i % 2) * (CARD + CARD_GAP)
         cy = y0 + CARD_Y + (i // 2) * (CARD + CARD_GAP)
         d.rounded_rectangle([cx, cy, cx + CARD, cy + CARD], radius=44,
                             fill=(255, 255, 255), outline=colors["card"], width=12)
-        art = art_thumb(path, CARD - 110, boost=card_boost)
+        art = art_thumb(_closeup(card), CARD - 110, boost=card_boost)
         wrap.paste(art.convert("RGB"), (cx + (CARD - art.width) // 2, cy + (CARD - art.height) // 2))
 
     # three short bullets, left column, clear of the barcode zone

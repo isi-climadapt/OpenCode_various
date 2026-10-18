@@ -57,7 +57,13 @@ def build():
     smallest = draw_back(
         wrap,
         title="MEET THE MINIBEASTS!",
-        cards=[os.path.join(HERE, "raw2", "page_%s.png" % k) for k in ('01', '03', '17', '35')],
+        # close-up crops (path, zoom, centre x, centre y) where the character sits off-centre
+        cards=[
+            os.path.join(HERE, "raw2", "page_01.png"),
+            os.path.join(HERE, "raw2", "page_03.png"),
+            os.path.join(HERE, "raw2", "page_17.png"),
+            (os.path.join(HERE, "raw2", "page_35.png"), 0.78, 0.5, 0.45),
+        ],
         bullets=["50 big & bold designs", "A fun fact on every page", "Single-sided pages"],
         footer=["Made with love in Australia", "WATTLE WONDERS PUBLISHING"],
         fonts=dict(title=FONT_LILITA, body=FONT_FREDO),

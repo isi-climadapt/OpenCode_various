@@ -50,7 +50,13 @@ def build():
     smallest = draw_back(
         wrap,
         title="COZY UP WITH THE SNOWY CUTIES!",
-        cards=[os.path.join(HERE, "raw2", "page_%s.png" % k) for k in ("01", "02", "35", "41")],
+        # close-up crops (path, zoom, centre x, centre y) where the character sits off-centre
+        cards=[
+            (os.path.join(HERE, "raw2", "page_01.png"), 0.78, 0.42, 0.5),
+            os.path.join(HERE, "raw2", "page_02.png"),
+            (os.path.join(HERE, "raw2", "page_35.png"), 0.78, 0.5, 0.45),
+            (os.path.join(HERE, "raw2", "page_41.png"), 0.8, 0.5, 0.47),
+        ],
         bullets=["50 big & bold designs", "A fun fact on every page", "Single-sided pages"],
         footer=["Made with love in Australia", "GUMLEAF KIDS PRESS"],
         fonts=dict(title=FONT_SNIGLET, body=FONT_BALOO),

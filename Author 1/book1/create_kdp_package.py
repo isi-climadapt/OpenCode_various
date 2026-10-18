@@ -541,7 +541,13 @@ def make_full_cover_wrap():
     smallest = draw_back(
         wrap,
         title="MEET YOUR AUSSIE CUTIES!",
-        cards=[os.path.join(ROOT, "raw2_1k", "page_%s.png" % k) for k in ("01", "09", "08", "41")],
+        # close-up crops (path, zoom, centre x, centre y) where the character sits off-centre
+        cards=[
+            os.path.join(ROOT, "raw2_1k", "page_01.png"),
+            os.path.join(ROOT, "raw2_1k", "page_09.png"),
+            (os.path.join(ROOT, "raw2_1k", "page_08.png"), 0.8, 0.42, 0.5),
+            (os.path.join(ROOT, "raw2_1k", "page_41.png"), 0.8, 0.45, 0.5),
+        ],
         bullets=["50 big & bold designs", "A fun fact on every page", "Single-sided pages"],
         footer=["Made with love in Australia", "GUMLEAF KIDS PRESS"],
         fonts=dict(title=FONT_SNIGLET, body=FONT_BALOO),
