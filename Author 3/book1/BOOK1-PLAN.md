@@ -398,7 +398,7 @@ The other 18 story pages done; all 29 page images are in `pages\` at 2048 px. Cr
 
 - Layout from the latest cover script, `Author 1\book4\cover_build4.py` (commit 90f22ed, thumbnail-first): solid one-line title, hero big, bold badge. Adapted in `cover_build.py`: full-bleed painting, title in Chewy on a twilight band, "Ages 3-5" badge bottom-left (was 3-6; changed 18 Oct after the age band check, rule 16), author name along the bottom.
 - User picked option C (Banjo the detective, suspects peeking). Hero refined to 2048 px: 234 DPI full bleed. F11's 270 DPI cover rule can't be met full-bleed while the CLI is capped at 2K; same density as the approved interior.
-- `create_cover_wrap.py` (from `create_cover_wrap4.py`): spine 32 x 0.002347 in = 0.0751 in (premium color, KDP Paperback Submission Guidelines), no spine text (under 79 pages). Wrap 5198 x 2625 px = 17.327 x 8.75 in (exact 17.325; 22.5 px spine rounded down). Back: title, blurb, 3 sample page cards (pages 11, 14, 27), bullets, bio box, white barcode zone with no placeholder text, imprint line. PDF JPEG quality 100, no chroma subsampling.
+- `create_cover_wrap.py` (from `create_cover_wrap4.py`): spine 32 x 0.002347 in = 0.0751 in (premium color, KDP Paperback Submission Guidelines), no spine text (under 79 pages). Wrap 5198 x 2625 px = 17.327 x 8.75 in (exact 17.325; 22.5 px spine rounded down). Back: title, blurb, 3 sample page cards (pages 11, 14, 27), bullets, bio box, white barcode zone with no placeholder text (moved 18 Oct to where KDP prints the barcode: 2 x 1.2 in, 0.25 in from the spine and bottom trim, white box 0.15 in larger all round), imprint line. PDF JPEG quality 100, no chroma subsampling.
 
 ## Production approach for step 4
 

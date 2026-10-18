@@ -23,6 +23,31 @@ TITLE = (255, 222, 120)
 CREAM = (255, 249, 236)
 SOFT = (226, 220, 245)
 
+# KDP prints the barcode (when "Amazon adds the barcode" is selected) on the BACK cover, bottom
+# corner next to the spine: 2 x 1.2 in, 0.25 in from the spine fold and from the bottom trim
+# (KDP Barcodes help page; confirmed in the KDP previewer for this book, 18 Oct 2026).
+# The cover must be solid white there. BARCODE_PAD of white goes round it so small print shifts
+# never put the barcode on artwork. Never place the zone from SAFE: that put it 0.5 in in and
+# KDP's barcode landed half on the purple background (Book 1, first upload).
+BARCODE_W, BARCODE_H, BARCODE_GAP, BARCODE_PAD = 600, 360, 75, 45   # px at 300 DPI
+
+def barcode_area():
+    """(x0, y0, x1, y1) of KDP's printed barcode on the wrap, in px."""
+    spine_x, bottom_y = BLEED + TRIM, BLEED + TRIM          # back trim's spine edge and bottom edge
+    return (spine_x - BARCODE_GAP - BARCODE_W, bottom_y - BARCODE_GAP - BARCODE_H,
+            spine_x - BARCODE_GAP, bottom_y - BARCODE_GAP)
+
+def check_barcode(wrap):
+    """Fail the build unless KDP's barcode area (plus 0.1 in) is pure white."""
+    x0, y0, x1, y1 = barcode_area()
+    m = 30
+    region = wrap.crop((x0 - m, y0 - m, x1 + m, y1 + m)).convert("L")
+    lo = region.getextrema()[0]
+    if lo < 250:
+        raise SystemExit(f"BARCODE CHECK FAILED: KDP's barcode area {x0 - m},{y0 - m}-{x1 + m},{y1 + m} "
+                         f"is not solid white (darkest value {lo}). Move artwork or text out of it.")
+    print("barcode check: KDP area is solid white")
+
 def font(name, px, weight=None):
     f = ImageFont.truetype(os.path.join(FONTS, name), px)
     if weight:
@@ -127,9 +152,12 @@ def build():
         d.text((box[0] + 50, by), line, font=f_bio, fill=(70, 66, 100), anchor="ls")
         by += 58
 
-    # KDP barcode zone: white, bottom-right of the back, 2 x 1.2 in plus margin, no placeholder text
-    bcw, bch = 680, 420
-    bc = (bx0 + TRIM - SAFE - bcw, BLEED + TRIM - SAFE - bch, bx0 + TRIM - SAFE, BLEED + TRIM - SAFE)
+    # KDP barcode zone, where KDP actually prints it (checked in the KDP previewer, 18 Oct 2026):
+    # 2 x 1.2 in, 0.25 in from the spine fold and from the bottom trim. The white box covers that
+    # area plus 0.15 in all round, so the barcode always lands on solid white. (It was 0.5 in in
+    # from the edges before, and KDP's barcode sat half on the purple.)
+    bar = barcode_area()
+    bc = (bar[0] - BARCODE_PAD, bar[1] - BARCODE_PAD, bar[2] + BARCODE_PAD, bar[3] + BARCODE_PAD)
     d.rectangle(bc, fill=(255, 255, 255))
 
     # imprint line under the bio box would leave the safe zone; put it above the barcode instead
@@ -143,6 +171,7 @@ def build():
 
 if __name__ == "__main__":
     wrap = build()
+    check_barcode(wrap)
     out_dir = os.path.join(HERE, "kdp_package")
     up_dir = os.path.join(HERE, "KDP_FINAL_UPLOAD")
     os.makedirs(out_dir, exist_ok=True)
