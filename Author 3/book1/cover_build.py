@@ -3,7 +3,7 @@
 # Based on the latest cover layout, Author 1\book4\cover_build4.py (commit 90f22ed, thumbnail-first
 # redesign from 1b7d534): solid high-contrast one-line title, hero art big, a bold band/badge that
 # reads at search-result size. Adapted for a picture book: full-bleed painting instead of the cream
-# frame, title on a twilight band, "Ages 3-6" badge instead of the COLORING BOOK band.
+# frame, title on a twilight band, "Ages 3-5" badge (rule 16, publishing\03-age-band.md) instead of the COLORING BOOK band.
 # Hero art: hybrid pipeline from gen_pages.py (nano-banana-pro draft, ideogram-4-5 refine to 2048 px).
 # Usage: py cover_build.py --gen        (draft heroes A/B/C via nano-banana-pro, then build options)
 #        py cover_build.py --refine A   (refine hero A to 2048 px with ideogram, rebuild)
@@ -141,7 +141,7 @@ def build_front(tag):
     bx, by = 150 + r, BLEED + TRIM - 150 - r
     d.ellipse((bx - r, by - r, bx + r, by + r), fill=BADGE, outline=CREAM, width=12)
     centred(d, "AGES", font("Nunito[wght].ttf", 70, "Black"), bx, by - 10, CREAM)
-    centred(d, "3-6", font("Chewy-Regular.ttf", 130), bx, by + 108, CREAM)
+    centred(d, "3-5", font("Chewy-Regular.ttf", 130), bx, by + 108, CREAM)
 
     out = os.path.join(HERE, f"cover_option_{tag}.png")
     save(canvas, out)

@@ -353,7 +353,7 @@ Plus the Saltbush Story House logo. The barcode goes on the back cover, not here
 
 ## Word count
 
-523 words of story text across pages 3 to 29 (counted from this file). That's in the usual range for a 32-page picture book for ages 3 to 6, and close to the dialogue-led density on Hemming's sample spreads (10 to 40 words a page).
+523 words of story text across pages 3 to 29 (counted from this file). That's in the usual range for a 32-page picture book for ages 3 to 5, and close to the dialogue-led density on Hemming's sample spreads (10 to 40 words a page).
 
 ## Character consistency test (17 Oct 2026, 539 credits)
 
@@ -396,7 +396,7 @@ The other 18 story pages done; all 29 page images are in `pages\` at 2048 px. Cr
 
 ## Cover (18 Oct 2026)
 
-- Layout from the latest cover script, `Author 1\book4\cover_build4.py` (commit 90f22ed, thumbnail-first): solid one-line title, hero big, bold badge. Adapted in `cover_build.py`: full-bleed painting, title in Chewy on a twilight band, "Ages 3-6" badge bottom-left, author name along the bottom.
+- Layout from the latest cover script, `Author 1\book4\cover_build4.py` (commit 90f22ed, thumbnail-first): solid one-line title, hero big, bold badge. Adapted in `cover_build.py`: full-bleed painting, title in Chewy on a twilight band, "Ages 3-5" badge bottom-left (was 3-6; changed 18 Oct after the age band check, rule 16), author name along the bottom.
 - User picked option C (Banjo the detective, suspects peeking). Hero refined to 2048 px: 234 DPI full bleed. F11's 270 DPI cover rule can't be met full-bleed while the CLI is capped at 2K; same density as the approved interior.
 - `create_cover_wrap.py` (from `create_cover_wrap4.py`): spine 32 x 0.002347 in = 0.0751 in (premium color, KDP Paperback Submission Guidelines), no spine text (under 79 pages). Wrap 5198 x 2625 px = 17.327 x 8.75 in (exact 17.325; 22.5 px spine rounded down). Back: title, blurb, 3 sample page cards (pages 11, 14, 27), bullets, bio box, white barcode zone with no placeholder text, imprint line. PDF JPEG quality 100, no chroma subsampling.
 
@@ -407,6 +407,6 @@ The other 18 story pages done; all 29 page images are in `pages\` at 2048 px. Cr
 - **Full run:** about 30 images (26 story page images, title and end vignettes, cover front art) at about 2 attempts each and about 44 credits each, so roughly 2,700 credits. Account balance on 17 Oct: 5,556 credits.
 - **Typesetting:** text placed in each page's clear area in code. A friendly rounded body font plus a bold display font for the shouts, different from Author 1 (Baloo, Sniglet, Pacifico) and Author 2 (Lilita One, Fredoka). Candidates are open-licence Google Fonts and would need the user's OK to download.
 - **Outputs:** interior PDF (8.625 x 8.75 in pages with bleed, 32 pages), cover wrap PDF (spine for 32 pages premium color), Kindle fixed-layout files, KDP copy-paste guide, A+ set with the alt text table.
-- **Latest layout first (pipeline rule 15):** before each stage, check `git log -5 --stat`, `git status` and `git diff` for newer work from other sessions, start from the most recently changed script for that stage, and re-check before every checkpoint. Cover: carry over the thumbnail-first principles from commits 1b7d534 and ff0d00a (solid dark one-line title, hero cropped and enlarged so it reads at search-result size). The "COLORING BOOK / FOR KIDS AGES 3-8" band doesn't fit a story book; use a picture-book equivalent such as a small "Ages 3-6" badge.
+- **Latest layout first (pipeline rule 15):** before each stage, check `git log -5 --stat`, `git status` and `git diff` for newer work from other sessions, start from the most recently changed script for that stage, and re-check before every checkpoint. Cover: carry over the thumbnail-first principles from commits 1b7d534 and ff0d00a (solid dark one-line title, hero cropped and enlarged so it reads at search-result size). The "COLORING BOOK / FOR KIDS AGES 3-8" band doesn't fit a story book; use a picture-book equivalent such as a small "Ages 3-5" badge.
 - **KDP copy-paste guide keywords (pipeline rule 14):** 7 plain lines, no "Box 1:" labels, under the heading "Keywords (copy each line into its own keyword box, in order):".
 - **Price:** paperback $11.99 (about $2.99 royalty after the $4.20 print cost), Kindle $4.99.

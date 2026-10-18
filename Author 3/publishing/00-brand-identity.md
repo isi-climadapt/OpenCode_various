@@ -26,11 +26,11 @@ In the book (page 32):
 
 Author Central, option A:
 
-> Hattie Moss writes funny picture books starring Australian animals. Her stories turn real wonders of the bush, like peeling gum trees and gliding sugar gliders, into laugh-out-loud mysteries for kids ages 3 to 6. Every book ends with true facts from the bush, so curious readers learn something new each time they read it. Her first book, *Who Peeled My Tree?*, introduces Banjo, a very dramatic little sugar glider, and his very sleepy koala friend, Olive. When she isn't writing, Hattie is usually looking up at a gum tree, waiting to see what it will do next.
+> Hattie Moss writes funny picture books starring Australian animals. Her stories turn real wonders of the bush, like peeling gum trees and gliding sugar gliders, into laugh-out-loud mysteries for kids ages 3 to 5. Every book ends with true facts from the bush, so curious readers learn something new each time they read it. Her first book, *Who Peeled My Tree?*, introduces Banjo, a very dramatic little sugar glider, and his very sleepy koala friend, Olive. When she isn't writing, Hattie is usually looking up at a gum tree, waiting to see what it will do next.
 
 Author Central, option B:
 
-> Hattie Moss is an Australian picture book author who loves the bush after dark. Her Banjo and Olive stories mix big feelings, silly suspects and real nature facts for readers ages 3 to 6. She writes for kids who ask "why?" and for the grown-ups who read the same book to them again and again.
+> Hattie Moss is an Australian picture book author who loves the bush after dark. Her Banjo and Olive stories mix big feelings, silly suspects and real nature facts for readers ages 3 to 5. She writes for kids who ask "why?" and for the grown-ups who read the same book to them again and again.
 
 No awards, credentials or invented personal history: it's a pen name.
 

@@ -34,7 +34,7 @@ Book Title (Copy exactly):
 Who Peeled My Tree?
 
 Subtitle (Optional) (Copy exactly):
-A Funny Sugar Glider Picture Book About Change and Growing Up, for Kids Ages 3-6
+A Funny Sugar Glider Picture Book About Change and Growing Up, for Kids Ages 3-5
 
 Series (Optional):
 Click "Add to series" and create a new series
@@ -68,7 +68,7 @@ Inside this picture book:
 • A gentle message about change and growing up, for kids facing something new.
 • True Facts from the Bush: two pages of real facts about gum trees, sugar gliders, koalas and more (yes, wombats really do make cube-shaped poop).
 • Soft, glowing twilight illustrations on every page.
-• A great bedtime story and a thoughtful gift for kids ages 3 to 6.
+• A great bedtime story and a thoughtful gift for kids ages 3 to 5.
 
 Start with Banjo and Olive, and find out who really peeled that tree.
 --------------------------------------------------------------------------------
@@ -80,7 +80,7 @@ Primary Audience / Sexually Explicit:
 Select: "No"
 
 Reading Age:
-Minimum: 3   Maximum: 6
+Minimum: 3   Maximum: 5   (age band locked in Author 3\publishing\03-age-band.md)
 
 Primary Marketplace:
 Amazon.com
@@ -99,13 +99,13 @@ Classify as any of these types?
 [ ] Large-print book   --> LEAVE UNCHECKED!
 
 Keywords (copy each line into its own keyword box, in order):
+story books for kids ages 3-5
 sugar glider picture book for kids
-funny australian animal books for kids 3-6
+funny australia books for kids animals
 koala bedtime story for preschoolers
 picture book about change and growing up
 read aloud mystery book for kindergarten
 gum tree nature book with animal facts
-australia books for kids ages 4-8
 
 Publication Date:
 Select: "Publication date and release date are the same"
@@ -189,7 +189,6 @@ AFTER PUBLISH (in order):
 3. Author Central: create the Hattie Moss author page and add the bio
    (pick option A or B in Author 3\publishing\00-brand-identity.md)
 4. A+ Content: follow 03_A_PLUS_CONTENT_GUIDE.txt (add the new ASIN to aplus_build.py, rerun)
-5. Kindle edition: build a fixed-layout ebook from the typeset pages with Kindle
-   Kids' Book Creator (separate step, not in this folder yet)
+5. Kindle edition: follow 04_KINDLE_GUIDE.txt (files in 04_KINDLE\, $4.99 at 70%)
 6. Author copies: KDP Bookshelf → "..." next to the paperback → "Order author copies"
 ================================================================================

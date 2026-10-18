@@ -65,6 +65,7 @@
 13. **The US is the primary market** (user decision, Oct 2026): Amazon.com is the KDP primary marketplace, US $9.99 is the lead price, research weights .com, and **all customer-facing text uses US spelling** ("coloring", "color", "favorite", "cozy", "check off"): title, subtitle, description, keywords, interior pages, back cover, A+ panels and alt text. Pen names, imprints and the Australian voice and facts stay. Books published before this decision keep their spelling unless the user asks.
 14. **Keyword section format** (user rule, Oct 2026): in `00_COPY_PASTE_INTO_KDP.txt`, list the 7 keywords as plain lines under "Keywords (copy each line into its own keyword box, in order):", with no "Box 1:" style labels, so each line pastes straight into KDP.
 15. **Always build from the latest layout** (user rule, Oct 2026): every agent starts each stage (generator, interior, cover, wrap, KDP guide, A+) by copying that stage's script from the author's most recently changed book, never from an older book, a template in this file or a copy taken earlier in the session. Before copying, and again before each checkpoint, check what changed: `git log -5 --stat -- "Author N"` plus `git status` and `git diff` for uncommitted work by other sessions. Layouts change while books are in progress, so a new layout that lands mid-build gets ported before the next checkpoint, and the agent tells the user what changed. Book-specific settings (titles, colours, page lists) are the only things a new book changes.
+16. **Pick the age band from sales evidence, in Stage 1, and use only that one** (user rule, Oct 2026): the age band is part of the core Stage 1 research, decided before the title, subtitle or keywords. Three checks on Amazon.com, written up in the book's research file: (a) **search demand**: Amazon autocomplete in the Books department (`completion.amazon.com/api/2017/suggestions?...&alias=stripbooks&mid=ATVPDKIKX0DER&prefix=...`) for prefixes such as "story books for kids ages", "childrens books ages", "[format] books for kids ages", "books for N year olds"; note which bands appear and in what order; (b) **buyer evidence**: the "Reading age" shown (customer-derived on most listings) on the bestsellers in the book's format and category; (c) **fit**: the band must be credible for the book's word count, page design and difficulty, because customer data later overrides what KDP is told. Lock the band that wins (a) and (b) and fits (c). Then use exactly that band in every customer-facing field: subtitle, keywords, KDP Reading Age min and max, cover badge or band, description, A+ panels, alt text and bio. Never mix bands (for example "3-6" in the subtitle and "4-8" in a keyword). A band that never shows up in autocomplete (such as "3-6") isn't used. Reference write-up: `Author 3\publishing\03-age-band.md` (story picture books: "3-5"; coloring and activity books show "4-8" and "3-5").
 
 ---
 
@@ -80,7 +81,10 @@
 │  Priority: recency (new releases) + sales velocity (BSR) over      │
 │  breadth — no broad 500-book scrape                                │
 │  • Check seasonal calendar (publish 6–8 weeks pre-peak)           │
+│  • AGE BAND (rule 16): autocomplete demand + bestsellers' reading  │
+│    ages + fit -> lock ONE band, used in every customer field       │
 │  • Output: ranked shortlist of 5–8 concepts with demand evidence    │
+│    and the locked age band                                         │
 └──────────────────────────┬─────────────────────────────────────────┘
                            ▼
 ┌────────────────────────────────────────────────────────────────────┐
@@ -89,6 +93,8 @@
 │  • BSR band check: winning = ≤250 reviews & BSR ≤30K              │
 │  • Price check: niche must support US $9.99 (A$13.99+ on .au)     │
 │  • Title collision check (exact-match search)                     │
+│  • Age band check: subtitle, keywords, Reading Age, badge, copy    │
+│    all use the Stage 1 band (rule 16), no second band anywhere     │
 │  • Output: GO / GO-WITH-CHANGES + locked title & keywords         │
 └──────────────────────────┬─────────────────────────────────────────┘
                            ▼

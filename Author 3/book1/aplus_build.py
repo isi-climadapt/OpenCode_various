@@ -1,4 +1,4 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 # STAGE 7 (A+ Content) for Author 3 picture books. Copied from the latest A+ builder,
 # Author 1\book4\aplus_build.py (commit 90f22ed), and adapted for a full-color story book:
 #   - art cards show the real typeset story pages (trimmed), not traced line art
@@ -34,7 +34,7 @@ BOOK = {
     "features": [("star", "A funny read-aloud mystery", "Silly suspects and a twist at the end"),
                  ("heart", "About change and growing up", "A gentle message for big feelings"),
                  ("bulb", "True facts from the bush", "Real facts about every animal inside"),
-                 ("book", "Made for ages 3 to 6", "Short lines and big shouted words")],
+                 ("book", "Made for ages 3 to 5", "Short lines and big shouted words")],
     # cast: (label, source image, crop box in fractions)
     "cast": [("Banjo", "char_test/sheet_nbpro.png", (0.04, 0.03, 0.44, 0.395)),
              ("Olive", "char_test/sheet_nbpro.png", (0.57, 0.53, 0.95, 0.95)),

@@ -18,6 +18,10 @@ with the # | Module | Image | Alt text table (rule 11), KDP print specs verified
 before shipping. Colouring-only stages (line-art tracing, 108-page format,
 caption rules) don't apply.
 
+Hard rule 16 applies here too: the age band comes from the step 1 research (autocomplete demand,
+bestsellers' reading ages, fit) and is the only band used in any customer-facing field. Book 1:
+Ages 3-5 (`publishing\03-age-band.md`).
+
 Hard rule 15 applies here too: build every stage from the latest layout, copying
 scripts from Author 3's most recently changed book (check git log and git status
 first), and port any newer layout before the next checkpoint.
