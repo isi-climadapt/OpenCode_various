@@ -12,7 +12,7 @@ FILES TO UPLOAD:
 3. Cover Visual Preview:   COVER_PREVIEW.png
 
 TIMING NOTE: The 2026 Halloween window is nearly closed (peak demand Oct 1-31,
-KDP review 3-10 business days). Upload TODAY to catch the late-October tail —
+KDP review 3-10 business days). Upload TODAY to catch the late-October tail,
 and the book becomes an evergreen annual title for Halloween 2027+.
 
 
@@ -46,15 +46,15 @@ Contributors:
 
 Description (Copy and paste directly into the KDP text box):
 --------------------------------------------------------------------------------
-G'day! It's time to get spooky — the Aussie Cuties way!
+G'day! It's time to get spooky, the Aussie Cuties way!
 
-Trick or treat! Step into the delightfully quirky world of Aussie Cuties at Halloween. Meet 50 adorably spooky friends ready for a not-so-scary adventure — from a sleepy koala ghost and a potion-brewing kangaroo witch to a grinning wombat vampire, a howly dingo werewolf, and a baby joey zooming through the pumpkin patch!
+Trick or treat! Step into the delightfully quirky world of Aussie Cuties at Halloween. Meet 50 adorably spooky friends ready for a not-so-scary adventure, from a sleepy koala ghost and a potion-brewing kangaroo witch to a grinning wombat vampire, a howly dingo werewolf, and a baby joey zooming through the pumpkin patch!
 
 Grab your favourite colours, find your cozy corner, and let the fun begin!
 
 Aussie Cuties at Halloween has sweet and irresistible illustrations for colouring fans of all ages, and includes:
 
-• 50 Hand-Crafted Pages: Eerie-but-adorable Halloween scenes starring Aussie animals — spooky, never scary!
+• 50 Hand-Crafted Pages: Eerie-but-adorable Halloween scenes starring Aussie animals. Spooky, never scary!
 • Large, Bold Designs: Extra-thick outlines with generous open spaces that are relaxing and easy to colour.
 • Fun Facts on Every Page: Discover amazing secrets about Halloween and Australia's wildlife as you colour!
 • Single-Sided Pages: Every design is printed on a single sheet with a blank back to prevent marker bleed-through and make displaying your artwork easy.
@@ -81,8 +81,8 @@ Categories (Click "Choose categories"):
 1. Children's Books > Activities, Crafts & Games > Activity Books > Coloring Books
 2. Children's Books > Holidays & Celebrations > Halloween
 3. Children's Books > Animals > Mammals
-(If exact paths differ in the live picker, choose the closest match —
-keep one Coloring Books + one Halloween category.)
+(If exact paths differ in the live picker, choose the closest match.
+Keep one Coloring Books + one Halloween category.)
 
 Classify as any of these types?
 [ ] Low-content book   --> LEAVE UNCHECKED! (Do NOT check this box!)

@@ -66,6 +66,14 @@ def draw_star(draw, x, y, size, fill=(180, 160, 150)):
     draw.polygon(pts, fill=fill)
 
 
+def framed_page_number(d, number):
+    """Page number for pages with a rounded frame: right edge at x 2310 and baseline
+    above y 3100, inside the inner frame line instead of on it (as book4)."""
+    f = ImageFont.truetype(FONT_BALOO, 60)
+    bb = d.textbbox((0, 0), number, font=f)
+    d.text((2310 - bb[2], 3020), number, fill=120, font=f)
+
+
 def make_blank_page():
     return Image.new("L", (W, H), 255)
 
@@ -158,7 +166,7 @@ def make_copyright_page():
 
     lines = [
         ("%s: %s" % (TITLE, SUBTITLE_LONG), f_bold),
-        ("First Edition — October 2026", f_reg),
+        ("First Edition, October 2026", f_reg),
         ("", f_reg),
         ("Published by Gumleaf Kids Press", f_bold),
         ("Melbourne, Australia", f_reg),
@@ -233,7 +241,7 @@ def make_tips_page():
         ("1. Put a Blank Sheet Behind Your Page", "When using juicy markers, place a scrap sheet behind your drawing to keep the next page perfectly clean!"),
         ("2. Start Light, Then Go Dark", "Colour lighter shades first, then layer darker tones on top for amazing depth and pop."),
         ("3. Mix Your Art Tools", "Try combining crayons, coloured pencils, and markers together on the same spooky friend for fun textures."),
-        ("4. There Are No Mistakes In Art!", "Make your Halloween friends any colour you want — purple koalas and rainbow pumpkins are awesome!"),
+        ("4. There Are No Mistakes In Art!", "Make your Halloween friends any colour you want. Purple koalas and rainbow pumpkins are awesome!"),
     ]
     f_head = ImageFont.truetype(FONT_BALOO, 60)
     f_desc = ImageFont.truetype(FONT_BALOO, 48)
@@ -307,8 +315,7 @@ def make_tips_page():
     f_sig_lbl = ImageFont.truetype(FONT_BALOO, 44)
     d.text((box_x + 60, y_bottom + 625), "ARTIST SIGNATURE", fill=120, font=f_sig_lbl)
 
-    f_pnum = ImageFont.truetype(FONT_BALOO, 55)
-    d.text((W - 180, 3110), "4", fill=120, font=f_pnum)
+    framed_page_number(d, "4")
 
     return page
 
@@ -385,7 +392,7 @@ def make_checklist_page():
         d.rectangle([x, y + 6, x + 38, y + 44], outline=0, width=5)
         d.text((x + 60, y), name, fill=30, font=f_item)
 
-    d.text((W - 220, 3010), "105", fill=120, font=ImageFont.truetype(FONT_BALOO, 60))
+    framed_page_number(d, "105")
     return page
 
 
@@ -420,11 +427,13 @@ def make_certificate_page():
         bb2 = d.textbbox((0, 0), line, font=f_p)
         d.text(((W - (bb2[2] - bb2[0])) // 2 - bb2[0], yy), line, fill=40, font=f_p)
 
-    draw_star(d, W // 2, 1950, 160, fill=0)
-    draw_star(d, W // 2, 1950, 110, fill=255)
-    f_star = ImageFont.truetype(FONT_SNIGLET, 60)
-    stxt = u"\u2605 50 \u2605"
-    d.text((W // 2 - 80, 1910), stxt, fill=0, font=f_star)
+    # round badge (the 4-point star's centre was too narrow for the number)
+    d.ellipse((W // 2 - 170, 1950 - 170, W // 2 + 170, 1950 + 170), outline=0, width=14)
+    d.ellipse((W // 2 - 140, 1950 - 140, W // 2 + 140, 1950 + 140), outline=0, width=5)
+    # Sniglet and Baloo 2 have no star glyph (it prints as a box): plain number
+    f_star = ImageFont.truetype(FONT_SNIGLET, 130)
+    sbb = d.textbbox((0, 0), "50", font=f_star)
+    d.text((W // 2 - (sbb[2] - sbb[0]) // 2 - sbb[0], 1950 - (sbb[3] - sbb[1]) // 2 - sbb[1]), "50", fill=0, font=f_star)
 
     d.line([(350, 2600), (950, 2600)], fill=0, width=6)
     d.line([(W - 950, 2600), (W - 350, 2600)], fill=0, width=6)
@@ -436,7 +445,7 @@ def make_certificate_page():
     d.text((540, 2630), "AUTHOR", fill=100, font=f_siglbl)
     d.text((W - 720, 2630), "DATE", fill=100, font=f_siglbl)
 
-    d.text((W - 220, 3010), "107", fill=120, font=ImageFont.truetype(FONT_BALOO, 60))
+    framed_page_number(d, "107")
     return page
 
 
@@ -458,19 +467,19 @@ def make_thank_you_page():
         "adventure with Matilda Hayes.",
         "",
         "If you loved this book, please consider leaving a kind",
-        "review on Amazon — it helps independent Australian",
+        "review on Amazon. It helps independent Australian",
         "bookmakers create more adventures for kids!",
         "",
         "IN THE GUMLEAF AUSSIE FRIENDS SERIES:",
-        u"\u2605 Aussie Cuties — Out Now!",
-        u"\u2605 Great Barrier Reef Ocean Friends — Out Now!",
-        u"\u2605 Aussie Cuties at Christmas",
+        u"\u2022 Aussie Cuties: Out Now!",
+        u"\u2022 Great Barrier Reef Ocean Friends: Out Now!",
+        u"\u2022 Aussie Cuties at Christmas",
     ]
     y = 650
     for line in msg:
         if line:
             bb = d.textbbox((0, 0), line, font=f_msg)
-            d.text(((W - (bb[2] - bb[0])) // 2 - bb[0], y), line, fill=30 if not line.startswith(u"\u2605") else 0, font=f_msg)
+            d.text(((W - (bb[2] - bb[0])) // 2 - bb[0], y), line, fill=30 if not line.startswith(u"\u2022") else 0, font=f_msg)
         y += 95
 
     f_imp = ImageFont.truetype(FONT_BALOO, 56)
@@ -478,7 +487,7 @@ def make_thank_you_page():
     bb = d.textbbox((0, 0), imp, font=f_imp)
     d.text(((W - (bb[2] - bb[0])) // 2 - bb[0], 2850), imp, fill=100, font=f_imp)
 
-    d.text((W - 220, 3010), "108", fill=120, font=ImageFont.truetype(FONT_BALOO, 60))
+    framed_page_number(d, "108")
     return page
 
 
