@@ -1,0 +1,43 @@
+page_03 ok
+page_19 ok
+page_22 ok
+page_28 ok
+page_31 ok
+page_32 ok
+page_37 ok
+page_44 ok
+--- post-processing ---
+page_03 assembled QA-OK
+page_19 assembled QA-OK
+page_22 assembled QA-OK
+page_28 assembled ['F3 edge x0 y150']
+page_31 assembled ['F2 hline y=150', 'F2 vline x=76', 'F2 vline x=2474', 'F3 edge x0 y150']
+page_32 assembled QA-OK
+page_37 assembled ['F3 edge x0 y150']
+page_44 assembled QA-OK
+=== SUMMARY: 5 ok, 3 flagged ===
+FLAG page_28 ['F3 edge x0 y150']
+FLAG page_31 ['F2 hline y=150', 'F2 vline x=76', 'F2 vline x=2474', 'F3 edge x0 y150']
+FLAG page_37 ['F3 edge x0 y150']
+F9 coherence: 50/50 captions match their images
+page_10 ok
+page_11 ok
+page_12 ok
+page_34 ok
+page_38 ok
+page_40 ok
+--- post-processing ---
+page_10 assembled QA-OK
+page_11 assembled QA-OK
+page_12 assembled QA-OK
+page_34 assembled QA-OK
+page_38 assembled QA-OK
+page_40 assembled QA-OK
+=== SUMMARY: 6 ok, 0 flagged ===
+F9 coherence: 50/50 captions match their images
+page_19 EDGE T 48, EDGE L 39, EDGE R 32
+page_28 EDGE T 455, EDGE L 683, EDGE R 1140
+page_31 EDGE T 1038, EDGE B 1038, EDGE L 1045, EDGE R 1045
+page_37 EDGE T 808, EDGE B 808
+page_44 EDGE B 225, EDGE L 56, EDGE R 56
+source check: 9/14 clean

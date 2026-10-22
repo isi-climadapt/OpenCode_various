@@ -1,0 +1,18 @@
+page_31 ok
+page_37 ok
+page_44 ok
+--- post-processing ---
+page_31 assembled ['F3 edge x0 y150']
+page_37 assembled QA-OK
+page_44 assembled QA-OK
+=== SUMMARY: 2 ok, 1 flagged ===
+FLAG page_31 ['F3 edge x0 y150']
+F9 coherence: 50/50 captions match their images
+page_28 ok
+--- post-processing ---
+page_28 assembled QA-OK
+=== SUMMARY: 1 ok, 0 flagged ===
+F9 coherence: 50/50 captions match their images
+page_31 EDGE T 808, EDGE B 815
+page_44 EDGE T 120
+source check: 2/4 clean

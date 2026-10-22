@@ -1,0 +1,119 @@
+page_01 cached
+page_02 ok
+page_03 ok
+page_04 ok
+page_05 ok
+page_06 ok
+page_07 ok
+page_08 ok
+page_09 ok
+page_10 ok
+page_11 ok
+page_12 ok
+page_13 ok
+page_14 ok
+page_15 ok
+page_16 ok
+page_17 ok
+page_18 ok
+page_19 ok
+page_20 ok
+page_21 ok
+page_22 ok
+page_23 ok
+page_24 ok
+page_25 ok
+page_26 ok
+page_27 ok
+page_28 ok
+page_29 ok
+page_30 ok
+page_31 ok
+page_32 ok
+page_33 ok
+page_34 ok
+page_35 ok
+page_36 ok
+page_37 ok
+page_38 ok
+page_39 ok
+page_40 ok
+page_41 ok
+page_42 ok
+page_43 ok
+page_44 ok
+page_45 ok
+page_46 ok
+page_47 ok
+page_48 ok
+page_49 ok
+page_50 ok
+--- post-processing ---
+page_01 assembled QA-OK
+page_02 assembled QA-OK
+page_03 assembled QA-OK
+page_04 assembled QA-OK
+page_05 assembled QA-OK
+page_06 assembled QA-OK
+page_07 assembled QA-OK
+page_08 assembled QA-OK
+page_09 assembled QA-OK
+page_10 assembled QA-OK
+page_11 assembled QA-OK
+page_12 assembled QA-OK
+page_13 assembled QA-OK
+page_14 assembled QA-OK
+page_15 assembled QA-OK
+page_16 assembled QA-OK
+page_17 assembled QA-OK
+page_18 assembled QA-OK
+page_19 assembled ['F1 colour 2.81%']
+page_20 assembled QA-OK
+page_21 assembled QA-OK
+page_22 assembled QA-OK
+page_23 assembled QA-OK
+page_24 assembled QA-OK
+page_25 assembled QA-OK
+page_26 assembled QA-OK
+page_27 assembled QA-OK
+page_28 assembled QA-OK
+page_29 assembled QA-OK
+page_30 assembled QA-OK
+page_31 assembled ['F3 edge x0 y150']
+page_32 assembled ['F3 edge x0 y150']
+page_33 assembled QA-OK
+page_34 assembled ['F3 edge x0 y150']
+page_35 assembled QA-OK
+page_36 assembled QA-OK
+page_37 assembled ['F3 edge x0 y150']
+page_38 assembled QA-OK
+page_39 assembled QA-OK
+page_40 assembled QA-OK
+page_41 assembled QA-OK
+page_42 assembled QA-OK
+page_43 assembled QA-OK
+page_44 assembled QA-OK
+page_45 assembled QA-OK
+page_46 assembled QA-OK
+page_47 assembled QA-OK
+page_48 assembled QA-OK
+page_49 assembled QA-OK
+page_50 assembled QA-OK
+=== SUMMARY: 45 ok, 5 flagged ===
+FLAG page_19 ['F1 colour 2.81%']
+FLAG page_31 ['F3 edge x0 y150']
+FLAG page_32 ['F3 edge x0 y150']
+FLAG page_34 ['F3 edge x0 y150']
+FLAG page_37 ['F3 edge x0 y150']
+F9 coherence: 50/50 captions match their images
+page_03 EDGE L 51, EDGE R 53
+page_10 EDGE L 65, EDGE R 67
+page_11 EDGE L 352, EDGE R 355
+page_12 EDGE R 241
+page_31 EDGE T 1612, EDGE B 1596
+page_32 EDGE T 320
+page_34 EDGE T 360, EDGE L 597, EDGE R 381
+page_37 EDGE T 829, EDGE B 829
+page_38 EDGE B 128
+page_40 EDGE L 200, EDGE R 405
+source check: 40/50 clean
