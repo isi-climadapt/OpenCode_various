@@ -1,0 +1,6 @@
+page_48 ok
+--- post-processing ---
+page_48 assembled QA-OK
+=== SUMMARY: 1 ok, 0 flagged ===
+F9 coherence: 50/50 captions match their images
+source check: 1/1 clean

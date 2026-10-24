@@ -1,0 +1,24 @@
+page_05 ok
+page_10 ok
+page_24 ok
+page_26 ok
+page_27 ok
+page_37 ok
+page_40 ok
+page_45 ok
+page_47 ok
+--- post-processing ---
+page_05 assembled QA-OK
+page_10 assembled QA-OK
+page_24 assembled QA-OK
+page_26 assembled QA-OK
+page_27 assembled ['F3 edge x0 y150']
+page_37 assembled QA-OK
+page_40 assembled QA-OK
+page_45 assembled QA-OK
+page_47 assembled QA-OK
+=== SUMMARY: 8 ok, 1 flagged ===
+FLAG page_27 ['F3 edge x0 y150']
+F9 coherence: 50/50 captions match their images
+page_27 EDGE T 804, EDGE B 804
+source check: 8/9 clean

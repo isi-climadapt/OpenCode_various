@@ -1,0 +1,10 @@
+=== STEP 1: GENERATING 108 INTERIOR PAGES ===
+Exporting Interior PDF (600 DPI 1-bit, lossless img2pdf) to: C:\Users\ibian\Desktop\OpenCode_Various\Author 2\book5\kdp_package\ROAR_WONDERS_INTERIOR_108P.pdf
+  ...20 / 108 pages built
+  ...40 / 108 pages built
+  ...60 / 108 pages built
+  ...80 / 108 pages built
+  ...100 / 108 pages built
+Interior PDF export complete! Size: 10.32 MB
+Upload copy at: C:\Users\ibian\Desktop\OpenCode_Various\Author 2\book5\KDP_FINAL_UPLOAD\01_MANUSCRIPT_INTERIOR_108P.pdf
+contact sheet: (3532, 2462)

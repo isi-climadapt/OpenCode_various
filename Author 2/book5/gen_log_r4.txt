@@ -1,0 +1,8 @@
+page_48 ok
+--- post-processing ---
+page_48 assembled ['F3 edge x0 y150']
+=== SUMMARY: 0 ok, 1 flagged ===
+FLAG page_48 ['F3 edge x0 y150']
+F9 coherence: 50/50 captions match their images
+page_48 EDGE T 790, EDGE B 789
+source check: 0/1 clean
