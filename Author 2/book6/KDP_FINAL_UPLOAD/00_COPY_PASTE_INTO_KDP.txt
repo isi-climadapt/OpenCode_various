@@ -1,0 +1,176 @@
+================================================================================
+AMAZON KDP UPLOAD GUIDE & METADATA (READY TO COPY & PASTE)
+Book Title: Stomp Wonders
+Author: Flora Watt, Wattle Wonders Publishing (AUTHOR 2), Book 6
+================================================================================
+
+All files you need to upload to Amazon KDP are in this folder:
+C:\Users\ibian\Desktop\OpenCode_Various\Author 2\book6\KDP_FINAL_UPLOAD\
+
+FILES TO UPLOAD:
+1. Manuscript (Interior):  01_MANUSCRIPT_INTERIOR_108P.pdf
+2. Cover:                  02_COVER_WRAP_PRINT_READY.pdf (ONE file: front + spine + back)
+3. Cover Visual Preview:   COVER_PREVIEW.png
+4. A+ Content:             03_A_PLUS_CONTENT\ + 03_A_PLUS_CONTENT_GUIDE.txt (after the book is live)
+
+IMPORTANT:
+- Same KDP account as Space Wonders
+- KDP "Publisher" field MUST be: Wattle Wonders Publishing
+- Link to the "Wattle Wonders" series as Book 6 (same series as Space, Minibeast, Robot, Zoom and Roar Wonders)
+- Do NOT link to the "Aussie Cuties" series. It belongs to a different author brand.
+
+
+================================================================================
+SCREEN 1: PAPERBACK DETAILS
+================================================================================
+
+Language:
+English
+
+Book Title (Copy exactly):
+Stomp Wonders
+
+Subtitle (Optional) (Copy exactly):
+Dinosaur Coloring Book for Kids Ages 4-8: 50 Big and Bold T. Rex, Triceratops, Stegosaurus and More with Fun Facts on Every Page
+
+Series (Optional):
+Click "Add to series" and pick the existing series
+- Series Title: Wattle Wonders   <-- EXACTLY the same as Space, Minibeast, Robot, Zoom and Roar Wonders
+- Main Title: Book 6
+
+Edition Number:
+(Leave blank)
+
+Primary Author:
+- First name: Flora
+- Last name:  Watt
+
+Contributors:
+(Leave completely blank)
+
+Description (Copy and paste directly into the KDP text box):
+--------------------------------------------------------------------------------
+Stomp Wonders is a dinosaur coloring book for kids ages 4-8, with 50 big, bold dinosaurs and prehistoric reptiles to color, and a real dinosaur fact on every page.
+
+Meet a T. rex lifting a log with its tiny arms, a Triceratops and her baby in a fern meadow, and a Brachiosaurus nibbling the treetops. Then soar with a Pteranodon, swim with a Plesiosaurus, visit an Aussie dinosaur corner and finish with a fossil dig. Every design has thick outlines and big open spaces, so young paleontologists can finish each page and feel proud of it.
+
+Inside this dinosaur coloring book:
+
+• 50 Original Designs: T. rex, Triceratops, Stegosaurus, Brachiosaurus, Velociraptor, Spinosaurus, Ankylosaurus and many more.
+• Real Dinosaur Facts on Every Page: Learn what a thagomizer is, which dinosaur had 15 horns and why a chicken is a cousin of T. rex.
+• Aussie Dinosaurs: Meet Muttaburrasaurus, Minmi, Australovenator (nicknamed Banjo) and the giant Australotitan.
+• Flying and Swimming Reptiles: Pteranodon, Quetzalcoatlus, Plesiosaurus and Ichthyosaurus, with the facts that tell them apart from dinosaurs.
+• Big & Bold Pages: Extra-thick outlines and large open spaces, great for crayons, markers and little hands.
+• Single-Sided Pages: Every design has a blank back, so markers don't bleed through and finished pictures are ready to display.
+• Bonus Pages: A Color Test Palette, a checklist to check off all 50 pages, and a Dino Explorer Artist Award.
+• Large 8.5 x 11 inch Format: Crisp, high-resolution prints.
+• A Great Gift: For birthdays, Christmas stockings, classrooms and kids who love dinosaurs.
+
+Grab your colors, little explorers, and stomp into the past!
+--------------------------------------------------------------------------------
+
+Publishing Rights:
+Select: "I own the copyright and I hold necessary publishing rights."
+
+Primary Audience / Sexually Explicit:
+Select: "No"
+
+Reading Age (rule 16: one band everywhere, from publishing\13-validation-stomp-wonders.md):
+- Minimum: 4 years
+- Maximum: 8 years
+
+Primary Marketplace:
+Amazon.com
+
+Categories (Click "Choose categories"):
+1. Children's Books > Activities, Crafts & Games > Activity Books > Coloring Books
+2. Children's Books > Animals > Dinosaurs
+3. Children's Books > Science, Nature & How It Works > Dinosaurs & Prehistoric Creatures
+(If exact paths differ in the live picker, choose the closest match and
+keep one Coloring Books + two dinosaur categories.)
+
+Classify as any of these types?
+[ ] Low-content book   --> LEAVE UNCHECKED! (Do NOT check this box!)
+[ ] Large-print book   --> LEAVE UNCHECKED!
+
+Keywords (copy each line into its own keyword box, in order):
+dinosaur coloring book for kids
+dinosaur coloring book with fun facts
+dinosaur coloring book for kids ages 4-8
+dinosaur facts book for kids
+t rex triceratops stegosaurus coloring
+educational coloring book for boys and girls
+bold and easy dinosaur coloring book
+
+Publication Date:
+Select: "Publication date and release date are the same"
+
+Release Date:
+Select: "Release my book for sale now"
+
+
+================================================================================
+SCREEN 2: PAPERBACK CONTENT
+================================================================================
+
+ISBN:
+Select: "Assign free KDP ISBN"
+
+Print Options:
+- Interior & paper type: Black & white interior with white paper
+- Trim Size:             8.5 x 11 in (21.59 x 27.94 cm)
+- Bleed settings:        No Bleed
+- Cover finish:          Matte (matches the bright house style)
+
+Publisher / Imprint field (if prompted):
+Enter: Wattle Wonders Publishing   <-- NOT "Independently published"!
+
+Manuscript:
+Upload: 01_MANUSCRIPT_INTERIOR_108P.pdf
+
+Book Cover:
+Select: "Upload a cover you already have (print-ready PDF)"
+Upload: 02_COVER_WRAP_PRINT_READY.pdf
+
+AI-Generated Content Disclosure:
+- Did you use AI-based tools?  --> Select: "Yes"
+- Images:                      --> Select: "Some with extensive editing"
+- Tools used:                  --> Enter: OpenArt, Nano Banana 2, Ideogram 4.5
+- Text:                        --> Select: "No"
+
+Launch Previewer:
+Click "Launch Previewer" to approve the digital proof.
+Check that KDP's barcode box sits on the white area of the back cover (F12).
+(The previewer shows pages at screen resolution, so it looks softer than print.
+Order a proof copy to check print quality.)
+
+
+================================================================================
+SCREEN 3: PAPERBACK RIGHTS & PRICING
+================================================================================
+
+Territories:
+Select: "All territories (worldwide rights)"
+
+Primary Marketplace:
+Amazon.com
+
+Pricing (Amazon.com, primary market):
+- List Price:   $9.99  (do not go lower: below $9.99 the royalty drops from 60% to 50%)
+- Royalty:      about $3.15 profit per copy
+
+Other marketplaces:
+- Amazon.com.au (AU): A$16.99  (about A$4.91 profit/copy)
+- Amazon.co.uk (UK):  £7.99   (about £2.50 profit/copy)
+
+Click: "Publish Your Paperback"
+
+================================================================================
+AFTER PUBLISH (in order):
+1. KDP → Publisher field verified = Wattle Wonders Publishing
+2. Price check at $9.99 on Amazon.com (and A$16.99 / £7.99 elsewhere)
+3. Series check: Space, Minibeast, Robot, Zoom, Roar and Stomp Wonders all show under "Wattle Wonders"
+4. A+ Content: follow 03_A_PLUS_CONTENT_GUIDE.txt (add the new ASIN to aplus_build.py, rerun)
+5. Author copies: KDP Bookshelf → "..." next to the paperback → "Order author copies"
+6. Never cross-link promo with Matilda Hayes / Gumleaf Kids Press listings
+================================================================================

@@ -1,0 +1,14 @@
+page_01 ok
+page_10 ok
+page_17 ok
+page_34 ok
+page_37 ok
+--- post-processing ---
+page_01 assembled QA-OK
+page_10 assembled ['F3 edge x0 y150']
+page_17 assembled QA-OK
+page_34 assembled QA-OK
+page_37 assembled QA-OK
+=== SUMMARY: 4 ok, 1 flagged ===
+FLAG page_10 ['F3 edge x0 y150']
+F9 coherence: 50/50 captions match their images

@@ -1,0 +1,19 @@
+page_03 ok
+page_04 ok
+page_08 ok
+page_13 ok
+page_27 ok
+page_46 ok
+page_49 ok
+--- post-processing ---
+page_03 assembled QA-OK
+page_04 assembled ['F3 edge x0 y150']
+page_08 assembled QA-OK
+page_13 assembled ['F2 hline y=150', 'F2 vline x=76', 'F2 vline x=2474', 'F3 edge x0 y150']
+page_27 assembled QA-OK
+page_46 assembled QA-OK
+page_49 assembled QA-OK
+=== SUMMARY: 5 ok, 2 flagged ===
+FLAG page_04 ['F3 edge x0 y150']
+FLAG page_13 ['F2 hline y=150', 'F2 vline x=76', 'F2 vline x=2474', 'F3 edge x0 y150']
+F9 coherence: 50/50 captions match their images

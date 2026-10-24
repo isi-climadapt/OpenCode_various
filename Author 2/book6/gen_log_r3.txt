@@ -1,0 +1,9 @@
+page_04 cached
+page_10 ok
+page_13 ok
+--- post-processing ---
+page_04 assembled QA-OK
+page_10 assembled QA-OK
+page_13 assembled QA-OK
+=== SUMMARY: 3 ok, 0 flagged ===
+F9 coherence: 50/50 captions match their images
