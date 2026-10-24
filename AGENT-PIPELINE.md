@@ -45,17 +45,17 @@
 
 0. **Author folder structure:** every pen name gets a top-level folder (`Author 1\`, `Author 2\`...) containing its own `publishing\` (brand identity, research, validations), `book1\`, `book2\`..., `scripts\` and upload folders. Author 1 = **Matilda Hayes / Gumleaf Kids Press** (verified brand). Author 2 = new pen name + different branding style, brand lock required before production (rule 0's verification applies new)
 0a. **Brand is FIXED FOREVER per author:** Matilda Hayes (author) / Gumleaf Kids Press (imprint) — already locked & verified clean; no re-verification, no renaming, no second pen name for the kids line (adult lines get their own, TBD)
-1. **OpenArt CLI for ALL generation** — never Gemini, never Recraft. Interiors: nano-banana-2 (the CLI only returns 1K, so pages are vector-traced, F11). Cover hero: draft with nano-banana-2, then Ideogram 4.5 image2image from the CLI with the draft as reference, for 2K output (~44 credits); show the user old vs new before replacing
+1. **OpenArt CLI for ALL generation** — never Gemini, never Recraft. Interiors: nano-banana-2 (the CLI only returns 1K, so pages are vector-traced, F11). Cover hero: draft with nano-banana-2, then Ideogram 4.5 image2image from the CLI with the draft as reference, for 2K output (~44 credits); the agent compares old vs new itself (faithful match, no new flaws) and keeps the draft as `_1024_draft`
 2. **All lettering typeset programmatically** (Baloo 2 / Sniglet / Pacifico) — never AI-generated text
 3. **API keys live in Windows user env vars only** — never in files, never in git
 4. Fixed-position layout, art box ≤2150×2150, all margins ≥0.53"
 5. One book = one folder (`book1`, `book2`...) with identical structure
-6. Full F1–F8 audit suite must pass + human contact-sheet review before any PDF export
+6. Full audit suite (F1-F13) must pass + the agent's own by-eye contact-sheet review before any PDF export (the user does not review the contact sheet, rule 17)
 7. Cover follows the Coco Wyo formula (researched live bestseller pattern)
 8. Trend research = **100-book analysis only**, latest + most-sold bestsellers, weighted to Amazon.com (primary market) with .com.au as secondary (no broad scrapes)
 9. **F9 caption↔image coherence must pass** before any contact-sheet review or PDF export — every caption must describe what is actually in its image (`scripts/caption_coherence.py`, runs automatically after every batch typeset)
 10. **Uniform caption typography**: fixed font size across all pages of a book (80px @300DPI), word-wrap to max 2 lines — never per-page shrinking
-11. **Every book ships with A+ Content (Stage 7).** Run `aplus_build.py` after the final interior + cover exist. It must produce the 4 module images AND `KDP_FINAL_UPLOAD\03_A_PLUS_CONTENT_GUIDE.txt` — the step-by-step guide with, for each module, the KDP module to pick, the image file, the alt text and a fallback headline, filled in for this book. Show the user the 4 drafts before anything goes to KDP. **Upload the 2x files** (1940 × 600 / 1940 × 1200): Amazon's 970 px sizes are minimums, and a 970 px file looks pixelated in KDP's preview and on high-resolution screens. **Every A+ hand-off ends with this table in the reply**, one per book (the script prints it, and it's at the top of the guide):
+11. **Every book ships with A+ Content (Stage 7).** Run `aplus_build.py` after the final interior + cover exist. It must produce the 4 module images AND `KDP_FINAL_UPLOAD\03_A_PLUS_CONTENT_GUIDE.txt` — the step-by-step guide with, for each module, the KDP module to pick, the image file, the alt text and a fallback headline, filled in for this book. The agent reviews the 4 drafts itself (fit, legibility, no dashes) and ships them; the user does not approve A+ (rule 17). **Upload the 2x files** (1940 × 600 / 1940 × 1200): Amazon's 970 px sizes are minimums, and a 970 px file looks pixelated in KDP's preview and on high-resolution screens. **Every A+ hand-off ends with this table in the reply**, one per book (the script prints it, and it's at the top of the guide):
 
     | # | Module | Image | Alt text |
     |---|---|---|---|
@@ -68,6 +68,7 @@
 14. **Keyword section format** (user rule, Oct 2026): in `00_COPY_PASTE_INTO_KDP.txt`, list the 7 keywords as plain lines under "Keywords (copy each line into its own keyword box, in order):", with no "Box 1:" style labels, so each line pastes straight into KDP.
 15. **Always build from the latest layout** (user rule, Oct 2026): every agent starts each stage (generator, interior, cover, wrap, KDP guide, A+) by copying that stage's script from the author's most recently changed book, never from an older book, a template in this file or a copy taken earlier in the session. Before copying, and again before each checkpoint, check what changed: `git log -5 --stat -- "Author N"` plus `git status` and `git diff` for uncommitted work by other sessions. Layouts change while books are in progress, so a new layout that lands mid-build gets ported before the next checkpoint, and the agent tells the user what changed. Book-specific settings (titles, colours, page lists) are the only things a new book changes.
 16. **Pick the age band from sales evidence, in Stage 1, and use only that one** (user rule, Oct 2026): the age band is part of the core Stage 1 research, decided before the title, subtitle or keywords. Three checks on Amazon.com, written up in the book's research file: (a) **search demand**: Amazon autocomplete in the Books department (`completion.amazon.com/api/2017/suggestions?...&alias=stripbooks&mid=ATVPDKIKX0DER&prefix=...`) for prefixes such as "story books for kids ages", "childrens books ages", "[format] books for kids ages", "books for N year olds"; note which bands appear and in what order; (b) **buyer evidence**: the "Reading age" shown (customer-derived on most listings) on the bestsellers in the book's format and category; (c) **fit**: the band must be credible for the book's word count, page design and difficulty, because customer data later overrides what KDP is told. Lock the band that wins (a) and (b) and fits (c). Then use exactly that band in every customer-facing field: subtitle, keywords, KDP Reading Age min and max, cover badge or band, description, A+ panels, alt text and bio. Never mix bands (for example "3-6" in the subtitle and "4-8" in a keyword). A band that never shows up in autocomplete (such as "3-6") isn't used. Reference write-up: `Author 3\publishing\03-age-band.md` (story picture books: "3-5"; coloring and activity books show "4-8" and "3-5").
+17. **Only two user approvals per book** (user rule, Oct 2026): (1) the **topic/theme pick** after Stage 1 research, and (2) the **front cover**, shown as the built front cover options for the user to pick (the chosen front is then redone at 2K and rebuilt without asking again). Everything else runs on its own without stopping: title, scenes and facts, credit spend, page generation and regenerations, contact-sheet review, interior, 2K hero, back cover, wrap, KDP guide, A+ set, verification, commit and push. The agent still runs every audit, reviews the contact sheet, covers and A+ by eye, fixes what it finds, and reports what it did in its updates. It stops early only when it is genuinely blocked: credits can't cover the rest of the book, an audit keeps failing after retries, a title collision or rights problem, or a git conflict with another session. Never stop to ask "approve and continue?" for anything else. Commits stage only the book's own paths and push `claude/brave-bardeen-oj84gz`.
 
 ---
 
@@ -159,7 +160,7 @@
 │  • Module 4: 6-page sample grid                1940 x 1200 (2x)    │
 │    (2x Amazon's 970 px minimum; 970 px looks pixelated in KDP)     │
 │  • Sample pages rendered from the print PDF (shows the real book)  │
-│  • Human checkpoint: user approves the 4 drafts                    │
+│  • No user approval: the agent self-reviews the drafts (rule 17)   │
 │  • Output: KDP_FINAL_UPLOAD/03_A_PLUS_CONTENT/ (4 images) +        │
 │    03_A_PLUS_CONTENT_GUIDE.txt — steps + per-module table:         │
 │    module to pick | image | alt text | fallback headline,          │
@@ -198,6 +199,6 @@ Copy these from the author's most recently changed book (hard rule 15), not from
 |---|---|
 | OpenArt credits | ~3,000 (50 pages + regens + covers) |
 | Calendar time | 1–2 days (pipeline is fully scripted) |
-| Human checkpoints | 3 (contact-sheet approval, cover choice, A+ drafts) |
+| Human checkpoints | 2 (topic/theme pick, front cover approval), rule 17 |
 | Unit economics (.au) | A$16.99 − A$5.28 print = **A$4.91/sale** |
 | Break-even | ~600 sales (vs. Starter credit cost) |

@@ -62,9 +62,10 @@
 1. Text/numbers are ALWAYS typeset programmatically (Baloo 2) — never AI-generated lettering
 2. `raw2\` = native sources (keep); `raw\` = final print pages (assemble target)
 3. Secrets (API keys) live in Windows user env vars ONLY — never in files, never in git (see .gitignore)
-4. Run full audit suite before the contact sheet goes for human review
+4. Run the full audit suite, then review the contact sheet yourself by eye (the user does not, rule 17)
 5. One book = one folder (book1, book2...) with identical file structure
 6. Build every stage from the latest layout: copy scripts from the most recently changed book, never from this book's older copies (AGENT-PIPELINE.md hard rule 15)
+7. Hard rule 17 (AGENT-PIPELINE.md): only two user approvals per book, the topic/theme pick and the front cover. Everything else, including credit spend, contact sheet, back cover, A+ and commit + push, runs without stopping.
 
 ## Run commands
 

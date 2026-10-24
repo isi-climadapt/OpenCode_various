@@ -29,3 +29,4 @@ of the back cover. Copy `book1\create_cover_wrap.py` for new books: its `barcode
 Hard rule 15 applies here too: build every stage from the latest layout, copying
 scripts from Author 3's most recently changed book (check git log and git status
 first), and port any newer layout before the next checkpoint.
+Hard rule 17 (AGENT-PIPELINE.md): only two user approvals per book, the topic/theme pick and the front cover. Everything else, including credit spend, contact sheet, back cover, A+ and commit + push, runs without stopping.
