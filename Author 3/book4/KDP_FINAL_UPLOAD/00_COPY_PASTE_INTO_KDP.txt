@@ -1,0 +1,196 @@
+================================================================================
+AMAZON KDP UPLOAD GUIDE & METADATA (READY TO COPY & PASTE)
+Book Title: Who Took My Pouch?
+Author: Hattie Moss, Saltbush Story House (AUTHOR 3), Book 4
+================================================================================
+
+All files you need to upload to Amazon KDP are in this folder:
+C:\Users\ibian\Desktop\OpenCode_Various\Author 3\book4\KDP_FINAL_UPLOAD\
+
+FILES TO UPLOAD:
+1. Manuscript (Interior):  01_MANUSCRIPT_INTERIOR_32P.pdf
+2. Cover:                  02_COVER_WRAP_PRINT_READY.pdf (ONE file: front + spine + back)
+3. Cover Visual Preview:   COVER_PREVIEW.png
+4. A+ Content:             03_A_PLUS_CONTENT\ + 03_A_PLUS_CONTENT_GUIDE.txt (after the book is live)
+5. Kindle edition:         04_KINDLE\ + 04_KINDLE_GUIDE.txt
+
+IMPORTANT:
+- Author is Hattie Moss (already set up for the Banjo and Olive books). Never merge
+  with Matilda Hayes or Flora Watt.
+- KDP "Publisher" field MUST be: Saltbush Story House
+- This is Book 1 of a NEW series, "Clover and Hugo". Don't add it to Banjo and Olive.
+- This is a 32-page full-color picture book: premium color ink, bleed ON. KDP
+  hardcover needs 75+ pages, so this book is paperback (and Kindle) only.
+- Timing: new-sibling books sell all year (a baby is due every month), so upload as
+  soon as the proof copy checks out.
+
+
+================================================================================
+SCREEN 1: PAPERBACK DETAILS
+================================================================================
+
+Language:
+English
+
+Book Title (Copy exactly):
+Who Took My Pouch?
+
+Subtitle (Optional) (Copy exactly):
+A Funny Big Sister Picture Book About a New Baby, for Kids Ages 3-5
+
+Series (Optional):
+Click "Add to series" > "Create a new series"
+- Series Title: Clover and Hugo
+- Number in series: 1
+
+Edition Number:
+(Leave blank)
+
+Primary Author:
+- First name: Hattie
+- Last name:  Moss
+
+Contributors:
+(Leave completely blank)
+
+Description (Copy and paste directly into the KDP text box):
+--------------------------------------------------------------------------------
+Somebody took Clover's pouch!
+
+Clover the kangaroo joey has the best thing in the whole wide bush: her mom's pouch. It's her bed, her ride and her snack bar, and it's ALL hers. Then one morning she dives in and BONK! The pouch is shut tight. Somebody took it, and Clover is going to find out who. Was it Wombat, who has a pouch of her own? Pelican, with a BIG pouch under his beak? Possum, hiding a wriggly bump on her back? Or Echidna, who has a brand-new pouch?
+
+Hugo the quokka smiles. Hugo always smiles. He already knows the answer.
+
+Who Took My Pouch? is a funny read-aloud mystery set in the Australian bush, with silly suspects, a sweet surprise in the pouch and a cheeky last word from the newest member of the family. It's a gentle way to talk about a new baby, the worry of feeling too big, and the pride of becoming a big sister or big brother.
+
+Inside this picture book:
+
+• A laugh-out-loud pouch mystery with real Australian animals: a kangaroo joey, a quokka, a wombat, a pelican, a possum and an echidna.
+• A warm new baby story for kids who are about to become a big sister or big brother.
+• Short, punchy lines that are fun to read aloud, with big BONKs and GOTCHAs kids love to shout along with.
+• True Facts from the Bush: two pages of real facts about joeys, pouches, wombats, pelicans, possums, echidnas and quokkas.
+• Sunny, soft illustrations of the Australian grassland on every page.
+• A thoughtful gift for a new big sibling ages 3 to 5, and a cozy bedtime story at home, in preschool and in kindergarten.
+
+Book 1 in the Clover and Hugo series. From Hattie Moss, author of Who Peeled My Tree?
+--------------------------------------------------------------------------------
+
+Publishing Rights:
+Select: "I own the copyright and I hold necessary publishing rights."
+
+Primary Audience / Sexually Explicit:
+Select: "No"
+
+Reading Age:
+Minimum: 3   Maximum: 5   (age band locked in Author 3\publishing\06-book4-research.md)
+
+Primary Marketplace:
+Amazon.com
+
+Categories (Click "Choose categories"):
+1. Children's Books > Growing Up & Facts of Life > Family Life > New Baby
+2. Children's Books > Animals > Mammals (or Marsupials, if the picker offers it)
+3. Children's Books > Geography & Cultures > Explore the World > Australia & Oceania
+(If exact paths differ in the live picker, choose the closest match and keep one new
+baby or siblings category, one animal category and one Australia category.)
+
+Classify as any of these types?
+[ ] Low-content book   --> LEAVE UNCHECKED!
+[ ] Large-print book   --> LEAVE UNCHECKED!
+
+Keywords (copy each line into its own keyword box, in order):
+big sister books for kids
+books about new baby sibling
+big brother books for kids
+kangaroo books for kids
+story books for kids ages 3-5
+funny animal picture books for kids
+australian animal story kangaroo joey quokka
+
+Publication Date:
+Select: "Publication date and release date are the same"
+
+Release Date:
+Select: "Release my book for sale now"
+
+
+================================================================================
+SCREEN 2: PAPERBACK CONTENT
+================================================================================
+
+ISBN:
+Select: "Assign free KDP ISBN"
+
+Print Options:
+- Interior & paper type: Premium color interior with white paper
+- Trim Size:             8.5 x 8.5 in (21.59 x 21.59 cm)
+- Bleed settings:        Bleed (PDF only)   <-- must be ON, the art runs to the edge
+- Cover finish:          Glossy (makes the golden grass and blue sky pop; matte also works)
+
+Publisher / Imprint field (if prompted):
+Enter: Saltbush Story House   <-- NOT "Independently published"!
+
+Manuscript:
+Upload: 01_MANUSCRIPT_INTERIOR_32P.pdf
+(32 pages, 8.625 x 8.75 in pages with bleed, text kept 0.5 in inside the trim)
+
+Book Cover:
+Select: "Upload a cover you already have (print-ready PDF)"
+Upload: 02_COVER_WRAP_PRINT_READY.pdf
+(17.327 x 8.75 in: 0.125 bleed + 8.5 back + 0.0751 spine + 8.5 front + 0.125 bleed.
+No spine text: KDP allows spine text from 79 pages. Barcode area: white box,
+bottom right of the back cover, where KDP prints the barcode. Leave "Amazon adds
+the barcode" selected.)
+
+AI-Generated Content Disclosure (YOUR CALL: answer for what actually happened):
+- Did you use AI-based tools?  --> Select: "Yes"
+- Images:  all illustrations were made with AI, then typeset and composited.
+           Suggested: "Entire work, with minimal or no editing"
+           Tools: OpenArt (Nano Banana Pro, Ideogram 4.5)
+- Text:    the story, description and facts were drafted with AI (Claude).
+           If you used it as written: "Entire work, with minimal or no editing".
+           If you rewrote it yourself: "Entire work, with extensive editing".
+           Tool: Claude
+KDP doesn't show this disclosure to readers, but it must be accurate.
+
+Launch Previewer:
+Click "Launch Previewer" and check every spread: no text or faces near the trim
+or the gutter, and the spine sits on the spine line. The previewer looks softer
+than print. Order a proof copy before running ads.
+
+
+================================================================================
+SCREEN 3: PAPERBACK RIGHTS & PRICING
+================================================================================
+
+Territories:
+Select: "All territories (worldwide rights)"
+
+Primary Marketplace:
+Amazon.com
+
+Pricing (Amazon.com, primary market):
+- List Price:   $11.99
+- Royalty:      about $2.99 per copy (60% of $11.99 = $7.19, minus $4.20 print cost
+                for a 32-page premium color large-trim paperback)
+- Don't go below $9.99: the royalty falls to $1.79 there.
+
+Other marketplaces:
+- Amazon.com.au (AU): A$19.99  (60% = A$11.99, minus A$6.42 print = about A$5.57/copy)
+- Amazon.co.uk (UK):  £8.99   (60% = £5.39, minus £3.24 print = about £2.15/copy)
+(Same prices as the Banjo and Olive books. Print costs from KDP's Paperback Printing
+Cost page, checked 17 Oct 2026. KDP's pricing screen shows the exact royalty; trust it
+over these figures.)
+
+Click: "Publish Your Paperback"
+
+================================================================================
+AFTER PUBLISH (in order):
+1. KDP: Publisher field verified = Saltbush Story House
+2. Series page: check "Clover and Hugo" shows Book 1 and is separate from Banjo and Olive
+3. Price check at $11.99 on Amazon.com (and A$19.99 / £8.99 elsewhere)
+4. Author Central: claim the new book on the Hattie Moss author page
+5. A+ Content: follow 03_A_PLUS_CONTENT_GUIDE.txt (add the new ASIN to aplus_build.py, rerun)
+6. Kindle edition: follow 04_KINDLE_GUIDE.txt (files in 04_KINDLE\, $4.99 at 70%)
+7. Author copies: KDP Bookshelf → "..." next to the paperback → "Order author copies"
+================================================================================

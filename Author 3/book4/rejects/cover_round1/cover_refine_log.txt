@@ -1,0 +1,2 @@
+refine A ok
+panel: C:\Users\ibian\Desktop\OpenCode_Various\Author 3\book4\cover_options_panel.png

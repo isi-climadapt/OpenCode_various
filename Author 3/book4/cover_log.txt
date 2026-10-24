@@ -1,0 +1,7 @@
+draft A ok
+draft B ok
+draft C ok
+cover_hero_A.png: 2048 px -> 234 DPI full bleed
+cover_hero_B_draft.png: 1024 px -> 117 DPI full bleed  (draft resolution, preview only)
+cover_hero_C_draft.png: 1024 px -> 117 DPI full bleed  (draft resolution, preview only)
+panel: C:\Users\ibian\Desktop\OpenCode_Various\Author 3\book4\cover_options_panel.png

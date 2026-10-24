@@ -1,0 +1,6 @@
+drafts/p08.png ok
+drafts/p11.png ok
+drafts/p12.png ok
+pages/p08.png ok
+pages/p11.png ok
+pages/p12.png ok
