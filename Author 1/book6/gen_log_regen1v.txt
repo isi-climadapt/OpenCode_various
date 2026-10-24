@@ -1,0 +1,15 @@
+page_01 ok
+page_03 ok
+page_28 ok
+page_36 ok
+page_43 ok
+page_50 ok
+--- post-processing ---
+page_01 assembled QA-OK
+page_03 assembled QA-OK
+page_28 assembled QA-OK
+page_36 assembled QA-OK
+page_43 assembled QA-OK
+page_50 assembled QA-OK
+=== SUMMARY: 6 ok, 0 flagged ===
+F9 coherence: 50/50 captions match their images

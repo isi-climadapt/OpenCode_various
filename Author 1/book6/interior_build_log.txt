@@ -1,0 +1,9 @@
+=== STEP 1: GENERATING 108 INTERIOR PAGES ===
+Exporting Interior PDF (600 DPI 1-bit, lossless img2pdf) to: C:\Users\ibian\Desktop\OpenCode_Various\Author 1\book6\kdp_package\YUMMY_CUTIES_INTERIOR_108P.pdf
+  ...20 / 108 pages built
+  ...40 / 108 pages built
+  ...60 / 108 pages built
+  ...80 / 108 pages built
+  ...100 / 108 pages built
+Interior PDF export complete! Size: 10.85 MB
+Upload copy at: C:\Users\ibian\Desktop\OpenCode_Various\Author 1\book6\KDP_FINAL_UPLOAD\01_MANUSCRIPT_INTERIOR_108P.pdf
