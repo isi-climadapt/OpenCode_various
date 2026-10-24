@@ -1,0 +1,14 @@
+drafts/p03.png ok
+drafts/p05.png ok
+drafts/p07.png ok
+drafts/p12.png ok
+drafts/p14.png ok
+drafts/p17.png ok
+drafts/p20.png ok
+pages/p03.png ok
+pages/p05.png ok
+pages/p07.png ok
+pages/p12.png ok
+pages/p14.png ok
+pages/p17.png ok
+pages/p20.png ok

@@ -1,0 +1,219 @@
+================================================================================
+KINDLE EBOOK (FIXED LAYOUT) UPLOAD GUIDE & METADATA (READY TO COPY & PASTE)
+Book Title: Who Shook My Tree?
+Author: Hattie Moss, Saltbush Story House (AUTHOR 3), Book 3
+================================================================================
+
+Do this AFTER the paperback is live, from the paperback's row on your KDP
+Bookshelf: "+ Create eBook". KDP then pre-fills most details from the paperback
+and links the two editions on one Amazon page.
+
+All Kindle files are in:
+C:\Users\ibian\Desktop\OpenCode_Various\Author 3\book3\KDP_FINAL_UPLOAD\04_KINDLE\
+
+FILES:
+1. Who_Shook_My_Tree_FIXED_LAYOUT.epub     Manuscript, ready to upload (route A)
+2. 04_KINDLE_COVER.jpg                     eBook cover (2550 x 2550 px, 1.4 MB)
+3. pages\who-shook-0001.jpg ... 0032.jpg    32 pages for Kindle Create (route B)
+
+To rebuild after any change to the pages: py typeset.py, then py kindle_build.py.
+
+WHY THESE FILES (checked on KDP's help pages, 18 Oct 2026):
+- KDP retired Kindle Kids' Book Creator in 2025 and stopped accepting MOBI files
+  for fixed-layout books on 18 Mar 2025. Fixed-layout kids' books now go in as a
+  KPF file made with Kindle Create, or as a fixed-layout EPUB.
+- Kindle Create imports JPG, PNG or PDF pages (Comics option), in file-name order.
+- eBook cover: JPEG or TIFF, RGB, under 50 MB, at least 625 x 1000 px, at most
+  10,000 px per side. 1600 x 2560 is KDP's "ideal" for novels. A square cover is
+  normal for a square picture book and meets every hard limit.
+- Delivery fee on 70% royalty sales: US$0.15 per MB (A$0.15/MB, UK £0.10/MB).
+  A 32-page picture book at print resolution is about 22 MB, which would eat most
+  of the royalty. So the pages are 1600 x 1600 px (larger than a page shows on a
+  Fire HD 10, with room to zoom), JPEG quality 80. The EPUB is 9.7 MB, about US$1.45 per sale.
+
+
+================================================================================
+STEP 1: MAKE THE MANUSCRIPT (pick ONE route)
+================================================================================
+
+ROUTE A (recommended, no extra app): upload the EPUB as it is.
+- It's a fixed-layout EPUB 3 with Amazon's children's-book settings: 32 pages,
+  1600 x 1600 px, left-to-right, page 1 on the right like the paperback, two-page
+  spreads in landscape, and every page's story text as alt text for screen readers.
+- Not tested in Kindle Previewer or epubcheck on this machine (no Java), so the
+  check in Step 3 matters. If KDP's previewer shows blank, cropped or misordered
+  pages, switch to route B.
+
+ROUTE B (KDP's own tool): build a KPF file in Kindle Create.
+1. Install Kindle Create from kdp.amazon.com/en_US/kindle-create (free).
+2. Create New > Comics.
+3. Reading direction: Left-to-Right. Facing Pages: ON.
+4. Choose File > open the pages folder > select all 32 files (Ctrl+A) > Open.
+   The names sort in order, so the pages import 1 to 32.
+5. Check page 1 (title page) sits alone on the right. If Kindle Create pairs
+   pages 1 and 2, select page 1 > Page Attributes > set it to Single.
+   Every other page pairs as in the paperback: 2-3, 4-5 ... 30-31, 32 alone.
+6. Table of contents (Page Attributes > Include in Table of Contents):
+   page 1  "Who Shook My Tree?"
+   page 3  "The Story"
+   page 30 "True Facts from the Bush"
+   page 32 "About the Author"
+7. Skip Guided View. The pages are full-page art with large text.
+8. File > Save Project (keep the .kcb file for later edits), then File > Export.
+   Upload the .kpf file it makes. Kindle Create has no alt-text fields, so this
+   route drops the alt text that route A carries.
+
+
+================================================================================
+SCREEN 1: KINDLE EBOOK DETAILS
+================================================================================
+
+Language:
+English
+
+Book Title (Copy exactly):
+Who Shook My Tree?
+
+Subtitle (Copy exactly):
+A Funny Thunderstorm Picture Book About Being Brave, for Kids Ages 3-5
+
+Series:
+Banjo and Olive, Number in series: 3
+(Pick the existing series. Don't create a second one.)
+
+Edition Number:
+(Leave blank)
+
+Publisher (if the field shows):
+Saltbush Story House
+
+Primary Author:
+- First name: Hattie
+- Last name:  Moss
+
+Contributors:
+(Leave completely blank)
+
+Description (Copy and paste directly into the KDP text box):
+--------------------------------------------------------------------------------
+Somebody shook Banjo's tree!
+
+Banjo the sugar glider is about to do his biggest glide ever when BOOM! His whole tree shakes. A big white light flashes across the bush. And then it starts to rain. Somebody did this, and Banjo is going to find out who. Was it Wombat, whose tummy is rumbling? Cockatoo, flashing her big white wings? Possum, thumping on the bark? Or the mysterious bird in the dark who can say BOOM all by himself?
+
+Olive the koala knows the answer. She also knows a trick that makes thunder a little less scary.
+
+Who Shook My Tree? is a funny thunderstorm read-aloud set in the Australian bush, with silly suspects, a surprise twist and a big snore on the very last page. Along the way, kids learn what lightning and thunder are, and how to count from the flash to the boom to tell when a storm is moving away.
+
+Inside this picture book:
+
+• A laugh-out-loud storm mystery with real Australian animals: a sugar glider, a koala, a wombat, a cockatoo, a possum, a lyrebird and singing green tree frogs.
+• A gentle, brave-making story for kids who are scared of thunder, with a counting trick they can use in the next storm.
+• Short, punchy dialogue that's fun to read aloud, with big BOOMs and FLASHes kids love to shout along with.
+• True Facts from the Bush: two pages of real facts about lightning, thunder, storm safety, lyrebirds, frogs and the smell of rain.
+• Soft, glowing stormy-night illustrations on every page.
+• A cozy bedtime story and a thoughtful gift for kids ages 3 to 5, perfect for weather units at home, in preschool and in kindergarten.
+
+Book 3 in the Banjo and Olive series. Each story stands on its own.
+--------------------------------------------------------------------------------
+
+Publishing Rights:
+Select: "I own the copyright and I hold necessary publishing rights."
+
+Keywords (copy each line into its own keyword box, in order):
+thunderstorm books for kids
+weather books for kids ages 3-5
+books about being brave for kids
+scared of thunder book for preschool
+rain books for kids
+funny animal mystery books for kids
+australian animal story sugar glider koala
+
+Categories (Click "Choose categories", pick the Kindle eBook versions):
+1. Children's eBooks > Science, Nature & How It Works > Nature > Weather
+2. Children's eBooks > Science, Nature & How It Works > Disaster Preparedness
+   (type "Disaster" in the picker's search box)
+3. Children's eBooks > Geography & Cultures > Explore the World > Australia & Oceania
+(Same as the paperback. If a path differs in the live picker, keep one weather
+category, one disaster or storm category and one Australia category.)
+
+Age and Grade Range:
+Reading age: Minimum 3, Maximum 5   (age band locked in Author 3\publishing\05-book3-research.md)
+US grade range: leave blank
+
+Pre-order:
+Select: "I am ready to release my book now"
+
+
+================================================================================
+SCREEN 2: KINDLE EBOOK CONTENT
+================================================================================
+
+Manuscript:
+- Digital Rights Management (DRM): your call. "No" lets parents move the book
+  between their own devices; "Yes" can't be changed later.
+- Upload: Who_Shook_My_Tree_FIXED_LAYOUT.epub   (route A)
+       or the .kpf file from Kindle Create      (route B)
+
+Kindle eBook Cover:
+Select: "Upload your cover file"
+Upload: 04_KINDLE_COVER.jpg
+
+AI-Generated Content Disclosure:
+Answer exactly as you did for the paperback (illustrations: OpenArt, Nano Banana
+Pro and Ideogram 4.5; text: Claude).
+
+Kindle eBook Preview (STEP 3, don't skip):
+Click "Launch Previewer". Check Tablet, Phone and Kindle E-reader:
+- 32 pages, in order, page 1 alone on the right.
+- In landscape, 2-3, 4-5 ... 30-31 sit side by side as in the paperback.
+- No text cut off at any edge (all text is 0.5 in inside the trim).
+- The True Facts pages (30-31) read on a phone. If they're too small, that's
+  expected for fixed layout; readers pinch to zoom.
+
+Kindle eBook ISBN:
+(Leave blank. Kindle books don't need one; Amazon assigns an ASIN.)
+
+
+================================================================================
+SCREEN 3: KINDLE EBOOK PRICING
+================================================================================
+
+KDP Select Enrollment:
+Your call. Enrolling puts the book in Kindle Unlimited, where parents borrow a
+lot of picture books, but the ebook must then be sold only on Amazon for 90 days
+at a time. The KPF route is Amazon-only anyway.
+
+Territories:
+Select: "All territories (worldwide rights)"
+
+Primary Marketplace:
+Amazon.com
+
+Royalty and Pricing:
+- Royalty plan: 70%   (Amazon.com's 70% band is $2.99 to $12.99 since 7 Jul 2026)
+- List Price (Amazon.com): $4.99
+- Royalty: about $2.04 per sale (70% of $4.99 = $3.49, minus about $1.45 delivery
+  for a 9.7 MB file). The 35% plan would pay $1.75, so 70% still wins.
+
+Other marketplaces (set manually, don't let KDP auto-convert):
+- Amazon.com.au (AU): A$7.99  (70% band A$3.99 to A$15.99; KDP takes 70% of the
+                               price before GST, minus about A$1.52 delivery)
+- Amazon.co.uk (UK):  £3.99  (70% band £1.77 to £12.99; about £1.77 per sale
+                               after about £1.02 delivery)
+
+CHECK THE FILE SIZE ON THIS SCREEN: KDP shows the delivery cost from its own
+converted file, which can differ from 9.7 MB, more so for a Kindle Create KPF.
+If the US delivery cost goes above $1.74, the 35% plan pays more at $4.99. Fix:
+lower QUALITY in kindle_build.py from 80 to 75 (about 9 MB) and re-upload.
+
+Click: "Publish Your Kindle eBook"
+
+
+================================================================================
+AFTER PUBLISH (in order):
+1. The paperback and Kindle pages link within 72 hours. If they don't, KDP
+   Support > "Link my print and Kindle editions".
+2. Author Central: confirm the Kindle edition shows on Hattie Moss's page.
+3. A+ Content: in A+ Content Manager, add the Kindle ASIN to the paperback's A+ content.
+4. Price check at $4.99 on Amazon.com (and A$7.99 / £3.99 elsewhere).
+================================================================================

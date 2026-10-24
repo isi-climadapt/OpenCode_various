@@ -1,0 +1,4 @@
+drafts/p18.png ok
+drafts/p26.png ok
+pages/p18.png ok
+pages/p26.png ok
